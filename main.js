@@ -12,7 +12,9 @@ function createWindow () {
     win = new BrowserWindow({ show: false });
 
     // Maximize our window
-    win.maximize();
+    if (process.platform !== 'darwin') {
+        win.maximize();
+    }
 
     // Show our maximized window
     win.show();
