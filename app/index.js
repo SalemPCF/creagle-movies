@@ -48,28 +48,26 @@ class App extends Component {
 
         const qualities = Object.keys(torrents.en);
 
+        if (qualities.length < 0) {
+            return null;
+        }
+
         return (
             <li key={id} id={id} className="card">
-                <div className="card-image" style={{ backgroundImage: `url(${image})` }} />
+                {qualities.includes('1080p') && (
+                    <i className="material-icons hd-icon">hd</i>
+                )}
+
+                <img className="card-image" src={image} />
 
                 <div className="card-footer">
-                    <div className="primary title">
-                        <Truncate lines={1} ellipsis="..." width={175}>
-                            {title}
-                        </Truncate>
-                    </div>
+                    <p className="text primary">
+                        <Truncate lines={1} ellipsis="...">{title}</Truncate>
+                    </p>
 
-                    <div className="metadata">
-                        <p className="primary year">
-                            {year}
-                        </p>
-
-                        <p className="primary quality">
-                            {qualities.length
-                                ? qualities.reduce((prev, current) => `${current}/${prev}`)
-                                : '-'}
-                        </p>
-                    </div>
+                    <p className="text secondary">
+                        {year}
+                    </p>
                 </div>
             </li>
         );
