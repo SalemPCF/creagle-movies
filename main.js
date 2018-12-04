@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import { enableLiveReload } from 'electron-compile';
 
+// Let us update our content and reload it automatically
 enableLiveReload();
 
 // Global window object

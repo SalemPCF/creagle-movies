@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import Truncate from 'react-truncate';
 import ReactDOM from 'react-dom';
 
-/* Local */
+/* Relative */
+import { toggleDevTools } from './helpers';
+import { DEBUG } from './config/globals';
 import { api } from './services/api';
 
 class App extends Component {
@@ -18,6 +20,16 @@ class App extends Component {
 
     componentDidMount = () => {
         this.getData();
+
+        if (DEBUG) {
+            window.addEventListener('keydown', toggleDevTools);
+        }
+    }
+
+    componentWillUnmount = () => {
+        if (DEBUG) {
+            window.removeEventListener('keydown', toggleDevTools);
+        }
     }
 
      // Retrieve our data
