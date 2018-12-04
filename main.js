@@ -5,30 +5,27 @@ import { enableLiveReload } from 'electron-compile';
 enableLiveReload();
 
 // Global window object
-let window = null;
+let win = null;
 
 function createWindow () {
     // Create the browser window.
-    window = new BrowserWindow({ show: false });
+    win = new BrowserWindow({ show: false });
 
     // Maximize our window
-    window.maximize();
+    win.maximize();
 
     // Show our maximized window
-    window.show();
+    win.show();
 
     // Load our index.html file into that window
-    window.loadFile('app/index.html');
-
-    // Open the DevTools.
-    window.webContents.openDevTools();
+    win.loadFile('app/index.html');
 
     // Close the NavBar Menu
-    window.setMenu(null);
+    win.setMenu(null);
 
     // Emitted when the window is closed.
-    window.on('closed', () => {
-        window = null;
+    win.on('closed', () => {
+        win = null;
     });
 }
 
