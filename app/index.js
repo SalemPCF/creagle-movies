@@ -65,7 +65,9 @@ class App extends Component {
                         </p>
 
                         <p className="primary quality">
-                            {qualities.reduce((prev, current) => `${current}/${prev}`)}
+                            {qualities.length
+                                ? qualities.reduce((prev, current) => `${current}/${prev}`)
+                                : '-'}
                         </p>
                     </div>
                 </div>
