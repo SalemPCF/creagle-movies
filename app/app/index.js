@@ -1,7 +1,7 @@
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import React, { Component } from 'react';
 
-import Movie from './components/Movies/components/Movie';
+import Movie from './components/Movie';
 import RemoteContext from './components/RemoteContext';
 import ContextMenu from './components/ContextMenu';
 import KeyListener from './components/KeyListener';
