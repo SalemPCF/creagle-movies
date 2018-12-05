@@ -9,7 +9,7 @@ enableLiveReload();
 // Global window object
 let win = null;
 
-function createWindow () {
+const createWindow = () => {
     // Create the browser window.
     win = new BrowserWindow({ show: false, frame: false });
 
@@ -36,7 +36,7 @@ function createWindow () {
     win.on('closed', () => {
         win = null;
     });
-}
+};
 
 // When our app is ready, create our window.
 app.on('ready', createWindow);
