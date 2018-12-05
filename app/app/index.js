@@ -32,19 +32,16 @@ class App extends Component {
 
         api.get(`/movies/${nextPage}`)
             .then(({ data }) => {
-                this.setState((current) => {
-                    const next = { ...current };
-
-                    next.movies = {
+                this.setState(({ movies }) => ({
+                    movies: {
+                        ...movies,
                         page: nextPage,
                         data: {
-                            ...current.movies.data,
+                            ...movies.data,
                             [nextPage]: data,
                         },
-                    };
-
-                    return next;
-                });
+                    },
+                }));
             })
             .catch((err) => {
                 console.log(err);
