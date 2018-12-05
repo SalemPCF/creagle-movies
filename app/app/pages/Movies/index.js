@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Movie } from './components/Movie';
+import Movie from './components/Movie';
 
 class Movies extends Component {
     componentDidMount = () => {
