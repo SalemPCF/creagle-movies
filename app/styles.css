@@ -1,12 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700|Material+Icons');
 
-// refer to element in Javascript portion below
-.ripple-icon-component {
-  @include mdc-ripple-surface;
-  @include mdc-ripple-radius-bounded;
-  @include mdc-states;
-}
-
 *, *:after, *:before {
     -webkit-font-smoothing: antialiased;
 }
