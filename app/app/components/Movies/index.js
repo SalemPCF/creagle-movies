@@ -35,7 +35,9 @@ class Movies extends Component {
         return (
             <div className="list" onScroll={this.handleBottomReached}>
                 <div className="items">
-                    {moviesArr.length ? moviesArr.map(Card) : null}
+                    {moviesArr.length ? moviesArr.map(movie => (
+                        <Card key={movie._id} {...movie} />
+                    )) : null}
                 </div>
             </div>
         );
