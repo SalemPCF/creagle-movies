@@ -28,6 +28,7 @@ class App extends Component {
 
         // All Movies-page related data goes in here
         movies: {
+            loading: false,
             page: 0,
             pages: {},
         },
@@ -39,9 +40,15 @@ class App extends Component {
     }
 
     loadMovies = () => {
-        const { page } = this.state.movies;
+        const { movies, loading } = this.state;
+        const { page } = movies;
+
+        // Prevent us sending requests if we're waiting for a response
+        if (loading) { return; }
 
         const nextPage = page + 1;
+
+        this.setState({ loading: true });
 
         api.get(`/movies/${nextPage}`)
             .then(res => res.data)
@@ -71,7 +78,10 @@ class App extends Component {
             })
             .catch((err) => {
                 console.log(err);
-            });
+            })
+            .finally(() => {
+                this.setState({ loading: false });
+            })
     }
 
     getMovies = () => {
@@ -128,7 +138,7 @@ class App extends Component {
         // We don't know which movie to show yet, so return null
         if (!id) return null;
 
-        // We have an ID, so lets get the corresponding movie
+        // We have an ID, so let's get the corresponding movie
         return denormalize(id, movieSchema, this.state.entities);
     }
 

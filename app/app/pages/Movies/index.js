@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Movie from './components/Movie';
 
 class Movies extends Component {
+    static bottomReached = false;
+
     componentDidMount = () => {
         const { loadMovies } = this.props;
 
@@ -16,13 +18,14 @@ class Movies extends Component {
 
         const distanceToBottom = scrollHeight - scrollTop;
 
+        console.log(distanceToBottom, clientHeight);
+
         // If we're at the bottom of the page, send out another request and get more content!
-        if (distanceToBottom === clientHeight) {
+        if (distanceToBottom <= (clientHeight + 350)) {
             loadMovies();
         }
     }
 
-    // TODO: cleanup...
     render () {
         const { movies } = this.props;
 
