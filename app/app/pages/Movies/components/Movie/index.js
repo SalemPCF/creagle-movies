@@ -4,7 +4,7 @@ import React from 'react';
 
 import { cardShape, cardDefaultProps } from './shape';
 
-export const Card = ({
+export const Movie = ({
     _id: id,
     title,
     year,
@@ -36,5 +36,5 @@ export const Card = ({
     );
 };
 
-Card.propTypes = cardShape;
-Card.defaultProps = cardDefaultProps;
+Movie.propTypes = cardShape;
+Movie.defaultProps = cardDefaultProps;

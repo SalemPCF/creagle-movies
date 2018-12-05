@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Card } from './components/Card';
+import { Movie } from './components/Movie';
 
 class Movies extends Component {
     componentDidMount = () => {
@@ -30,7 +30,7 @@ class Movies extends Component {
             <div className="list" onScroll={this.handleBottomReached}>
                 <div className="items">
                     {movies.length ? movies.map(movie => (
-                        <Card key={movie._id} {...movie} />
+                        <Movie key={movie._id} {...movie} />
                     )) : null}
                 </div>
             </div>
