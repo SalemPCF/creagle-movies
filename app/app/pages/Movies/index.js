@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 
-import { Card } from './components/Card';
+import Movie from './components/Movie';
 
 class Movies extends Component {
     componentDidMount = () => {
-        const { getMovies } = this.props;
+        const { loadMovies } = this.props;
 
-        getMovies();
+        loadMovies();
     }
 
     handleBottomReached = (event) => {
-        const { getMovies } = this.props;
+        const { loadMovies } = this.props;
 
         const { scrollHeight, scrollTop, clientHeight } = event.target;
 
@@ -18,7 +18,7 @@ class Movies extends Component {
 
         // If we're at the bottom of the page, send out another request and get more content!
         if (distanceToBottom === clientHeight) {
-            getMovies();
+            loadMovies();
         }
     }
 
@@ -26,16 +26,12 @@ class Movies extends Component {
     render () {
         const { movies } = this.props;
 
-        let moviesArr = [];
-
-        Object.keys(movies).forEach((key) => {
-            moviesArr = moviesArr.concat(movies[key]);
-        });
-
         return (
             <div className="list" onScroll={this.handleBottomReached}>
                 <div className="items">
-                    {moviesArr.length ? moviesArr.map(Card) : null}
+                    {movies.length ? movies.map(movie => (
+                        <Movie key={movie._id} {...movie} />
+                    )) : null}
                 </div>
             </div>
         );
