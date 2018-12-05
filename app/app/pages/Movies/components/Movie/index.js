@@ -15,7 +15,6 @@ class Movie extends Component {
 
     getTimestamp = () => (+new Date());
 
-
     handleMouseDown = (e) => {
         const { pageX, pageY, currentTarget } = e;
 
