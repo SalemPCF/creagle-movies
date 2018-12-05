@@ -1,6 +1,8 @@
 import { app, BrowserWindow } from 'electron';
 import { enableLiveReload } from 'electron-compile';
 
+import { DEBUG } from './app/config/globals';
+
 // Let us update our content and reload it automatically
 enableLiveReload();
 
@@ -16,8 +18,10 @@ function createWindow () {
         win.maximize();
     }
 
-    // Open devtools
-    win.webContents.openDevTools();
+    // If we're debugging, open our devtools
+    if (DEBUG) {
+        win.webContents.openDevTools();
+    }
 
     // Show our maximized window
     win.show();
