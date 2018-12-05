@@ -31,18 +31,17 @@ class App extends Component {
         const nextPage = page + 1;
 
         api.get(`/movies/${nextPage}`)
-            .then(({ data }) => {
-                this.setState(({ movies }) => ({
-                    movies: {
-                        ...movies,
-                        page: nextPage,
-                        data: {
-                            ...movies.data,
-                            [nextPage]: data,
-                        },
+            .then(res => res.data)
+            .then(data => this.setState(({ movies }) => ({
+                movies: {
+                    ...movies,
+                    page: nextPage,
+                    data: {
+                        ...movies.data,
+                        [nextPage]: data,
                     },
-                }));
-            })
+                },
+            })))
             .catch((err) => {
                 console.log(err);
             });
