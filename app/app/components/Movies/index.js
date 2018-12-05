@@ -26,11 +26,11 @@ class Movies extends Component {
     render () {
         const { movies } = this.props;
 
-        let moviesArr = [];
-
-        Object.keys(movies).forEach((key) => {
-            moviesArr = moviesArr.concat(movies[key]);
-        });
+        const moviesArr = Object.values(movies)
+            .reduce((acc, movieSet) => [
+                ...acc,
+                ...movieSet,
+            ], []);
 
         return (
             <div className="list" onScroll={this.handleBottomReached}>
