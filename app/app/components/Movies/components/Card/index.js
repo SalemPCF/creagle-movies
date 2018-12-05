@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Truncate from 'react-truncate';
 import React from 'react';
 
@@ -10,37 +10,31 @@ export const Card = ({
     year,
     images,
     torrents,
-}) => (
-    <Route
-        key={id}
-        render={({ history }) => {
-            const qualities = Object.keys(torrents.en);
+}) => {
+    const qualities = Object.keys(torrents.en);
 
-            if (qualities.length < 0) { return null; }
+    if (qualities.length < 0) { return null; }
 
-            return (
-                // eslint-disable-next-line
-                <div className="card" onClick={() => history.push('/movie')}>
-                    {qualities.includes('1080p') && (
-                        <i className="material-icons hd-icon">hd</i>
-                    )}
+    return (
+        <Link to={`/movies/${id}`} className="card">
+            {qualities.includes('1080p') && (
+                <i className="material-icons hd-icon">hd</i>
+            )}
 
-                    <img className="card-image" src={images.poster} alt="Poster" />
+            <img className="card-image" src={images.poster} alt="Poster" />
 
-                    <div className="card-footer">
-                        <p className="text primary">
-                            <Truncate lines={1} ellipsis="...">{title}</Truncate>
-                        </p>
+            <div className="card-footer">
+                <p className="text primary">
+                    <Truncate lines={1} ellipsis="...">{title}</Truncate>
+                </p>
 
-                        <p className="text secondary">
-                            {year}
-                        </p>
-                    </div>
-                </div>
-            );
-        }}
-    />
-);
+                <p className="text secondary">
+                    {year}
+                </p>
+            </div>
+        </Link>
+    );
+};
 
 Card.propTypes = cardShape;
 Card.defaultProps = cardDefaultProps;
