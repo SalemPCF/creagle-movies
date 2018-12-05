@@ -1,12 +1,20 @@
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+// Libs
 import React, { Component } from 'react';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Movie from './components/Movie';
+// Services
+import { api } from '../services/api';
+
+// Components
 import RemoteContext from './components/RemoteContext';
 import ContextMenu from './components/ContextMenu';
 import KeyListener from './components/KeyListener';
-import Movies from './components/Movies';
-import { api } from '../services/api';
+
+// Pages
+import Movies from './pages/Movies';
+import Movie from './pages/Movie';
+
+// Prop types
 import { appShape } from './shape';
 
 class App extends Component {
