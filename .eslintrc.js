@@ -38,6 +38,6 @@ module.exports = {
         "jsx-a11y/label-has-for": "off",
         "class-methods-use-this": "off",
         "no-class-assign": "off",
-        "linebreak-style": ["warn", "unix"]
+        "linebreak-style": 0
     }
 };

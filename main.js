@@ -9,12 +9,15 @@ let win = null;
 
 function createWindow () {
     // Create the browser window.
-    win = new BrowserWindow({ show: false });
+    win = new BrowserWindow({ show: false, frame: false });
 
     // Maximize our window
     if (process.platform !== 'darwin') {
         win.maximize();
     }
+
+    // Open devtools
+    win.webContents.openDevTools();
 
     // Show our maximized window
     win.show();
