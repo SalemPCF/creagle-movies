@@ -19,11 +19,15 @@ class Movie extends Component {
     handleMouseDown = (e) => {
         const { pageX, pageY, currentTarget } = e;
 
+        // We determine the coordinates to render our ripple at
         const x = pageX - currentTarget.offsetLeft;
         const y = pageY - currentTarget.offsetTop;
 
+        // And get a timestamp for when this ripple was created
         const timestamp = this.getTimestamp();
 
+        // If there's no existing ripple,
+        // add it into the state.
         if (!this.state.ripple) {
             this.setState({
                 ripple: {
@@ -36,8 +40,9 @@ class Movie extends Component {
 
         // We always want to clean up the ripple, even if the mouse up event
         // wasn't triggered. We do so by waiting 1 second, then if there is
-        // a ripple and the timestamp is the same as the timestamp we have,
-        // then we remove it.
+        // a ripple in state that has the same timestamp as the timestamp we
+        // have already (the ripple in state is definitely the one we just
+        // created), then we remove it.
         this.timeouts.push(setTimeout(() => {
             this.setState((prev) => {
                 if (prev.ripple && prev.ripple.started === timestamp) {
@@ -58,8 +63,14 @@ class Movie extends Component {
             const difference = timestamp - ripple.started;
 
             if (difference < 1000) {
-                this.timeouts.push(setTimeout(this.afterRipple, 600 - difference));
+                // We want to wait for the difference, so that the animation has time to complete.
+                // However, waiting the entire second feels sluggish, so we start at 600ms not 1000ms,
+                // just so everything feels a little more fluid.
+                const timeout = setTimeout(this.afterRipple, 600 - difference);
+                this.timeouts.push(timeout);
             } else {
+                // The difference is greater than 1000ms, so there's no need for a timeout,
+                // just clean up.
                 this.afterRipple();
             }
         }
@@ -68,8 +79,10 @@ class Movie extends Component {
     afterRipple = () => {
         const { history, _id: id } = this.props;
 
+        // Remove the ripple
         this.setState({ ripple: null });
 
+        // go to the page
         history.push(`/movies/${id}`);
     }
 
