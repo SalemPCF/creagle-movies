@@ -18,17 +18,18 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^3.0.7",
-    "electron-compilers": "^5.9.0",
-    "electron-prebuilt-compile": "^3.0.10",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1"
+    "babel-preset-react": "^6.24.1",
+    "electron": "^3.0.7",
+    "electron-compilers": "^5.9.0",
+    "electron-prebuilt-compile": "^3.0.10"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "normalizr": "^3.3.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
