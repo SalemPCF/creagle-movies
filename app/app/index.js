@@ -48,6 +48,10 @@ class App extends Component {
             });
     }
 
+    getMovie = (id) => {
+        console.log('getting movie ', id);
+    }
+
     render () {
         const { movies } = this.state;
         const { remote } = this.props;
@@ -59,8 +63,12 @@ class App extends Component {
 
                 <Router>
                     <Switch>
-                        <Route path="/" exact render={() => <Movies getMovies={this.getMovies} movies={movies.data} />} />
-                        <Route path="/movie" exact component={Movie} />
+                        <Route exact path="/" render={() => (
+                            <Movies getMovies={this.getMovies} movies={movies.data} />
+                        )} />
+                        <Route exact path="/movies/:id" render={({ match }) => (
+                            <Movie id={match.params.id} loadMovie={this.getMovie} />
+                        )} />
                     </Switch>
                 </Router>
             </RemoteContext.Provider>

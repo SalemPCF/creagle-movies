@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Movie extends Component {
-    state = {
-        //
-    }
+    componentDidMount () {
+        const { loadMovie, id } = this.props;
 
-    componentDidMount = () => {
-        console.log('yeet');
+        loadMovie(id);
     }
 
     render () {
