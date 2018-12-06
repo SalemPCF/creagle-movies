@@ -9,7 +9,8 @@ class Splashscreen extends React.Component {
     static defaultProps = defaultProps;
 
     // State
-    state = { ready: false };
+    // eslint-disable-next-line react/destructuring-assignment
+    state = { ready: this.props.ready };
 
     // The timeout ID
     timeout = null;
