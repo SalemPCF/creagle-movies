@@ -34,18 +34,7 @@ class App extends Component {
                 <Router>
                     <Switch>
                         <Route exact path="/" component={Movies} />
-                        <Route
-                            exact
-                            path="/movies/:id"
-                            component={Movie}
-                            // render={({ match }) => (
-                            //     <Movie
-                            //         id={match.params.id}
-                            //         loadMovie={this.loadMovie}
-                            //         movie={this.getMovie()}
-                            //     />
-                            // )}
-                        />
+                        <Route exact path="/movies/:id" component={Movie} />
                     </Switch>
                 </Router>
             </RemoteContext.Provider>
