@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const cardShape = {
+export const movieShape = {
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     year: PropTypes.string.isRequired,
@@ -22,6 +22,6 @@ export const cardShape = {
     ),
 };
 
-export const cardDefaultProps = {
+export const movieDefaultProps = {
     torrents: {},
 };

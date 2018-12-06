@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Truncate from 'react-truncate';
 
-import { cardShape, cardDefaultProps } from './shape';
+import { movieShape, movieDefaultProps } from './shape';
 
 class Movie extends Component {
     state = { ripple: null }
 
     timeouts = [];
+
+    static propTypes = movieShape;
+
+    static defaultProps = movieDefaultProps;
 
     componentWillUnmount () {
         this.timeouts.forEach(timeout => clearTimeout(timeout));
@@ -17,6 +21,7 @@ class Movie extends Component {
 
     handleMouseDown = (e) => {
         const { pageX, pageY, currentTarget } = e;
+        const { ripple } = this.state;
 
         // We determine the coordinates to render our ripple at
         const x = pageX - currentTarget.offsetLeft;
@@ -27,7 +32,7 @@ class Movie extends Component {
 
         // If there's no existing ripple,
         // add it into the state.
-        if (!this.state.ripple) {
+        if (!ripple) {
             this.setState({
                 ripple: {
                     x,
@@ -81,13 +86,16 @@ class Movie extends Component {
         // Remove the ripple
         this.setState({ ripple: null });
 
-        // go to the page
+        // Go to the next page
         history.push(`/movies/${id}`);
+    }
+
+    handleImageError = (e) => {
+        e.target.src = 'resources/no-image-available.png';
     }
 
     render () {
         const {
-            _id: id,
             title,
             year,
             images,
@@ -106,7 +114,10 @@ class Movie extends Component {
                     <i className="material-icons hd-icon">hd</i>
                 )}
 
-                <img className="card-image" src={images.poster} alt="Poster" />
+                <div className="card-image">
+                    <img className="card-image" src={images.poster} onError={this.handleImageError} alt="" />
+                </div>
+
 
                 <div className="card-footer">
                     <p className="text primary">
@@ -127,8 +138,5 @@ class Movie extends Component {
         );
     }
 }
-
-Movie.propTypes = cardShape;
-Movie.defaultProps = cardDefaultProps;
 
 export default withRouter(Movie);

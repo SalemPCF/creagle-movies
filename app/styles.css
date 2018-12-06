@@ -9,6 +9,34 @@
     background-color: transparent;
 }
 
+.movie-container {
+    background-color: #000000;
+    width: 100vw;
+    height: 100vh;
+}
+
+.movie-background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    filter: blur(8px);
+}
+
+.movie-background-overlay {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.movie-inner-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+}
+
 .body {
     background-color: #303030;
     margin: 0;
@@ -25,7 +53,6 @@
     overflow-x: hidden;
     overflow-y: scroll;
     margin: 0;
-    list-style-type: none;
 }
 
 .items {
@@ -54,6 +81,7 @@
 
 .card-image {
     width: 100%;
+    height: 273px;
     display: block;
 }
 

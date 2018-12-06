@@ -1,11 +1,11 @@
-import { app, remote } from 'electron';
+import { remote } from 'electron';
 import path from 'path';
 import fs from 'fs';
 
 class LocalDatabase {
     constructor () {
         // Generate our path
-        this.path = path.join((app || remote.app).getPath('userData'), 'liked.json');
+        this.path = path.join(remote.app.getPath('userData'), 'liked.json');
 
         // Setup our database
         this.database = this.parseDataFile(this.path);
@@ -49,7 +49,6 @@ class LocalDatabase {
         const likedList = this.get('liked');
 
         if (!(likedList instanceof Object)) {
-            console.log('called');
             this.set('liked', {});
         }
     }

@@ -19,6 +19,9 @@ import Movie from './pages/Movie';
 import { appShape } from './shape';
 import movieSchema from '../schemas/movie';
 
+// TODO: Render a loading screen with the image jake made while we're sending out our first requests
+// TODO: Add a toaster/error handler
+
 class App extends Component {
     state = {
         // All entities live in here
@@ -39,9 +42,15 @@ class App extends Component {
         },
     }
 
+    componentDidMount = () => {
+        // We're calling this here rather than in the movies component because
+        // this component only ever mounts once
+        this.loadMovies();
+    }
+
     loadMovies = () => {
-        const { movies, loading } = this.state;
-        const { page } = movies;
+        const { movies: stateMovies, loading } = this.state;
+        const { page } = stateMovies;
 
         // Prevent us sending requests if we're waiting for a response
         if (loading) { return; }
@@ -81,7 +90,7 @@ class App extends Component {
             })
             .finally(() => {
                 this.setState({ loading: false });
-            })
+            });
     }
 
     getMovies = () => {
@@ -96,12 +105,12 @@ class App extends Component {
     }
 
     loadMovie = (id) => {
-        const { entities } = this.state;
+        const { entities: stateEntities } = this.state;
 
         // We already have the requested entity loaded,
         // so dont load it again, just update state so
         // that we know which movie we're viewing.
-        if (entities.movies[id]) {
+        if (stateEntities.movies[id]) {
             this.setState({ movie: { id } });
         } else {
             // We didn't have it, so we need to load it
@@ -133,36 +142,46 @@ class App extends Component {
     }
 
     getMovie = () => {
-        const { id } = this.state.movie;
+        const { movie, entities } = this.state;
 
         // We don't know which movie to show yet, so return null
-        if (!id) return null;
+        if (!movie.id) return null;
 
         // We have an ID, so let's get the corresponding movie
-        return denormalize(id, movieSchema, this.state.entities);
+        return denormalize(movie.id, movieSchema, entities);
     }
 
     render () {
+        const { remote } = this.props;
+
         return (
-            <RemoteContext.Provider value={this.props.remote}>
+            <RemoteContext.Provider value={remote}>
                 <ContextMenu />
                 <KeyListener />
 
                 <Router>
                     <Switch>
-                        <Route exact path="/" render={() => (
-                            <Movies
-                                loadMovies={this.loadMovies}
-                                movies={this.getMovies()}
-                            />
-                        )} />
-                        <Route exact path="/movies/:id" render={({ match }) => (
-                            <Movie
-                                id={match.params.id}
-                                loadMovie={this.loadMovie}
-                                movie={this.getMovie()}
-                            />
-                        )} />
+                        <Route
+                            exact
+                            path="/"
+                            render={() => (
+                                <Movies
+                                    loadMovies={this.loadMovies}
+                                    movies={this.getMovies()}
+                                />
+                            )}
+                        />
+                        <Route
+                            exact
+                            path="/movies/:id"
+                            render={({ match }) => (
+                                <Movie
+                                    id={match.params.id}
+                                    loadMovie={this.loadMovie}
+                                    movie={this.getMovie()}
+                                />
+                            )}
+                        />
                     </Switch>
                 </Router>
             </RemoteContext.Provider>
