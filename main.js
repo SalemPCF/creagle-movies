@@ -59,6 +59,19 @@ const createDirectories = () => {
     return fs.lstatSync(creagleTempDir).isDirectory();
 };
 
+// Handle loading dev tool extensions
+const loadExtensions = () => {
+    const exts = BrowserWindow.getDevToolsExtensions();
+
+    if (!exts['React Developer Tools']) {
+        BrowserWindow.addDevToolsExtension('./ext/react-devtools');
+    }
+
+    if (!exts['Redux DevTools']) {
+        BrowserWindow.addDevToolsExtension('./ext/redux-devtools');
+    }
+};
+
 // When our app is ready, create our window.
 app.on('ready', () => {
     // If we created our directories, let's create our window
@@ -67,6 +80,8 @@ app.on('ready', () => {
     } else {
         throw new Error('Failed to create Directories.');
     }
+
+    loadExtensions();
 });
 
 // When our windows have been closed, close our app.

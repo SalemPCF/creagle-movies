@@ -1,15 +1,19 @@
 import PropTypes from 'prop-types';
 
-const movie = PropTypes.shape({
-    _id: PropTypes.string,
+export default PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     imdb_id: PropTypes.string,
-    title: PropTypes.string,
-    year: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    year: PropTypes.string.isRequired,
     synopsis: PropTypes.string,
     runtime: PropTypes.string,
     released: PropTypes.number,
     trailer: PropTypes.string,
     certification: PropTypes.string,
+    images: PropTypes.objectOf(PropTypes.string).isRequired,
+    // Not all api returns contain a torrent.
+    // The app ignores them, but they would fail this
+    // validation if it was required.
     torrents: PropTypes.objectOf(
         PropTypes.objectOf(
             PropTypes.shape({
@@ -23,12 +27,5 @@ const movie = PropTypes.shape({
         ),
     ),
     genres: PropTypes.arrayOf(PropTypes.string),
-    images: PropTypes.objectOf(PropTypes.string),
     rating: PropTypes.objectOf(PropTypes.number),
 });
-
-export const movieShape = {
-    loadMovie: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired,
-    movie,
-};

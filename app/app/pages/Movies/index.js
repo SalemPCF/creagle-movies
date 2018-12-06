@@ -1,34 +1,25 @@
-import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { denormalize } from 'normalizr';
 
-import Movie from './components/Movie';
+import movieSchema from '../../../schemas/movie';
+import { loadMovies } from '../../../redux/actions/movies';
+import { flatten } from '../../../helpers/flatten';
 
-class Movies extends Component {
-    handleBottomReached = (event) => {
-        const { loadMovies } = this.props;
+import MoviesContainer from './Movies.container';
 
-        const { scrollHeight, scrollTop, clientHeight } = event.target;
+const mapStateToProps = state => ({
+    movies: denormalize(
+        flatten(Object.values(state.pages.movies.pages)),
+        [movieSchema],
+        state.entities,
+    ),
+});
 
-        const distanceToBottom = scrollHeight - scrollTop;
+const mapDispatchToProps = dispatch => ({
+    loadMovies: () => dispatch(loadMovies()),
+});
 
-        // If we're close to the bottom of the page, send out another request and get more content!
-        if (distanceToBottom <= (clientHeight + 250)) {
-            loadMovies();
-        }
-    }
-
-    render () {
-        const { movies } = this.props;
-
-        return (
-            <div className="list" onScroll={this.handleBottomReached}>
-                <div className="items">
-                    {movies.length ? movies.map(movie => (
-                        <Movie key={movie._id} {...movie} />
-                    )) : null}
-                </div>
-            </div>
-        );
-    }
-}
-
-export default Movies;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(MoviesContainer);

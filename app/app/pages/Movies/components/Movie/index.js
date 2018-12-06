@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Truncate from 'react-truncate';
 
-import { movieShape, movieDefaultProps } from './shape';
+import { movieShape } from './shape';
 
 class Movie extends Component {
+    static propTypes = movieShape;
+
     state = { ripple: null }
 
     timeouts = [];
-
-    static propTypes = movieShape;
-
-    static defaultProps = movieDefaultProps;
 
     componentWillUnmount () {
         this.timeouts.forEach(timeout => clearTimeout(timeout));
@@ -68,8 +66,8 @@ class Movie extends Component {
 
             if (difference < 1000) {
                 // We want to wait for the difference, so that the animation has time to complete.
-                // However, waiting the entire second feels sluggish, so we start at 600ms not 1000ms,
-                // just so everything feels a little more fluid.
+                // However, waiting the entire second feels sluggish, so we start at 600ms not
+                // 1000ms, just so everything feels a little more fluid.
                 const timeout = setTimeout(this.afterRipple, 600 - difference);
                 this.timeouts.push(timeout);
             } else {
@@ -81,7 +79,7 @@ class Movie extends Component {
     }
 
     afterRipple = () => {
-        const { history, _id: id } = this.props;
+        const { history, movie: { _id: id } } = this.props;
 
         // Remove the ripple
         this.setState({ ripple: null });
@@ -96,15 +94,17 @@ class Movie extends Component {
 
     render () {
         const {
-            title,
-            year,
-            images,
-            torrents,
+            movie: {
+                title,
+                year,
+                images,
+                torrents,
+            },
         } = this.props;
 
         const { ripple } = this.state;
 
-        const qualities = Object.keys(torrents.en);
+        const qualities = Object.keys((torrents || {}).en);
 
         if (qualities.length < 0) return null;
 
