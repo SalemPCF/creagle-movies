@@ -49,48 +49,60 @@ class App extends Component {
     }
 
     loadMovies = () => {
-        const { movies: stateMovies, loading } = this.state;
-        const { page } = stateMovies;
+        const { movies: stateMovies } = this.state;
+        const { page, loading } = stateMovies;
 
         // Prevent us sending requests if we're waiting for a response
         if (loading) { return; }
 
         const nextPage = page + 1;
 
-        this.setState({ loading: true });
+        this.setState((current) => {
+            const next = { ...current };
 
-        api.get(`/movies/${nextPage}`)
-            .then(res => res.data)
-            .then((data) => {
-                const normalized = normalize(data, [movieSchema]);
+            next.movies.loading = true;
 
-                this.setState(({ entities, movies }) => ({
+            return next;
+        }, () => {
+            api.get(`/movies/${nextPage}`)
+                .then(res => res.data)
+                .then((data) => {
+                    const normalized = normalize(data, [movieSchema]);
+
+                    this.setState(({ entities, movies }) => ({
                     // Add new movie entities into entities
-                    entities: {
-                        ...entities,
-                        movies: {
-                            ...entities.movies,
-                            ...normalized.entities.movies,
+                        entities: {
+                            ...entities,
+                            movies: {
+                                ...entities.movies,
+                                ...normalized.entities.movies,
+                            },
                         },
-                    },
 
-                    // Add new page into state
-                    movies: {
-                        ...movies,
-                        page: nextPage,
-                        pages: {
-                            ...movies.pages,
-                            [nextPage]: normalized.result,
+                        // Add new page into state
+                        movies: {
+                            ...movies,
+                            page: nextPage,
+                            pages: {
+                                ...movies.pages,
+                                [nextPage]: normalized.result,
+                            },
                         },
-                    },
-                }));
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => {
-                this.setState({ loading: false });
-            });
+                    }));
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+                .finally(() => {
+                    this.setState((current) => {
+                        const next = { ...current };
+
+                        next.movies.loading = false;
+
+                        return next;
+                    });
+                });
+        });
     }
 
     getMovies = () => {
