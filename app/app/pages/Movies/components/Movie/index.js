@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+/* Node */
 import { withRouter } from 'react-router-dom';
+import React, { Component } from 'react';
 import Truncate from 'react-truncate';
 
+/* Relative */
 import { movieShape } from './shape';
 
 class Movie extends Component {

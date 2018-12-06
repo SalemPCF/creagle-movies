@@ -1,7 +1,8 @@
+/* Node */
 import React from 'react';
 
+/* Relative */
 import propTypes from './Movies.propTypes';
-
 import Movie from './components/Movie';
 
 const MoviesPresenter = ({ movies, onBottomReached }) => (

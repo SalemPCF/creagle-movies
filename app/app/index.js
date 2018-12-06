@@ -1,7 +1,8 @@
+/* Node */
 import { connect } from 'react-redux';
 
+/* Relative */
 import { loadMovies } from '../redux/actions/movies';
-
 import App from './App';
 
 const mapStateToProps = state => ({

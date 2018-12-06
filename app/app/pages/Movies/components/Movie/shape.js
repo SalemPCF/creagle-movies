@@ -1,3 +1,4 @@
+/* Relative */
 import Movie from '../../../../../prop-types/Movie';
 
 export const movieShape = {

@@ -1,5 +1,9 @@
+/* Node */
 import { normalize } from 'normalizr';
+
+/* Relative */
 import movieSchema from '../../schemas/movie';
+import { logError } from '../../helpers';
 
 export const MOVIE = {
     LOAD: {
@@ -39,8 +43,8 @@ export const loadMovie = id => (dispatch, getState, { api }) => {
 
                 dispatch(loadMovieSuccess(normalized));
             })
-            .catch((err) => {
-                console.dir(err);
+            .catch(() => {
+                logError('There was a problem loading this movie.');
 
                 dispatch(loadMovieFailure());
             });

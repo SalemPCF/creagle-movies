@@ -1,18 +1,18 @@
-// Libs
-import React, { Component } from 'react';
+/* Node */
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { Component } from 'react';
 
-// Components
+/* Relative Components */
 import RemoteContext from './components/RemoteContext';
+import Splashscreen from './components/Splashscreen';
 import ContextMenu from './components/ContextMenu';
 import KeyListener from './components/KeyListener';
-import Splashscreen from './components/Splashscreen';
 
-// Pages
+/* Relative Pages */
 import Movies from './pages/Movies';
 import Movie from './pages/Movie';
 
-// Prop types, schemas etc.
+/* Relative PropTypes, Schemas */
 import { appShape } from './shape';
 
 class App extends Component {

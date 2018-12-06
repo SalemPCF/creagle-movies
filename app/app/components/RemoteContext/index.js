@@ -1,3 +1,4 @@
+/* Node */
 import React, { createContext } from 'react';
 
 const RemoteContext = createContext();

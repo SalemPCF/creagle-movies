@@ -1,5 +1,7 @@
+/* Node */
 import React, { Component } from 'react';
 
+/* Relative */
 import MoviesPresenter from './Movies.presenter';
 import propTypes from './Movies.propTypes';
 

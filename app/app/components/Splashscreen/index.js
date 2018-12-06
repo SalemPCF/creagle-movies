@@ -1,7 +1,9 @@
+/* Node */
 import React from 'react';
 
-import propTypes from './propTypes';
+/* Relative */
 import defaultProps from './defaultProps';
+import propTypes from './propTypes';
 
 class Splashscreen extends React.Component {
     static propTypes = propTypes;

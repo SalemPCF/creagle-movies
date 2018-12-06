@@ -1,3 +1,4 @@
+/* Relative */
 import { MOVIE } from '../../actions/movie';
 
 const initialState = {

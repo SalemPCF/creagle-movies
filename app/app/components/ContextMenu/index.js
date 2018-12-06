@@ -1,4 +1,7 @@
+/* Node */
 import { Component } from 'react';
+
+/* Relative */
 import RemoteContext from '../RemoteContext';
 
 class ContextMenu extends Component {

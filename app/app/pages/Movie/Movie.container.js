@@ -1,10 +1,12 @@
+/* Node */
 import React, { Component } from 'react';
 import WebTorrent from 'webtorrent';
 
+/* Relative */
 import RemoteContext from '../../components/RemoteContext';
-import propTypes from './Movie.propTypes';
-
+import { logError, logInfo } from '../../../helpers';
 import MoviePresenter from './Movie.presenter';
+import propTypes from './Movie.propTypes';
 
 class MovieContainer extends Component {
     static propTypes = propTypes.container;
@@ -18,8 +20,8 @@ class MovieContainer extends Component {
 
         loadMovie(match.params.id);
 
-        this.client.on('error', (err) => {
-            console.log(err);
+        this.client.on('error', () => {
+            logError('There was an error with WebTorrent.');
         });
     }
 
@@ -32,11 +34,11 @@ class MovieContainer extends Component {
         // TODO: Change the .en key to be either of the options provided under the torrent list.
         this.client.add(movie.torrents.en['1080p'].url, { path: `${remote.app.getPath('temp')}/Creagle Movies` }, (torrent) => {
             const interval = setInterval(() => {
-                console.log(`Progress: ${(torrent.progress * 100).toFixed(1)}%`);
+                logInfo(`Torrent Progress: ${(torrent.progress * 100).toFixed(1)}%`);
             }, 1000);
 
-            torrent.on('error', (error) => {
-                console.log(error);
+            torrent.on('error', () => {
+                logError('There was an error with this torrent.');
 
                 clearInterval(interval);
             });

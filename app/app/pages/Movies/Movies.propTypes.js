@@ -1,5 +1,7 @@
+/* Node */
 import PropTypes from 'prop-types';
 
+/* Relative */
 import Movie from '../../../prop-types/Movie';
 
 const shared = {

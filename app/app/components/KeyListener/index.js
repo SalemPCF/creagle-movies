@@ -1,6 +1,8 @@
+/* Node */
 import { Component } from 'react';
-import RemoteContext from '../RemoteContext';
 
+/* Relative */
+import RemoteContext from '../RemoteContext';
 import getListeners from './listeners';
 
 class KeyListener extends Component {

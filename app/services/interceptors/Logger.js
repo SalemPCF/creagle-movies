@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-
+/* Node */
 import axios from 'axios';
 
 const labelStyle = 'font-weight: bold; font-size: 12px';

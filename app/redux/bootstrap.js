@@ -1,6 +1,8 @@
+/* Node */
 import { compose as defaultCompose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
+/* Relative */
 import { api } from '../services/api';
 import reducer from './reducers';
 

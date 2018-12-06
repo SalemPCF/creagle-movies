@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { remote } from 'electron';
 
 /* Relative */
-// import App from './app';
 import App from './app';
 import store from './redux/bootstrap';
 

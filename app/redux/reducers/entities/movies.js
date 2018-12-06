@@ -1,3 +1,4 @@
+/* Relative */
 import { MOVIES } from '../../actions/movies';
 
 const moviesReducer = (state = {}, action) => {

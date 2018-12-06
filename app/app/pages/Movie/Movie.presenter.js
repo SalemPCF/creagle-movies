@@ -1,6 +1,8 @@
-import React from 'react';
+/* Node */
 import { Link } from 'react-router-dom';
+import React from 'react';
 
+/* Relative */
 import propTypes from './Movie.propTypes';
 
 const MoviePresenter = ({ movie, startDownload }) => (

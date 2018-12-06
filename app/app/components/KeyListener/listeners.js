@@ -1,3 +1,4 @@
+/* Relative */
 import { DEBUG } from '../../../config/globals';
 
 export default (registerKeyEvent) => {

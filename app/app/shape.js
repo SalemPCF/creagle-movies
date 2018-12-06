@@ -1,3 +1,4 @@
+/* Node */
 import PropTypes from 'prop-types';
 import { remote } from 'electron';
 

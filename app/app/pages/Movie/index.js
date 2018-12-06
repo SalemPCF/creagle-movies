@@ -1,9 +1,10 @@
-import { connect } from 'react-redux';
+/* Node */
 import { denormalize } from 'normalizr';
+import { connect } from 'react-redux';
 
-import movieSchema from '../../../schemas/movie';
+/* Relative */
 import { loadMovie } from '../../../redux/actions/movie';
-
+import movieSchema from '../../../schemas/movie';
 import MovieContainer from './Movie.container';
 
 const mapStateToProps = state => ({
