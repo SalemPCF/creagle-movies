@@ -6,6 +6,7 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import RemoteContext from './components/RemoteContext';
 import ContextMenu from './components/ContextMenu';
 import KeyListener from './components/KeyListener';
+import Splashscreen from './components/Splashscreen';
 
 // Pages
 import Movies from './pages/Movies';
@@ -24,19 +25,21 @@ class App extends Component {
     }
 
     render () {
-        const { remote } = this.props;
+        const { remote, initiating } = this.props;
 
         return (
             <RemoteContext.Provider value={remote}>
                 <ContextMenu />
                 <KeyListener />
 
-                <Router>
-                    <Switch>
-                        <Route exact path="/" component={Movies} />
-                        <Route exact path="/movies/:id" component={Movie} />
-                    </Switch>
-                </Router>
+                <Splashscreen delay={1500} ready={!initiating}>
+                    <Router>
+                        <Switch>
+                            <Route exact path="/" component={Movies} />
+                            <Route exact path="/movies/:id" component={Movie} />
+                        </Switch>
+                    </Router>
+                </Splashscreen>
             </RemoteContext.Provider>
         );
     }
