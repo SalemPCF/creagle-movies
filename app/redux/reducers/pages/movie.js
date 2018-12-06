@@ -14,7 +14,6 @@ const movieReducer = (state = initialState, action) => {
             };
 
         case MOVIE.LOAD.CACHED:
-            console.log(action);
             return {
                 ...state,
                 loading: false,
