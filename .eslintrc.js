@@ -34,6 +34,7 @@ module.exports = {
             "defaultAssignment": true
         }],
         "valid-typeof": [0],
+        "jsx-a11y/no-static-element-interactions": "off",
         "jsx-a11y/href-no-hash": "off",
         "jsx-a11y/label-has-for": "off",
         "class-methods-use-this": "off",
