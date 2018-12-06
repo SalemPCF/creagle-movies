@@ -70,7 +70,7 @@ class App extends Component {
                     const normalized = normalize(data, [movieSchema]);
 
                     this.setState(({ entities, movies }) => ({
-                    // Add new movie entities into entities
+                        // Add new movie entities into entities
                         entities: {
                             ...entities,
                             movies: {
