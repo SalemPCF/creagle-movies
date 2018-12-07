@@ -1,54 +1,58 @@
 /* Node */
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { css } from 'aphrodite';
 
 /* Relative */
 import { Spinner } from '../../components/Spinner';
 import propTypes from './Movie.propTypes';
+import styles from './Movie.styles';
 
 const MoviePresenter = ({ movie, startDownload, stars }) => (
-    <div className="movie-container">
-        <img className="movie-background" src={movie ? movie.images.fanart : null} alt="" />
+    <div className={css(styles.container)}>
+        {movie && movie.images && movie.images.fanart && (
+            <img className={css(styles.background)} src={movie.images.fanart} alt="" />
+        )}
 
-        <div className="movie-background-overlay" />
+        <div className={css(styles.overlay)} />
 
-        <Link to="/" className="close-icon">
+        <Link to="/" className={css(styles.closeIcon)}>
             <i className="material-icons">close</i>
         </Link>
 
         {movie ? (
-            <div className="movie-inner-container">
-                <h1 className="movie-title">{movie.title}</h1>
+            <div className={css(styles.innerContainer)}>
+                <h1 className={css(styles.title)}>{movie.title}</h1>
 
-                <div className="movie-metadata-container">
-                    <p className="movie-metadata-text">{movie.year}</p>
-                    <p className="movie-metadata-text">&#8226;</p>
-                    <p className="movie-metadata-text">{`${movie.runtime} mins`}</p>
-                    <p className="movie-metadata-text">&#8226;</p>
-                    <p className="movie-metadata-text">{Object.keys(movie.torrents.en).includes('1080p') ? 'HD' : 'SD'}</p>
-                    <p className="movie-metadata-text">&#8226;</p>
-                    <p className="movie-metadata-text">{movie.certification}</p>
-                    <p className="movie-metadata-text">&#8226;</p>
+                <div className={css(styles.metadata)}>
+                    <p className={css(styles.metadataText)}>{movie.year}</p>
+                    <p className={css(styles.metadataText)}>&#8226;</p>
+                    <p className={css(styles.metadataText)}>{`${movie.runtime} mins`}</p>
+                    <p className={css(styles.metadataText)}>&#8226;</p>
+                    <p className={css(styles.metadataText)}>{Object.keys(movie.torrents.en).includes('1080p') ? 'HD' : 'SD'}</p>
+                    <p className={css(styles.metadataText)}>&#8226;</p>
+                    <p className={css(styles.metadataText)}>{movie.certification}</p>
+                    <p className={css(styles.metadataText)}>&#8226;</p>
 
-                    <div className="movie-metadata-text stars">
+                    <div className={css(styles.metadataText)}>
                         {stars.filledStars.map(num => (
-                            <i key={num} className="material-icons star-icon">star</i>
+                            <i key={num} className={`${css(styles.starIcon)} material-icons`}>star</i>
                         ))}
 
                         {stars.hasHalfStar
-                            ? <i className="material-icons star-icon">star_half</i>
+                            ? <i className={`${css(styles.starIcon)} material-icons`}>star_half</i>
                             : null}
 
                         {stars.emptyStars.map(num => (
-                            <i key={num} className="material-icons star-icon">star_border</i>
+                            <i key={num} className={`${css(styles.starIcon)} material-icons`}>star_border</i>
                         ))}
                     </div>
                 </div>
 
-                <p className="movie-synopsis">{movie.synopsis}</p>
+                <p className={css(styles.synopsis)}>{movie.synopsis}</p>
 
-                <div className="button-container">
-                    <button className="button" type="button" onClick={startDownload}>Watch Now</button>
+                <div className={css(styles.buttonContainer)}>
+                    <button className={css(styles.button)} type="button" onClick={startDownload}>Watch Now</button>
                 </div>
             </div>
         ) : (

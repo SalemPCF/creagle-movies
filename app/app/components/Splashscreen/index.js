@@ -1,9 +1,11 @@
 /* Node */
 import React from 'react';
+import { css } from 'aphrodite';
 
 /* Relative */
 import defaultProps from './defaultProps';
 import propTypes from './propTypes';
+import styles from './styles';
 
 class Splashscreen extends React.Component {
     static propTypes = propTypes;
@@ -82,8 +84,8 @@ class Splashscreen extends React.Component {
 
         // Otherwise, show the splashscreen
         return (
-            <div className="splashscreen">
-                <img src="resources/splashscreen.png" alt="Creagle" className="logo" />
+            <div className={css(styles.splashscreen)}>
+                <img src="resources/splashscreen.png" alt="Creagle" className={css(styles.logo)} />
             </div>
         );
     }
