@@ -2,6 +2,7 @@
 
 *, *:after, *:before {
     -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
@@ -30,8 +31,8 @@ html, body, #app {
 
 .movie-container {
     background-color: #000000;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
 .movie-background {
@@ -51,41 +52,38 @@ html, body, #app {
 }
 
 .movie-inner-container {
-    margin: 80px 0px 0px 120px;
+    padding: 5rem;
     position: fixed;
-    width: 100vw;
-    /* To account for our margin, -80px */
-    height: calc(100vh - 80px);
-}
-
-.movie-metadata-container {
-    display: flex;
+    width: 100%;
 }
 
 .movie-title {
     color: white;
     font-family: 'Roboto', sans-serif;
+    margin-bottom: .5rem;
+}
+
+.movie-metadata-container {
+    display: flex;
+    margin-bottom: .5rem;
 }
 
 .movie-metadata-text {
     font-family: 'Roboto', sans-serif;
     color: rgba(255, 255, 255, 0.8);
-    margin: 10px 20px 0px 0px;
+    margin-right: 0.75rem;
     font-weight: 600;
-    font-size: 15px;
-}
-
-.stars {
-    margin-top: 7.5px;
+    font-size: 1rem;
 }
 
 .movie-synopsis {
     font-family: 'Roboto', sans-serif;
     color: rgba(255, 255, 255, 0.8);
-    margin-top: 10px;
-    width: 800px;
-    font-size: 14px;
+    width: 100%;
+    max-width: 800px;
+    font-size: 0.875rem;
     line-height: 1.6;
+    margin-bottom: 1rem;
 }
 
 .list {
@@ -162,17 +160,18 @@ html, body, #app {
 
 .close-icon {
     position: absolute;
-    top: .5rem;
-    left: .5rem;
+    top: 1rem;
+    left: 1rem;
     color: white;
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+    z-index: 5;
 }
 
 .star-icon {
     top: .5rem;
     left: .5rem;
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
-    font-size: 19px;
+    font-size: 1rem;
     color: #FFC300;
 }
 
@@ -197,9 +196,9 @@ html, body, #app {
 }
 
 .button-container {
-    position: absolute;
-    bottom: 80px;
-    left: 0;
+    // position: absolute;
+    // bottom: 80px;
+    // left: 0;
 }
 
 .button {
