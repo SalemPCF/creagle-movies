@@ -1,21 +1,13 @@
 /* Node */
-import { SyncLoader } from 'react-spinners';
 import React from 'react';
 
-/* Relative */
-import defaultProps from './defaultProps';
-import propTypes from './propTypes';
-
-export const Spinner = ({ size, color }) => (
-    <div className="spinner">
-        <SyncLoader
-            size={size}
-            margin="8px"
-            color={color}
-        />
+export const Spinner = () => (
+    <div className="spinner-container">
+        <div className="spinner spinner-ellipsis">
+            <div />
+            <div />
+            <div />
+            <div />
+        </div>
     </div>
 );
-
-Spinner.propTypes = propTypes;
-
-Spinner.defaultProps = defaultProps;
