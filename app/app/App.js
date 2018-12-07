@@ -3,6 +3,8 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import React, { Component } from 'react';
 
 /* Relative Components */
+// import GoogleFontLoader from 'react-google-font-loader';
+import GoogleFontLoader from './components/GoogleFontLoader';
 import RemoteContext from './components/RemoteContext';
 import Splashscreen from './components/Splashscreen';
 import ContextMenu from './components/ContextMenu';
@@ -14,6 +16,9 @@ import Movie from './pages/Movie';
 
 /* Relative PropTypes, Schemas */
 import propTypes from './App.propTypes';
+
+/* Relative Variables */
+import fonts from '../config/fonts';
 
 class App extends Component {
     static propTypes = propTypes;
@@ -31,6 +36,7 @@ class App extends Component {
             <RemoteContext.Provider value={remote}>
                 <ContextMenu />
                 <KeyListener />
+                <GoogleFontLoader fonts={fonts} />
 
                 <Splashscreen delay={1500} ready={!initiating}>
                     <Router>

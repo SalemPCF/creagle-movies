@@ -1,9 +1,13 @@
 /* Node */
+import { css } from 'aphrodite';
 import React from 'react';
 
+/* Relative */
+import styles from './styles';
+
 export const Spinner = () => (
-    <div className="spinner-container">
-        <div className="spinner spinner-ellipsis">
+    <div className={css(styles.spinnerContainer)}>
+        <div className={css(styles.spinner, styles.spinnerEllipsis)}>
             <div />
             <div />
             <div />

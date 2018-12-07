@@ -1,7 +1,7 @@
 /* Node */
 import { Link } from 'react-router-dom';
-import React from 'react';
 import { css } from 'aphrodite';
+import React from 'react';
 
 /* Relative */
 import { Spinner } from '../../components/Spinner';

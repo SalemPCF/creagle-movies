@@ -5,14 +5,34 @@
         <meta charset="UTF-8">
         <title>Creagle Movies</title>
 
-        <!-- Include our Styles -->
-        <link rel="stylesheet" href="./styles.css">
+        <style>
+            *, *:after, *:before {
+                -webkit-font-smoothing: antialiased;
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            ::selection {
+                background-color: transparent;
+            }
+
+            p, h6, h5, h4, h3, h2, h1 {
+                cursor: context-menu;
+            }
+
+            html, body, #app {
+                height: 100%;
+                background-color: #303030;
+                font-size: 16px;
+            }
+        </style>
     </head>
 
-    <!-- Prevent any drag/drop actions from occuring -->
-    <body ondragstart="return false;" ondrop="return false;">
+    <body id="body">
         <div id="app"></div>
 
         <script src="index.js"></script>
+        <script src="helpers/preventDrag.js"></script>
     </body>
 </html>

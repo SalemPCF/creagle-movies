@@ -74,13 +74,14 @@ export default StyleSheet.create({
         color: colors.text.secondary,
         marginRight: rem(0.75),
         fontWeight: fonts.weights.primary.bold,
-        fontSize: rem(1),
+        fontSize: rem(0.95),
     },
 
     starIcon: {
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
         fontSize: rem(1),
         color: colors.starColor,
+        cursor: 'context-menu',
     },
 
     synopsis: {

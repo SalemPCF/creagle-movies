@@ -16,4 +16,5 @@ export default {
     primaryAccent: rgb(23, 79, 184),
 
     starColor: rgb(255, 195, 0),
+    hdColor: rgba(255, 255, 255, 0.7),
 };
