@@ -12,8 +12,8 @@ const MoviePresenter = ({ movie, startDownload, stars }) => (
 
         <div className="movie-background-overlay" />
 
-        <Link to="/">
-            <i className="material-icons close-icon">close</i>
+        <Link to="/" className="close-icon">
+            <i className="material-icons">close</i>
         </Link>
 
         {movie ? (
