@@ -16,8 +16,6 @@ const MoviePresenter = ({ movie, startDownload, stars }) => (
             <i className="material-icons close-icon">close</i>
         </Link>
 
-        <Spinner />
-
         {movie ? (
             <div className="movie-inner-container">
                 <h1 className="movie-title">{movie.title}</h1>
