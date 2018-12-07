@@ -108,7 +108,7 @@ class Movie extends Component {
 
         const qualities = Object.keys((torrents || {}).en);
 
-        if (qualities.length < 0) return null;
+        if (qualities.length < 0) { return null; }
 
         return (
             <div className="card" onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp}>

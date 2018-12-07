@@ -13,10 +13,10 @@ import Movies from './pages/Movies';
 import Movie from './pages/Movie';
 
 /* Relative PropTypes, Schemas */
-import { appShape } from './shape';
+import propTypes from './App.propTypes';
 
 class App extends Component {
-    static propTypes = appShape;
+    static propTypes = propTypes;
 
     componentDidMount () {
         const { loadMovies } = this.props;

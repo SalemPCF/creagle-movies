@@ -1,7 +1,7 @@
 /* Node */
 import { enableLiveReload } from 'electron-compile';
 import { app, BrowserWindow } from 'electron';
-import fs from 'fs';
+import fs from 'fs-extra';
 
 /* Relative */
 import { DEBUG } from './app/config/globals';
@@ -39,6 +39,19 @@ const createWindow = () => {
     // Emitted when the window is closed.
     win.on('closed', () => {
         win = null;
+
+        const tempPath = app.getPath('temp');
+        const creagleTempDir = `${tempPath}\\Creagle Movies`;
+
+        try {
+            const isDir = fs.lstatSync(creagleTempDir).isDirectory();
+
+            if (isDir) {
+                fs.removeSync(creagleTempDir);
+            }
+        } catch (error) {
+            // TODO: Add graceful handling here
+        }
     });
 };
 
@@ -54,6 +67,7 @@ const createDirectories = () => {
         if (error.code === 'ENOENT') {
             fs.mkdirSync(creagleTempDir);
         }
+        // TODO: Add graceful handling here (perms etc)
     }
 
     return fs.lstatSync(creagleTempDir).isDirectory();

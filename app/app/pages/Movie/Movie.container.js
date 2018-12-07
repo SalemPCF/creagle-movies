@@ -29,6 +29,7 @@ class MovieContainer extends Component {
         e.preventDefault();
 
         const { movie } = this.props;
+
         const remote = this.context;
 
         // TODO: Change the .en key to be either of the options provided under the torrent list.
@@ -49,6 +50,25 @@ class MovieContainer extends Component {
         });
     }
 
+    getStars = () => {
+        const { movie } = this.props;
+
+        // Make sure we've got an object to destructure
+        if (!movie) { return {}; }
+
+        // Get our number of stars to the nearest 0.5
+        const numOfFilledStars = Math.round((movie.rating.percentage / 20) * 2) / 2;
+
+        return {
+            // Check if we should show a half star
+            hasHalfStar: numOfFilledStars % 1 === 0.5,
+            // Create an array with sizeof(numOfFilledStars)
+            filledStars: [...Array(Math.floor(numOfFilledStars)).keys()],
+            // Create an array with sizeof(5 - numOfFilledStars)
+            emptyStars: [...Array(Math.floor(5 - numOfFilledStars)).keys()],
+        };
+    }
+
     render () {
         const { movie } = this.props;
 
@@ -56,6 +76,8 @@ class MovieContainer extends Component {
             <MoviePresenter
                 movie={movie}
                 startDownload={this.startDownload}
+                renderMetaData={this.renderMetaData}
+                stars={this.getStars()}
             />
         );
     }

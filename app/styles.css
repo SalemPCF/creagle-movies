@@ -12,6 +12,12 @@ html, body, #app {
     font-size: 16px;
 }
 
+.spinner {
+    position: fixed;
+    top: calc(50% - 16px);
+    left: calc(50% - 42px);
+}
+
 .splashscreen {
     display: flex;
     justify-content: center;
@@ -51,9 +57,41 @@ html, body, #app {
 }
 
 .movie-inner-container {
+    margin: 80px 0px 0px 120px;
     position: fixed;
     width: 100vw;
-    height: 100vh;
+    /* To account for our margin, -80px */
+    height: calc(100vh - 80px);
+}
+
+.movie-metadata-container {
+    display: flex;
+}
+
+.movie-title {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+.movie-metadata-text {
+    font-family: 'Roboto', sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 10px 20px 0px 0px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.stars {
+    margin-top: 7.5px;
+}
+
+.movie-synopsis {
+    font-family: 'Roboto', sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 10px;
+    width: 800px;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 .list {
@@ -128,6 +166,22 @@ html, body, #app {
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
 }
 
+.close-icon {
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+}
+
+.star-icon {
+    top: .5rem;
+    left: .5rem;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+    font-size: 19px;
+    color: #FFC300;
+}
+
 .text {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
@@ -146,6 +200,28 @@ html, body, #app {
 
 .text.secondary {
     color: rgba(255, 255, 255, 0.6);
+}
+
+.button-container {
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+}
+
+.button {
+    padding: 12px 24px;
+    border-width: 0;
+    outline: none;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    background-color: #1768b8;
+    color: white;
+    transition: background-color .3s;
+    cursor: pointer;
+}
+
+.button:hover {
+  background-color: #174fb8;
 }
 
 /*
