@@ -1,5 +1,11 @@
+/**
+ * Maybe we should switch this to `react-google-font-loader`
+*/
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700|Material+Icons');
 
+/**
+ * Resets
+ */
 *, *:after, *:before {
     -webkit-font-smoothing: antialiased;
     box-sizing: border-box;
@@ -13,258 +19,16 @@ html, body, #app {
     font-size: 16px;
 }
 
-.splashscreen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
-.splashscreen .logo {
-    max-width: 80%;
-}
-
-/* Prevent our user highlighting something */
+/**
+ * Prevent our user highlighting something
+ */
 ::selection {
     background-color: transparent;
 }
 
-.movie-container {
-    background-color: #000000;
-    width: 100%;
-    height: 100%;
-}
-
-.movie-background {
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    filter: blur(8px);
-}
-
-.movie-background-overlay {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.75);
-}
-
-.movie-inner-container {
-    padding: 5rem;
-    position: fixed;
-    width: 100%;
-}
-
-.movie-title {
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    margin-bottom: .5rem;
-}
-
-.movie-metadata-container {
-    display: flex;
-    margin-bottom: .5rem;
-}
-
-.movie-metadata-text {
-    font-family: 'Roboto', sans-serif;
-    color: rgba(255, 255, 255, 0.8);
-    margin-right: 0.75rem;
-    font-weight: 600;
-    font-size: 1rem;
-}
-
-.movie-synopsis {
-    font-family: 'Roboto', sans-serif;
-    color: rgba(255, 255, 255, 0.8);
-    width: 100%;
-    max-width: 800px;
-    font-size: 0.875rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-}
-
-.list {
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    text-align: center;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    margin: 0;
-}
-
-.items {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: start;
-}
-
-.card {
-    background-color: #424242;
-    border-radius: .25rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    cursor: pointer;
-    margin: .25rem;
-    position: relative;
-    overflow: hidden;
-    text-decoration: none;
-}
-
-.card:hover {
-    box-shadow: 0 2.5px 28px rgba(0,0,0,0.25), 0 2.5px 10px rgba(0,0,0,0.22);
-    transform: translateY(-0.25rem);
-}
-
-.card-image {
-    width: 100%;
-    min-height: 273px;
-    display: block;
-}
-
-.card-footer {
-    padding: .5rem;
-    text-align: left;
-}
-
-.card-ripple {
-    position: absolute;
-    width: 300%;
-    padding-bottom: 300%;
-    transform-origin: center;
-    animation: ripple 1s forwards;
-}
-
-.card-ripple-inner {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.hd-icon {
-    position: absolute;
-    top: .5rem;
-    right: .5rem;
-    color: rgba(255, 255, 255, 0.8);
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
-}
-
-.close-icon {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    color: white;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
-    z-index: 5;
-}
-
-.star-icon {
-    top: .5rem;
-    left: .5rem;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
-    font-size: 1rem;
-    color: #FFC300;
-}
-
-.text {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    user-select: none;
-    margin: 0;
-}
-
-.text:not(:last-of-type) {
-    margin-bottom: .25rem;
-}
-
-.text.primary {
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 700;
-}
-
-.text.secondary {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.button-container {
-    // position: absolute;
-    // bottom: 80px;
-    // left: 0;
-}
-
-.button {
-    padding: 12px 24px;
-    border-width: 0;
-    outline: none;
-    border-radius: 2px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-    background-color: #1768b8;
-    color: white;
-    transition: background-color .3s;
-    cursor: pointer;
-}
-
-.button:hover {
-  background-color: #174fb8;
-}
-
-/*
- * Formula:
- * ((max-width / cardNum) / max-width) * 100;
+/**
+ * Spinner
  */
-
-/* 2 */
-@media (max-width: 525px) {
-    .card {
-        width: calc(50% - .5rem);
-    }
-}
-
-/* 4 */
-@media (min-width: 525px) and (max-width: 960px) {
-    .card {
-        width: calc(25% - .5rem);
-    }
-}
-
-/* 5 */
-@media (min-width: 961px) and (max-width: 1396px) {
-    .card {
-        width: calc(20% - .5rem);
-    }
-}
-
-/* 10 */
-@media (min-width: 1397px) {
-    .card {
-        width: calc(9.99% - .5rem);
-    }
-}
-
-@keyframes ripple {
-    0% {
-        transform: translate(-50%, -50%) scale(0.1);
-    }
-
-    90% {
-        transform: translate(-50%, -50%) scale(1);
-    }
-
-    100% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0;
-    }
-}
-
 .spinner-container {
     position: fixed;
     top: calc(50% - 16px);

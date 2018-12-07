@@ -1,13 +1,15 @@
 /* Node */
 import React from 'react';
+import { css } from 'aphrodite';
 
 /* Relative */
 import propTypes from './Movies.propTypes';
+import styles from './Movies.styles';
 import Movie from './components/Movie';
 
 const MoviesPresenter = ({ movies, onBottomReached }) => (
-    <div className="list" onScroll={onBottomReached}>
-        <div className="items">
+    <div className={css(styles.container)} onScroll={onBottomReached}>
+        <div className={css(styles.movies)}>
             {movies.length >= 0 && movies.map(movie => (
                 <Movie
                     // eslint-disable-next-line no-underscore-dangle

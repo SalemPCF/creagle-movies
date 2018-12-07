@@ -34,6 +34,7 @@
     "eslint-plugin-react": "^7.11.1"
   },
   "dependencies": {
+    "aphrodite": "^2.2.3",
     "axios": "^0.18.0",
     "fs-extra": "^7.0.1",
     "normalizr": "^3.3.0",

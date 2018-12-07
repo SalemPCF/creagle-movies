@@ -2,9 +2,11 @@
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import Truncate from 'react-truncate';
+import { css } from 'aphrodite';
 
 /* Relative */
 import { movieShape } from './shape';
+import styles from './styles';
 
 class Movie extends Component {
     static propTypes = movieShape;
@@ -111,29 +113,33 @@ class Movie extends Component {
         if (qualities.length < 0) { return null; }
 
         return (
-            <div className="card" onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp}>
+            <div
+                className={css(styles.movie)}
+                onMouseDown={this.handleMouseDown}
+                onMouseUp={this.handleMouseUp}
+            >
                 {qualities.includes('1080p') && (
-                    <i className="material-icons hd-icon">hd</i>
+                    <i className={`${css(styles.hdIcon)} material-icons`}>hd</i>
                 )}
 
-                <div className="card-image">
-                    <img className="card-image" src={images.poster} onError={this.handleImageError} alt="" />
+                <div className={css(styles.poster)}>
+                    <img className={css(styles.poster)} src={images.poster} onError={this.handleImageError} alt="" />
                 </div>
 
 
-                <div className="card-footer">
-                    <p className="text primary">
+                <div className={css(styles.info)}>
+                    <p className={css(styles.infoText, styles.infoText_primary)}>
                         <Truncate lines={1} ellipsis="...">{title}</Truncate>
                     </p>
 
-                    <p className="text secondary">
+                    <p className={css(styles.infoText, styles.infoText_secondary)}>
                         {year}
                     </p>
                 </div>
 
                 {ripple && (
-                    <div className="card-ripple" style={{ left: ripple.x, top: ripple.y }}>
-                        <div className="card-ripple-inner" />
+                    <div className={css(styles.ripple)} style={{ left: ripple.x, top: ripple.y }}>
+                        <div className={css(styles.rippleInner)} />
                     </div>
                 )}
             </div>
