@@ -1,4 +1,5 @@
 /* Node */
+import RoundHd from 'react-md-icon/dist/RoundHd';
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import Truncate from 'react-truncate';
@@ -119,13 +120,12 @@ class Movie extends Component {
                 onMouseUp={this.handleMouseUp}
             >
                 {qualities.includes('1080p') && (
-                    <i className={`${css(styles.hdIcon)} material-icons`}>hd</i>
+                    <RoundHd className={css(styles.hdIcon)} />
                 )}
 
                 <div className={css(styles.poster)}>
                     <img className={css(styles.poster)} src={images.poster} onError={this.handleImageError} alt="" />
                 </div>
-
 
                 <div className={css(styles.info)}>
                     <p className={css(styles.infoText, styles.infoText_primary)}>

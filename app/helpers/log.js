@@ -12,7 +12,7 @@ export const logMessage = (message, color = '#ffffff') => {
     // If we're not, this function won't do anything
     if (DEBUG) {
         // eslint-disable-next-line no-console
-        console.log(`%c${message})}`, `color: ${color}`);
+        console.log(`%c${message}`, `color: ${color}`);
     }
 };
 

@@ -1,10 +1,9 @@
 /* Node */
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import GoogleFontLoader from 'react-google-font-loader';
 import React, { Component } from 'react';
 
 /* Relative Components */
-// import GoogleFontLoader from 'react-google-font-loader';
-import GoogleFontLoader from './components/GoogleFontLoader';
 import RemoteContext from './components/RemoteContext';
 import Splashscreen from './components/Splashscreen';
 import ContextMenu from './components/ContextMenu';

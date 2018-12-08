@@ -43,6 +43,7 @@ export default StyleSheet.create({
         zIndex: 4,
         color: colors.text.primary,
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
+        fontSize: px(24),
     },
 
     innerContainer: {
@@ -77,11 +78,15 @@ export default StyleSheet.create({
         fontSize: rem(0.95),
     },
 
+    metadataStars: {
+        marginTop: px(-5),
+    },
+
     starIcon: {
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
-        fontSize: rem(1),
         color: colors.starColor,
         cursor: 'context-menu',
+        fontSize: px(24),
     },
 
     synopsis: {

@@ -7,8 +7,15 @@ import RemoteContext from '../../components/RemoteContext';
 import { logError, logInfo } from '../../../helpers';
 import MoviePresenter from './Movie.presenter';
 import propTypes from './Movie.propTypes';
+import { logSuccess } from '../../../helpers/log';
 
 class MovieContainer extends Component {
+    state = {
+        quality: false,
+    }
+
+    interval = null;
+
     static propTypes = propTypes.container;
 
     static contextType = RemoteContext;
@@ -25,29 +32,76 @@ class MovieContainer extends Component {
         });
     }
 
+    // This method is always called at some point after the component mounts
+    // That's because when the component mounts, it queries our store and retreives the movie.
+    // In the event this isn't called, there will be no content on the screen
+    componentWillReceiveProps = (nextProps) => {
+        const { quality } = this.state;
+        const { movie } = nextProps;
+
+        // If we don't have a quality
+        if (quality === false) {
+            // Get our quality values
+            const qualities = Object.keys(movie.torrents.en);
+
+            // Set our the quality state value to the first quality value
+            this.setState({ quality: qualities[0] });
+        }
+    }
+
     startDownload = (e) => {
         e.preventDefault();
 
         const { movie } = this.props;
+        const { quality } = this.state;
 
         const remote = this.context;
 
-        // TODO: Change the .en key to be either of the options provided under the torrent list.
-        this.client.add(movie.torrents.en['1080p'].url, { path: `${remote.app.getPath('temp')}/Creagle Movies` }, (torrent) => {
-            const interval = setInterval(() => {
+        this.client.add(movie.torrents.en[quality].url, { path: `${remote.app.getPath('temp')}/Creagle Movies` }, (torrent) => {
+            const file = torrent.files.find(f => f.name.endsWith('.mp4'));
+
+            file.renderTo('video#movie-player', {}, (error) => {
+                if (error) {
+                    logError('An error occured while attempting to use the file.renderTo method.');
+                }
+            });
+
+            this.interval = setInterval(() => {
                 logInfo(`Torrent Progress: ${(torrent.progress * 100).toFixed(1)}%`);
             }, 1000);
 
             torrent.on('error', () => {
                 logError('There was an error with this torrent.');
 
-                clearInterval(interval);
+                clearInterval(this.interval);
             });
 
             torrent.on('done', () => {
-                clearInterval(interval);
+                clearInterval(this.interval);
             });
         });
+    }
+
+    cancelDownload = () => {
+        const { movie } = this.props;
+        const { quality } = this.state;
+
+        if (!quality) { return; }
+
+        const magnetUrl = movie.torrents.en[quality].url;
+        const torrentExists = !!this.client.get(magnetUrl);
+
+        if (torrentExists) {
+            this.client.remove(magnetUrl, (err) => {
+                if (err) {
+                    logError('There was an error while attempting to remove this torrent.');
+                } else {
+                    logSuccess('Removed torrent.');
+                }
+
+                clearInterval(this.interval);
+            });
+        }
     }
 
     getStars = () => {
@@ -69,6 +123,14 @@ class MovieContainer extends Component {
         };
     }
 
+    getQuality = () => {
+        const { movie } = this.props;
+
+        if (!movie) { return false; }
+
+        return Object.keys(movie.torrents.en).includes('1080p');
+    }
+
     render () {
         const { movie } = this.props;
 
@@ -76,8 +138,10 @@ class MovieContainer extends Component {
             <MoviePresenter
                 movie={movie}
                 startDownload={this.startDownload}
+                cancelDownload={this.cancelDownload}
                 renderMetaData={this.renderMetaData}
                 stars={this.getStars()}
+                isHD={this.getQuality()}
             />
         );
     }

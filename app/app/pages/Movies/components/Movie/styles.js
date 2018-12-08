@@ -2,7 +2,7 @@ import { StyleSheet } from 'aphrodite';
 import {
     colors, shadows, fonts,
     rgba, calc,
-    rem, perc, second,
+    rem, perc, second, px,
     combineTransforms, translateY, translate, scale,
 } from '../../../../../styles';
 
@@ -76,6 +76,7 @@ export default StyleSheet.create({
         right: rem(0.5),
         color: colors.hdColor,
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
+        fontSize: px(24),
     },
 
     info: {
