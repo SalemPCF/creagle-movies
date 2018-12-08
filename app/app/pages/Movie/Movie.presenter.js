@@ -13,7 +13,7 @@ import propTypes from './Movie.propTypes';
 import styles from './Movie.styles';
 
 const MoviePresenter = ({
-    movie, startDownload, cancelDownload, stars, isHD,
+    movie, stars, isHD, runtime, quality,
 }) => (
     <div className={css(styles.container)}>
         {movie && movie.images && movie.images.fanart && (
@@ -23,7 +23,7 @@ const MoviePresenter = ({
         <div className={css(styles.overlay)} />
 
         <Link to="/" className={css(styles.closeIcon)}>
-            <RoundClose onClick={cancelDownload} onKeyDown={cancelDownload} />
+            <RoundClose />
         </Link>
 
         {movie ? (
@@ -33,7 +33,7 @@ const MoviePresenter = ({
                 <div className={css(styles.metadata)}>
                     <p className={css(styles.metadataText)}>{movie.year}</p>
                     <p className={css(styles.metadataText)}>&#8226;</p>
-                    <p className={css(styles.metadataText)}>{`${movie.runtime} mins`}</p>
+                    <p className={css(styles.metadataText)}>{runtime}</p>
                     <p className={css(styles.metadataText)}>&#8226;</p>
                     <p className={css(styles.metadataText)}>{isHD ? 'HD' : 'SD'}</p>
                     <p className={css(styles.metadataText)}>&#8226;</p>
@@ -57,23 +57,9 @@ const MoviePresenter = ({
 
                 <p className={css(styles.synopsis)}>{movie.synopsis}</p>
 
-                <div className={css(styles.buttonContainer)}>
-                    <button className={css(styles.button)} type="button" onClick={startDownload}>Watch Now</button>
-                </div>
-
-                {/* TODO: Move this to a seperate page, perhaps screen?
-                    This also needs styling -> look here: https://docs.videojs.com/tutorial-skins.html#customize-styles
-                 */}
-
-                {/* eslint-disable-next-line */}
-                <video
-                    id="movie-player"
-                    className="video-js"
-                    controls
-                    preload="auto"
-                    style={{ width: '70%', height: 'auto' }}
-                >
-                </video>
+                <Link to={`/video/${movie._id}`} className={css(styles.buttonContainer)}>
+                    <button className={css(styles.button)} type="button">Watch Now</button>
+                </Link>
             </div>
         ) : (
             <Spinner />

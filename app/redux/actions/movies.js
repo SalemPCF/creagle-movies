@@ -34,7 +34,11 @@ export const loadMovies = () => (dispatch, getState, { api }) => {
 
     const page = moviesPage.page + 1;
 
-    api.get(`/movies/${page}`, { params: { sort: 'trending' } })
+    api.get(`/movies/${page}`, {
+        params: {
+            sort: 'trending', order: -1, genre: 'all', keywords: '',
+        },
+    })
         .then(res => res.data)
         .then((data) => {
             const normalized = normalize(data, [movieSchema]);

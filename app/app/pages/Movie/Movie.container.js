@@ -1,35 +1,24 @@
 /* Node */
 import React, { Component } from 'react';
-import WebTorrent from 'webtorrent';
 
 /* Relative */
 import RemoteContext from '../../components/RemoteContext';
-import { logError, logInfo } from '../../../helpers';
 import MoviePresenter from './Movie.presenter';
 import propTypes from './Movie.propTypes';
-import { logSuccess } from '../../../helpers/log';
 
 class MovieContainer extends Component {
     state = {
-        quality: false,
+        quality: '',
     }
-
-    interval = null;
 
     static propTypes = propTypes.container;
 
     static contextType = RemoteContext;
 
-    client = new WebTorrent();
-
     componentDidMount () {
         const { loadMovie, match } = this.props;
 
         loadMovie(match.params.id);
-
-        this.client.on('error', () => {
-            logError('There was an error with WebTorrent.');
-        });
     }
 
     // This method is always called at some point after the component mounts
@@ -46,61 +35,6 @@ class MovieContainer extends Component {
 
             // Set our the quality state value to the first quality value
             this.setState({ quality: qualities[0] });
-        }
-    }
-
-    startDownload = (e) => {
-        e.preventDefault();
-
-        const { movie } = this.props;
-        const { quality } = this.state;
-
-        const remote = this.context;
-
-        this.client.add(movie.torrents.en[quality].url, { path: `${remote.app.getPath('temp')}/Creagle Movies` }, (torrent) => {
-            const file = torrent.files.find(f => f.name.endsWith('.mp4'));
-
-            file.renderTo('video#movie-player', {}, (error) => {
-                if (error) {
-                    logError('An error occured while attempting to use the file.renderTo method.');
-                }
-            });
-
-            this.interval = setInterval(() => {
-                logInfo(`Torrent Progress: ${(torrent.progress * 100).toFixed(1)}%`);
-            }, 1000);
-
-            torrent.on('error', () => {
-                logError('There was an error with this torrent.');
-
-                clearInterval(this.interval);
-            });
-
-            torrent.on('done', () => {
-                clearInterval(this.interval);
-            });
-        });
-    }
-
-    cancelDownload = () => {
-        const { movie } = this.props;
-        const { quality } = this.state;
-
-        if (!quality) { return; }
-
-        const magnetUrl = movie.torrents.en[quality].url;
-        const torrentExists = !!this.client.get(magnetUrl);
-
-        if (torrentExists) {
-            this.client.remove(magnetUrl, (err) => {
-                if (err) {
-                    logError('There was an error while attempting to remove this torrent.');
-                } else {
-                    logSuccess('Removed torrent.');
-                }
-
-                clearInterval(this.interval);
-            });
         }
     }
 
@@ -123,7 +57,7 @@ class MovieContainer extends Component {
         };
     }
 
-    getQuality = () => {
+    isHD = () => {
         const { movie } = this.props;
 
         if (!movie) { return false; }
@@ -131,17 +65,31 @@ class MovieContainer extends Component {
         return Object.keys(movie.torrents.en).includes('1080p');
     }
 
+    getRuntime = () => {
+        const { movie } = this.props;
+
+        if (!movie) { return '0 mins'; }
+
+        const runtime = parseInt(movie.runtime, 10);
+
+        const hours = Math.floor(runtime / 60);
+        const mins = (runtime % 60);
+
+        return hours ? `${hours}h ${mins}m` : `${mins}m`;
+    }
+
     render () {
         const { movie } = this.props;
+        const { quality } = this.state;
 
         return (
             <MoviePresenter
                 movie={movie}
-                startDownload={this.startDownload}
-                cancelDownload={this.cancelDownload}
                 renderMetaData={this.renderMetaData}
                 stars={this.getStars()}
-                isHD={this.getQuality()}
+                isHD={this.isHD()}
+                runtime={this.getRuntime()}
+                quality={quality}
             />
         );
     }

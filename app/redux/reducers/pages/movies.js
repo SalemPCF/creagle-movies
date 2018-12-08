@@ -1,5 +1,6 @@
 /* Relative */
 import { MOVIES } from '../../actions/movies';
+import { flatten } from '../../../helpers';
 
 const initialState = {
     loading: false,
@@ -28,7 +29,13 @@ const moviesReducer = (state = initialState, action) => {
                 page: action.payload.page,
                 pages: {
                     ...state.pages,
-                    [action.payload.page]: action.payload.data.result,
+                    [action.payload.page]: action.payload.data.result.filter(
+                        id => !flatten(
+                            Object.values(
+                                state.pages,
+                            ),
+                        ).includes(id),
+                    ),
                 },
             };
 

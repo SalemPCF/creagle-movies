@@ -12,6 +12,7 @@ import KeyListener from './components/KeyListener';
 /* Relative Pages */
 import Movies from './pages/Movies';
 import Movie from './pages/Movie';
+import Video from './pages/Video';
 
 /* Relative PropTypes, Schemas */
 import propTypes from './App.propTypes';
@@ -42,6 +43,7 @@ class App extends Component {
                         <Switch>
                             <Route exact path="/" component={Movies} />
                             <Route exact path="/movies/:id" component={Movie} />
+                            <Route exact path="/video/:id" component={Video} />
                         </Switch>
                     </Router>
                 </Splashscreen>

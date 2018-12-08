@@ -1,7 +1,7 @@
 /* Relative */
 import { flatten } from './flatten';
 import {
-    logInfo, logWarning, logError, logMessage,
+    logInfo, logWarning, logError, logMessage, logSuccess,
 } from './log';
 
 export {
@@ -10,4 +10,5 @@ export {
     logWarning,
     logError,
     logMessage,
+    logSuccess,
 };

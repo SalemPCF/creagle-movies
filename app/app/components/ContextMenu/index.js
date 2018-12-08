@@ -5,6 +5,8 @@ import { Component } from 'react';
 import RemoteContext from '../RemoteContext';
 
 class ContextMenu extends Component {
+    menu = null;
+
     static contextType = RemoteContext;
 
     state = {
@@ -16,6 +18,13 @@ class ContextMenu extends Component {
         const { Menu, MenuItem, getCurrentWindow } = this.context;
 
         const menu = new Menu();
+
+        menu.append(new MenuItem({
+            label: 'Reload',
+            click: () => {
+                getCurrentWindow().reload();
+            },
+        }));
 
         menu.append(new MenuItem({
             label: 'Inspect Element',

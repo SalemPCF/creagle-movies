@@ -13,6 +13,13 @@ export default {
 
     presenter: {
         movie: Movie,
-        startDownload: PropTypes.func.isRequired,
+        stars: PropTypes.shape({
+            hasHalfStar: PropTypes.bool,
+            filledStars: PropTypes.arrayOf(PropTypes.number),
+            emptyStars: PropTypes.arrayOf(PropTypes.number),
+        }).isRequired,
+        isHD: PropTypes.bool.isRequired,
+        runtime: PropTypes.string.isRequired,
+        quality: PropTypes.string.isRequired,
     },
 };

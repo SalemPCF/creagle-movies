@@ -103,6 +103,7 @@ export default StyleSheet.create({
         position: 'absolute',
         bottom: rem(5),
         left: rem(5),
+        fontFamily: 'Roboto',
     },
 
     button: {

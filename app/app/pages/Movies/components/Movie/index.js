@@ -30,7 +30,7 @@ class Movie extends Component {
         const x = pageX - currentTarget.offsetLeft;
         const y = pageY - currentTarget.offsetTop;
 
-        // And get a timestamp for when this ripple was created
+        // Get a timestamp for when this ripple was created
         const timestamp = this.getTimestamp();
 
         // If there's no existing ripple,
