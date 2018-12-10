@@ -78,6 +78,43 @@ class MovieContainer extends Component {
         return hours ? `${hours}h ${mins}m` : `${mins}m`;
     }
 
+    getHealthStatus = (health) => {
+        if (health <= 0.5) {
+            return 'Bad';
+        }
+
+        if (health > 0.5 && health < 1.5) {
+            return 'Medium';
+        }
+
+        if (health >= 1.5) {
+            return 'Good';
+        }
+
+        return 'Bad';
+    }
+
+    getTorrentInfo = () => {
+        const { movie } = this.props;
+
+        if (!movie) { return 0; }
+
+        const torrent = movie.torrents.en['1080p'] || movie.torrents.en['720p'];
+
+        const { peer, seed } = torrent;
+
+        const health = seed / peer;
+
+        const info = {
+            seeds: seed,
+            peers: peer,
+            health,
+            status: this.getHealthStatus(health),
+        };
+
+        return info;
+    }
+
     render () {
         const { movie } = this.props;
         const { quality } = this.state;
@@ -90,6 +127,7 @@ class MovieContainer extends Component {
                 isHD={this.isHD()}
                 runtime={this.getRuntime()}
                 quality={quality}
+                torrentInfo={this.getTorrentInfo()}
             />
         );
     }

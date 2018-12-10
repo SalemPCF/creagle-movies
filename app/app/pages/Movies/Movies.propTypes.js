@@ -17,5 +17,6 @@ export default {
     presenter: {
         ...shared,
         onBottomReached: PropTypes.func.isRequired,
+        preserveScroll: PropTypes.func.isRequired,
     },
 };

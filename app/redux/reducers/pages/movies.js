@@ -6,6 +6,7 @@ const initialState = {
     loading: false,
     page: 0,
     pages: {},
+    scrollPosition: 0,
 };
 
 const moviesReducer = (state = initialState, action) => {
@@ -37,6 +38,11 @@ const moviesReducer = (state = initialState, action) => {
                         ).includes(id),
                     ),
                 },
+            };
+        case MOVIES.SCROLL:
+            return {
+                ...state,
+                scrollPosition: action.payload.data,
             };
 
         default:

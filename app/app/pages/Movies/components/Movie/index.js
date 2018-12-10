@@ -84,10 +84,15 @@ class Movie extends Component {
     }
 
     afterRipple = () => {
-        const { history, movie: { _id: id } } = this.props;
+        const {
+            history, movie: { _id: id }, preserveScroll, scrollTop,
+        } = this.props;
 
         // Remove the ripple
         this.setState({ ripple: null });
+
+        // Preserve our scroll position
+        preserveScroll(scrollTop);
 
         // Go to the next page
         history.push(`/movies/${id}`);

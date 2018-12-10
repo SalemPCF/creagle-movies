@@ -11,6 +11,7 @@ export const MOVIES = {
         SUCCESS: 'MOVIES:LOAD:SUCCESS',
         FAILURE: 'MOVIES:LOAD:FAILURE',
     },
+    SCROLL: 'MOVIES:SCROLL',
 };
 
 const loadMoviesInitial = () => ({ type: MOVIES.LOAD.INITIAL });
@@ -24,6 +25,13 @@ const loadMoviesSuccess = (data, page) => ({
 });
 
 const loadMoviesFailure = () => ({ type: MOVIES.LOAD.FAILURE });
+
+const preserveScrollEvent = data => ({
+    type: MOVIES.SCROLL,
+    payload: {
+        data,
+    },
+});
 
 export const loadMovies = () => (dispatch, getState, { api }) => {
     const moviesPage = getState().pages.movies;
@@ -50,4 +58,8 @@ export const loadMovies = () => (dispatch, getState, { api }) => {
 
             dispatch(loadMoviesFailure());
         });
+};
+
+export const preserveScroll = clientHeight => (dispatch) => {
+    dispatch(preserveScrollEvent(clientHeight));
 };

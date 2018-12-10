@@ -9,9 +9,18 @@ import VideoPresenter from './Video.presenter';
 import propTypes from './Video.propTypes';
 
 class Video extends Component {
+    state = {
+        started: false,
+        status: 'Initializing...',
+    }
+
     static contextType = RemoteContext;
 
     static propTypes = propTypes.container;
+
+    static defaultProps = {
+        quality: '1080p',
+    }
 
     client = new WebTorrent();
 
@@ -27,42 +36,53 @@ class Video extends Component {
         });
     }
 
-    startDownload = (e) => {
-        e.preventDefault();
+    componentWillReceiveProps = () => {
+        this.startDownload();
+    }
 
-        const { movie } = this.props;
-        const { quality } = this.state;
-
+    startDownload = () => {
+        const { movie, quality } = this.props;
+        const { started } = this.state;
         const remote = this.context;
 
-        this.client.add(movie.torrents.en[quality].url, { path: `${remote.app.getPath('temp')}/Creagle Movies` }, (torrent) => {
-            const file = torrent.files.find(f => f.name.endsWith('.mp4'));
+        if (started || !movie) { return; }
 
-            file.renderTo('video#movie-player', {}, (error) => {
-                if (error) {
-                    logError('An error occured while attempting to use the file.renderTo method.');
-                }
-            });
+        this.setState({ started: true, status: 'Starting Download...' }, () => {
+            this.client.add(movie.torrents.en[quality].url, { path: `${remote.app.getPath('temp')}/Creagle Movies` }, (torrent) => {
+                const file = torrent.files.find(f => f.name.endsWith('.mp4'));
 
-            this.interval = setInterval(() => {
-                logInfo(`Torrent Progress: ${(torrent.progress * 100).toFixed(1)}%`);
-            }, 1000);
+                file.renderTo('video#movie-player', {}, (error) => {
+                    if (error) {
+                        logError('An error occured while attempting to use the file.renderTo method.');
+                    }
+                });
 
-            torrent.on('error', () => {
-                logError('There was an error with this torrent.');
+                const element = document.getElementById('movie-player');
 
-                clearInterval(this.interval);
-            });
+                this.interval = setInterval(() => {
+                    logInfo(`Torrent Progress: ${(torrent.progress * 100).toFixed(1)}%`);
 
-            torrent.on('done', () => {
-                clearInterval(this.interval);
+                    // 4 - HAVE_ENOUGH_DATA
+                    if (element.readyState === 4) {
+                        this.setState({ status: 'Ready' });
+                    }
+                }, 1000);
+
+                torrent.on('error', () => {
+                    logError('There was an error with this torrent.');
+
+                    clearInterval(this.interval);
+                });
+
+                torrent.on('done', () => {
+                    clearInterval(this.interval);
+                });
             });
         });
     }
 
     cancelDownload = () => {
-        const { movie } = this.props;
-        const { quality } = this.state;
+        const { movie, quality } = this.props;
 
         if (!quality) { return; }
 
@@ -84,9 +104,10 @@ class Video extends Component {
 
     render () {
         const { movie } = this.props;
+        const { status } = this.state;
 
         return (
-            <VideoPresenter movie={movie} />
+            <VideoPresenter movie={movie} cancelDownload={this.cancelDownload} status={status} />
         );
     }
 }

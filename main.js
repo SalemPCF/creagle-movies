@@ -1,13 +1,9 @@
 /* Node */
-import { enableLiveReload } from 'electron-compile';
 import { app, BrowserWindow } from 'electron';
 import fs from 'fs-extra';
 
 /* Relative */
 import { DEBUG } from './app/config/globals';
-
-// Let us update our content and reload it automatically
-enableLiveReload();
 
 // Global window object
 let win = null;
@@ -39,19 +35,6 @@ const createWindow = () => {
     // Emitted when the window is closed.
     win.on('closed', () => {
         win = null;
-
-        const tempPath = app.getPath('temp');
-        const creagleTempDir = `${tempPath}\\Creagle Movies`;
-
-        try {
-            const isDir = fs.lstatSync(creagleTempDir).isDirectory();
-
-            if (isDir) {
-                fs.removeSync(creagleTempDir);
-            }
-        } catch (error) {
-            // TODO: Add graceful handling here
-        }
     });
 };
 
@@ -98,10 +81,24 @@ app.on('ready', () => {
     loadExtensions();
 });
 
+
 // When our windows have been closed, close our app.
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
+
+        const tempPath = app.getPath('temp');
+        const creagleTempDir = `${tempPath}\\Creagle Movies`;
+
+        try {
+            const isDir = fs.lstatSync(creagleTempDir).isDirectory();
+
+            if (isDir) {
+                fs.removeSync(creagleTempDir);
+            }
+        } catch (error) {
+            // TODO: Add graceful handling here
+        }
     }
 });
 

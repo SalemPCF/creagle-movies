@@ -1,8 +1,12 @@
+/* eslint-disable no-underscore-dangle */
 /* Node */
 import RoundStarBorder from 'react-md-icon/dist/RoundStarBorder';
+import RoundPlayArrow from 'react-md-icon/dist/RoundPlayArrow';
 import RoundStarHalf from 'react-md-icon/dist/RoundStarHalf';
+import RoundMoodBad from 'react-md-icon/dist/RoundMoodBad';
 import RoundClose from 'react-md-icon/dist/RoundClose';
 import RoundStar from 'react-md-icon/dist/RoundStar';
+import RoundMood from 'react-md-icon/dist/RoundMood';
 import { Link } from 'react-router-dom';
 import { css } from 'aphrodite';
 import React from 'react';
@@ -13,7 +17,7 @@ import propTypes from './Movie.propTypes';
 import styles from './Movie.styles';
 
 const MoviePresenter = ({
-    movie, stars, isHD, runtime, quality,
+    movie, stars, isHD, runtime, quality, torrentInfo,
 }) => (
     <div className={css(styles.container)}>
         {movie && movie.images && movie.images.fanart && (
@@ -53,12 +57,20 @@ const MoviePresenter = ({
                             <RoundStarBorder key={num} className={css(styles.starIcon)} />
                         ))}
                     </div>
+
+                    <p className={css(styles.metadataText)}>&#8226;</p>
+
+                    <div className={css(styles.metadataText, styles.metadataHealth)}>
+                        {torrentInfo.status === 'Good'
+                            ? <RoundMood className={css(styles.healthIcon, styles[`health${torrentInfo.status}`])} />
+                            : <RoundMoodBad className={css(styles.healthIcon, styles[`health${torrentInfo.status}`])} />}
+                    </div>
                 </div>
 
                 <p className={css(styles.synopsis)}>{movie.synopsis}</p>
 
                 <Link to={`/video/${movie._id}`} className={css(styles.buttonContainer)}>
-                    <button className={css(styles.button)} type="button">Watch Now</button>
+                    <button className={css(styles.button)} type="button"><RoundPlayArrow className={css(styles.playIcon)} /></button>
                 </Link>
             </div>
         ) : (

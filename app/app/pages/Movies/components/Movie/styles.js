@@ -87,6 +87,7 @@ export default StyleSheet.create({
         fontFamily: fonts.primary,
         fontSize: rem(1),
         userSelect: 'none',
+        cursor: 'pointer',
     },
 
     infoText_primary: {

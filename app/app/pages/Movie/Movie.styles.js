@@ -53,7 +53,6 @@ export default StyleSheet.create({
         bottom: 0,
         right: 0,
         zIndex: 3,
-        overflowY: 'scroll',
         padding: rem(5),
         width: perc(100),
     },
@@ -82,11 +81,39 @@ export default StyleSheet.create({
         marginTop: px(-5),
     },
 
+    metadataHealth: {
+        marginTop: px(-3),
+    },
+
     starIcon: {
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
         color: colors.starColor,
         cursor: 'context-menu',
         fontSize: px(24),
+    },
+
+    healthIcon: {
+        textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
+        cursor: 'context-menu',
+        fontSize: px(22),
+    },
+
+    playIcon: {
+        textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
+        fontSize: px(28),
+        color: 'white',
+    },
+
+    healthGood: {
+        color: colors.good,
+    },
+
+    healthMedium: {
+        color: colors.medium,
+    },
+
+    healthBad: {
+        color: colors.bad,
     },
 
     synopsis: {
@@ -107,7 +134,7 @@ export default StyleSheet.create({
     },
 
     button: {
-        padding: combine(rem(0.75), rem(1.5)),
+        padding: combine(rem(0.25), rem(2), rem(0.1)),
         borderWidth: 0,
         outline: 'none',
         borderRadius: rem(0.25),
