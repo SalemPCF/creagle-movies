@@ -26,13 +26,6 @@ const loadMoviesSuccess = (data, page) => ({
 
 const loadMoviesFailure = () => ({ type: MOVIES.LOAD.FAILURE });
 
-const preserveScrollEvent = data => ({
-    type: MOVIES.SCROLL,
-    payload: {
-        data,
-    },
-});
-
 export const loadMovies = () => (dispatch, getState, { api }) => {
     const moviesPage = getState().pages.movies;
 
@@ -44,7 +37,10 @@ export const loadMovies = () => (dispatch, getState, { api }) => {
 
     api.get(`/movies/${page}`, {
         params: {
-            sort: 'trending', order: -1, genre: 'all', keywords: '',
+            sort: 'trending',
+            order: -1,
+            genre: 'all',
+            keywords: '',
         },
     })
         .then(res => res.data)
@@ -60,6 +56,7 @@ export const loadMovies = () => (dispatch, getState, { api }) => {
         });
 };
 
-export const preserveScroll = clientHeight => (dispatch) => {
-    dispatch(preserveScrollEvent(clientHeight));
-};
+export const preserveScroll = scrollPosition => ({
+    type: MOVIES.SCROLL,
+    payload: { scrollPosition },
+});

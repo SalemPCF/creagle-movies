@@ -23,26 +23,31 @@ const moviesReducer = (state = initialState, action) => {
                 loading: false,
             };
 
-        case MOVIES.LOAD.SUCCESS:
+        case MOVIES.LOAD.SUCCESS: {
+            // Array of all existing IDs
+            const flattened = flatten(Object.values(state.pages));
+
+            // Array of new IDs. We run it through a set and back to
+            // an array to remove any duplicate IDs - just in case.
+            const newIds = [...new Set(action.payload.data.result)];
+
+            const page = newIds.filter(id => !flattened.includes(id));
+
             return {
                 ...state,
                 loading: false,
                 page: action.payload.page,
                 pages: {
                     ...state.pages,
-                    [action.payload.page]: action.payload.data.result.filter(
-                        id => !flatten(
-                            Object.values(
-                                state.pages,
-                            ),
-                        ).includes(id),
-                    ),
+                    [action.payload.page]: page,
                 },
             };
+        }
+
         case MOVIES.SCROLL:
             return {
                 ...state,
-                scrollPosition: action.payload.data,
+                scrollPosition: action.payload.scrollPosition,
             };
 
         default:
