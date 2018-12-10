@@ -4,7 +4,7 @@ import RoundStarBorder from 'react-md-icon/dist/RoundStarBorder';
 import RoundPlayArrow from 'react-md-icon/dist/RoundPlayArrow';
 import RoundStarHalf from 'react-md-icon/dist/RoundStarHalf';
 import RoundMoodBad from 'react-md-icon/dist/RoundMoodBad';
-import RoundClose from 'react-md-icon/dist/RoundClose';
+import RoundArrowBack from 'react-md-icon/dist/RoundArrowBack';
 import RoundStar from 'react-md-icon/dist/RoundStar';
 import RoundMood from 'react-md-icon/dist/RoundMood';
 import { Link } from 'react-router-dom';
@@ -27,7 +27,7 @@ const MoviePresenter = ({
         <div className={css(styles.overlay)} />
 
         <Link to="/" className={css(styles.closeIcon)}>
-            <RoundClose />
+            <RoundArrowBack />
         </Link>
 
         {movie ? (
@@ -69,7 +69,7 @@ const MoviePresenter = ({
 
                 <p className={css(styles.synopsis)}>{movie.synopsis}</p>
 
-                <Link to={`/video/${movie._id}`} className={css(styles.buttonContainer)}>
+                <Link to={`/movies/${movie._id}/watch`} className={css(styles.buttonContainer)}>
                     <button className={css(styles.button)} type="button"><RoundPlayArrow className={css(styles.playIcon)} /></button>
                 </Link>
             </div>

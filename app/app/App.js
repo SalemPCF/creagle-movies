@@ -43,7 +43,7 @@ class App extends Component {
                         <Switch>
                             <Route exact path="/" component={Movies} />
                             <Route exact path="/movies/:id" component={Movie} />
-                            <Route exact path="/video/:id" component={Video} />
+                            <Route exact path="/movies/:id/watch" component={Video} />
                         </Switch>
                     </Router>
                 </Splashscreen>

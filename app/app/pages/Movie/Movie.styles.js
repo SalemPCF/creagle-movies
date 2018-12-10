@@ -55,6 +55,10 @@ export default StyleSheet.create({
         zIndex: 3,
         padding: rem(5),
         width: perc(100),
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
     },
 
     title: {
@@ -127,13 +131,12 @@ export default StyleSheet.create({
     },
 
     buttonContainer: {
-        position: 'absolute',
-        bottom: rem(5),
-        left: rem(5),
         fontFamily: 'Roboto',
+        width: perc(100),
     },
 
     button: {
+        width: perc(100),
         padding: combine(rem(0.25), rem(2), rem(0.1)),
         borderWidth: 0,
         outline: 'none',

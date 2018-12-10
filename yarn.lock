@@ -4543,10 +4543,10 @@ react-dom@^16.6.3:
     prop-types "^15.6.2"
     scheduler "^0.11.2"
 
-react-google-font-loader@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-google-font-loader/-/react-google-font-loader-1.0.2.tgz#145c57ccc65f2a8ad94f5370f1f6d829f569d292"
-  integrity sha512-FXLVrW8HoINNmpMMcbcx87L6ECvA0vo22BULq6e0hazJ7mnEjbJTFkvKcqv+5fDtgRLwwZM3to7dHyp0rb5bAg==
+react-google-font-loader@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-google-font-loader/-/react-google-font-loader-1.0.4.tgz#849f4a9f3820bdf9776eeecfbde2a8dff8e922c7"
+  integrity sha512-9/AU5k7RVce12xm8AnB068yJ21RubwH9rmJoZiT0iuCYkREOoqLibB2k1MNZwgZrQuqL6aA8JBbFgCb8AXq2Jw==
   dependencies:
     prop-types "^15.6.2"
 

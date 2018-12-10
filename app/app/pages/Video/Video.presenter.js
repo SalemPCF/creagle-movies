@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* Node */
-import RoundClose from 'react-md-icon/dist/RoundClose';
+import RoundArrowBack from 'react-md-icon/dist/RoundArrowBack';
 import { Link } from 'react-router-dom';
 import { css } from 'aphrodite';
 import React from 'react';
@@ -21,7 +21,7 @@ const VideoPresenter = ({ movie, cancelDownload, status }) => (
 
             <div className={css(styles.videoContainer)}>
                 <Link to={`/movies/${movie._id}`} className={css(styles.closeIcon)} onClick={cancelDownload}>
-                    <RoundClose />
+                    <RoundArrowBack />
                 </Link>
 
                 <video

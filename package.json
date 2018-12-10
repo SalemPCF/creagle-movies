@@ -41,7 +41,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-google-font-loader": "^1.0.2",
+    "react-google-font-loader": "^1.0.4",
     "react-md-icon": "^1.13.0",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
