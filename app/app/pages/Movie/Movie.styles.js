@@ -3,7 +3,7 @@ import { StyleSheet } from 'aphrodite';
 import {
     colors, rgba, fonts, shadows,
     perc, px, rem, second,
-    blur, combine, scale,
+    blur, combine, scale, translateX,
 } from '../../../styles';
 
 export default StyleSheet.create({
@@ -49,16 +49,18 @@ export default StyleSheet.create({
     innerContainer: {
         position: 'fixed',
         top: 0,
-        left: 0,
+        left: perc(50),
         bottom: 0,
         right: 0,
         zIndex: 3,
         padding: rem(5),
         width: perc(100),
+        maxWidth: px(800),
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'flex-start',
+        transform: translateX(perc(-50)),
     },
 
     title: {
