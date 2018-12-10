@@ -31,17 +31,25 @@ class Video extends Component {
 
         loadMovie(match.params.id);
 
-        this.client.on('error', () => {
+        this.client.on('error', (error) => {
             logError('There was an error with WebTorrent.');
+            console.log(error);
         });
     }
 
-    componentWillReceiveProps = () => {
-        this.startDownload();
+    // If the component is about to update, let's try and start our download
+    componentDidUpdate = prevProps => this.startDownload(prevProps)
+
+    componentWillUnmount = () => {
+        // Cancel our download and remove the magnet link from WebTorrent
+        this.cancelDownload();
+
+        // Make sure we clear our interval to prevent a memory leak
+        clearInterval(this.interval);
     }
 
-    startDownload = () => {
-        const { movie, quality } = this.props;
+    startDownload = (props) => {
+        const { movie, quality } = props;
         const { started } = this.state;
         const remote = this.context;
 
@@ -96,8 +104,6 @@ class Video extends Component {
                 } else {
                     logSuccess('Removed torrent.');
                 }
-
-                clearInterval(this.interval);
             });
         }
     }
@@ -107,7 +113,7 @@ class Video extends Component {
         const { status } = this.state;
 
         return (
-            <VideoPresenter movie={movie} cancelDownload={this.cancelDownload} status={status} />
+            <VideoPresenter movie={movie} status={status} />
         );
     }
 }

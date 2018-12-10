@@ -45,7 +45,7 @@
     "react-md-icon": "^1.13.0",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
-    "react-truncate": "^2.4.0",
+    "react-truncate-markup": "^2.0.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "video.js": "^7.3.0",

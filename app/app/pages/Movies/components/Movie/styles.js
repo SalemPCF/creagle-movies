@@ -66,8 +66,11 @@ export default StyleSheet.create({
 
     poster: {
         width: '100%',
-        minHeight: 273,
         display: 'block',
+        minHeight: px(273),
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
     },
 
     hdIcon: {

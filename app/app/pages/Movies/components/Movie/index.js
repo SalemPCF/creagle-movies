@@ -1,8 +1,8 @@
 /* Node */
+import TruncateMarkup from 'react-truncate-markup';
 import RoundHd from 'react-md-icon/dist/RoundHd';
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
-import Truncate from 'react-truncate';
 import { css } from 'aphrodite';
 
 /* Relative */
@@ -26,6 +26,9 @@ class Movie extends Component {
         const { pageX, pageY, currentTarget } = e;
         const { ripple } = this.state;
         const { getScrollPosition } = this.props;
+
+        // If our window event has been triggered by a right click, prevent the redirect
+        if (window.event.which !== 1) { return; }
 
         // We determine the coordinates to render our ripple at
         const x = pageX - currentTarget.offsetLeft;
@@ -130,14 +133,14 @@ class Movie extends Component {
                     <RoundHd className={css(styles.hdIcon)} />
                 )}
 
-                <div className={css(styles.poster)}>
-                    <img className={css(styles.poster)} src={images.poster} onError={this.handleImageError} alt="" />
-                </div>
+                <div className={css(styles.poster)} style={{ backgroundImage: `url(${images.poster})` }} />
 
                 <div className={css(styles.info)}>
-                    <p className={css(styles.infoText, styles.infoText_primary)}>
-                        <Truncate lines={1} ellipsis="...">{title}</Truncate>
-                    </p>
+                    <TruncateMarkup lines={1}>
+                        <p className={css(styles.infoText, styles.infoText_primary)}>
+                            {title}
+                        </p>
+                    </TruncateMarkup>
 
                     <p className={css(styles.infoText, styles.infoText_secondary)}>
                         {year}

@@ -69,6 +69,8 @@ export default StyleSheet.create({
         width: '100%',
         height: 'auto',
         zIndex: 3,
+        maxWidth: '100vw',
+        maxHeight: '100vh',
     },
 
     ready: {
