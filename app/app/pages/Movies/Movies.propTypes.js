@@ -12,11 +12,13 @@ export default {
     container: {
         ...shared,
         loadMovies: PropTypes.func.isRequired,
+        scrollPosition: PropTypes.number.isRequired,
     },
 
     presenter: {
         ...shared,
         onBottomReached: PropTypes.func.isRequired,
-        preserveScroll: PropTypes.func.isRequired,
+        saveScrollPosition: PropTypes.func.isRequired,
+        getScrollPosition: PropTypes.func.isRequired,
     },
 };

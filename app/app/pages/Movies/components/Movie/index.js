@@ -25,10 +25,11 @@ class Movie extends Component {
     handleMouseDown = (e) => {
         const { pageX, pageY, currentTarget } = e;
         const { ripple } = this.state;
+        const { getScrollPosition } = this.props;
 
         // We determine the coordinates to render our ripple at
         const x = pageX - currentTarget.offsetLeft;
-        const y = pageY - currentTarget.offsetTop;
+        const y = (pageY - currentTarget.offsetTop) + getScrollPosition();
 
         // Get a timestamp for when this ripple was created
         const timestamp = this.getTimestamp();
@@ -85,14 +86,15 @@ class Movie extends Component {
 
     afterRipple = () => {
         const {
-            history, movie: { _id: id }, preserveScroll, scrollTop,
+            history, movie: { _id: id },
+            saveScrollPosition,
         } = this.props;
 
         // Remove the ripple
         this.setState({ ripple: null });
 
-        // Preserve our scroll position
-        preserveScroll(scrollTop);
+        // Save the scroll position
+        saveScrollPosition();
 
         // Go to the next page
         history.push(`/movies/${id}`);

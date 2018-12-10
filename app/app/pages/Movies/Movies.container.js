@@ -8,9 +8,18 @@ import propTypes from './Movies.propTypes';
 class MoviesContainer extends Component {
     static propTypes = propTypes.container;
 
-    scrollTop = 0;
-
     scroller = createRef();
+
+    // eslint-disable-next-line react/destructuring-assignment
+    currentScroll = this.props.scrollPosition;
+
+    componentDidMount () {
+        // If our currentScroll > 0, we've scrolled down the page.
+        // Let's set the page scroll position back to the preserved value.
+        if (this.currentScroll > 0 && this.scroller.current) {
+            this.scroller.current.scrollTop = this.currentScroll;
+        }
+    }
 
     handleBottomReached = (event) => {
         const { loadMovies } = this.props;
@@ -19,8 +28,7 @@ class MoviesContainer extends Component {
 
         const distanceToBottom = scrollHeight - scrollTop;
 
-        // Store our scroll value
-        this.scrollTop = scrollTop;
+        this.currentScroll = scrollTop;
 
         // If we're close to the bottom of the page, send out another request and get more content!
         if (distanceToBottom <= (clientHeight + 250)) {
@@ -28,29 +36,24 @@ class MoviesContainer extends Component {
         }
     }
 
-    componentDidMount = () => {
-        const { scrollPosition } = this.props;
+    saveScrollPosition = () => {
+        const { preserveScroll } = this.props;
 
-        // If our scrollPosition > 0, we've scrolled down the page.
-        // Let's set the page scroll position back to the preserved
-        if (scrollPosition > 0) {
-            this.scroller.current.scrollTop = scrollPosition;
-        }
+        preserveScroll(this.currentScroll);
     }
 
+    getScrollPosition = () => this.currentScroll;
+
     render () {
-        const { movies, preserveScroll } = this.props;
+        const { movies } = this.props;
 
         return (
             <MoviesPresenter
+                ref={this.scroller}
                 movies={movies}
                 onBottomReached={this.handleBottomReached}
-                preserveScroll={preserveScroll}
-                // This is very nearly done. Everything is handled except how the scrolltop is passed down.
-                // Instead of being passed as props, it needs to be passed as context so when we click something
-                // we have the most updated value of scrollTop and can then preserve it in our store.
-                scrollTop={this.scrollTop}
-                scroller={this.scroller}
+                saveScrollPosition={this.saveScrollPosition}
+                getScrollPosition={this.getScrollPosition}
             />
         );
     }
