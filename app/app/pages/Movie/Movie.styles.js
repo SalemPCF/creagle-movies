@@ -2,13 +2,13 @@ import { StyleSheet } from 'aphrodite';
 
 import {
     colors, rgba, fonts, shadows,
-    perc, px, rem, second,
+    perc, px, rem, second, radialGradient,
     blur, combine, scale, translateX,
 } from '../../../styles';
 
 export default StyleSheet.create({
     container: {
-        background: 'black',
+        background: colors.background.two,
         width: perc(100),
         height: perc(100),
         position: 'relative',
@@ -33,7 +33,10 @@ export default StyleSheet.create({
         zIndex: 2,
         width: perc(100),
         height: perc(100),
-        background: rgba(0, 0, 0, 0.75),
+        background: radialGradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.75),
+        ),
     },
 
     closeIcon: {
@@ -94,13 +97,13 @@ export default StyleSheet.create({
     starIcon: {
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
         color: colors.starColor,
-        cursor: 'context-menu',
+        cursor: 'default',
         fontSize: px(24),
     },
 
     healthIcon: {
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
-        cursor: 'context-menu',
+        cursor: 'default',
         fontSize: px(22),
     },
 
@@ -132,22 +135,21 @@ export default StyleSheet.create({
         marginBottom: rem(1),
     },
 
-    buttonContainer: {
-        fontFamily: 'Roboto',
-        width: perc(100),
-    },
-
     button: {
+        fontFamily: 'Roboto',
+        fontSize: rem(0.875),
+        textDecoration: 'none',
+        color: colors.text.primary,
+        background: colors.primary,
         width: perc(100),
-        padding: combine(rem(0.25), rem(2), rem(0.1)),
+        padding: rem(0.25, 2, 0.1),
         borderWidth: 0,
-        outline: 'none',
         borderRadius: rem(0.25),
         boxShadow: shadows.one,
-        background: colors.primary,
-        color: colors.text.primary,
         transition: combine('background-color', second(0.3)),
-        cursor: 'pointer',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
 
         ':hover': {
             background: colors.primaryAccent,

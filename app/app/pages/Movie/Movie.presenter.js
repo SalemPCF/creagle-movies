@@ -17,7 +17,7 @@ import propTypes from './Movie.propTypes';
 import styles from './Movie.styles';
 
 const MoviePresenter = ({
-    movie, stars, isHD, runtime, quality, torrentInfo,
+    movie, stars, isHD, runtime, torrentInfo,
 }) => (
     <div className={css(styles.container)}>
         {movie && movie.images && movie.images.fanart && (
@@ -69,8 +69,9 @@ const MoviePresenter = ({
 
                 <p className={css(styles.synopsis)}>{movie.synopsis}</p>
 
-                <Link to={`/movies/${movie._id}/watch`} className={css(styles.buttonContainer)}>
-                    <button className={css(styles.button)} type="button"><RoundPlayArrow className={css(styles.playIcon)} /></button>
+                <Link to={`/movies/${movie._id}/watch`} className={css(styles.button)}>
+                    <RoundPlayArrow className={css(styles.playIcon)} />
+                    <span>Watch Now</span>
                 </Link>
             </div>
         ) : (
