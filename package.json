@@ -47,6 +47,7 @@
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "react-truncate-markup": "^2.0.1",
+    "react-virtualized": "^9.21.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "video.js": "^7.3.0",

@@ -1,28 +1,54 @@
 /* eslint-disable no-underscore-dangle */
 /* Node */
 import React, { forwardRef } from 'react';
-import { css } from 'aphrodite';
+import { Grid } from 'react-virtualized';
 
 /* Relative */
 import propTypes from './Movies.propTypes';
-import styles from './Movies.styles';
 import Movie from './components/Movie';
 
 const MoviesPresenter = forwardRef(({
-    movies, onBottomReached, saveScrollPosition, getScrollPosition,
+    grid,
+    movies,
+    onScroll,
+    getScrollPosition,
+    saveScrollPosition,
 }, ref) => (
-    <div ref={ref} className={css(styles.container)} onScroll={onBottomReached}>
-        <div className={css(styles.movies)}>
-            {movies.length >= 0 && movies.map(movie => (
+    // We pass most props down to the Grid, which
+    // handles all sizing and positioning for us
+    <Grid
+        ref={ref}
+        onScroll={onScroll}
+        columnCount={grid.columnCount}
+        columnWidth={grid.columnWidth}
+        rowCount={grid.rowCount}
+        rowHeight={grid.rowHeight}
+        height={grid.height}
+        width={grid.width}
+
+        // This is used to render each cell
+        cellRenderer={({ columnIndex, rowIndex, style, key }) => {
+            // We find the movie for this cell
+            const movie = movies[columnIndex + (rowIndex * grid.columnCount)];
+
+            // If we have a movie, we need to render it,
+            // but because react-virtualized doesn't know
+            // that we don't have enough movies to perfectly
+            // fill the Grid, we need to render a div in
+            // its place to complete the Grid.
+            return movie ? (
                 <Movie
                     key={movie._id}
+                    style={style}
                     movie={movie}
                     getScrollPosition={getScrollPosition}
                     saveScrollPosition={saveScrollPosition}
                 />
-            ))}
-        </div>
-    </div>
+            ) : (
+                <div key={key} style={style} />
+            );
+        }}
+    />
 ));
 
 MoviesPresenter.propTypes = propTypes.presenter;

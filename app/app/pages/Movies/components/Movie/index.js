@@ -90,7 +90,8 @@ class Movie extends Component {
 
     afterRipple = () => {
         const {
-            history, movie: { _id: id },
+            history,
+            movie: { _id: id },
             saveScrollPosition,
         } = this.props;
 
@@ -101,7 +102,7 @@ class Movie extends Component {
         saveScrollPosition();
 
         // Go to the next page
-        history.push(`/movies/${id}`);
+        // history.push(`/movies/${id}`);
     }
 
     handleImageError = (e) => {
@@ -117,6 +118,7 @@ class Movie extends Component {
                 images,
                 torrents,
             },
+            style,
         } = this.props;
 
         const { ripple } = this.state;
@@ -126,37 +128,39 @@ class Movie extends Component {
         if (qualities.length < 0) { return null; }
 
         return (
-            <div
-                className={css(styles.movie)}
-                onMouseDown={this.handleMouseDown}
-                onMouseUp={this.handleMouseUp}
-            >
-                {qualities.includes('1080p') && (
-                    <RoundHd className={css(styles.hdIcon)} />
-                )}
+            <div style={style} className={css(styles.movieContainer)}>
+                <div
+                    className={css(styles.movie)}
+                    onMouseDown={this.handleMouseDown}
+                    onMouseUp={this.handleMouseUp}
+                >
+                    {qualities.includes('1080p') && (
+                        <RoundHd className={css(styles.hdIcon)} />
+                    )}
 
-                <Poster
-                    movieId={id}
-                    image={images.poster}
-                />
+                    <Poster
+                        movieId={id}
+                        image={images.poster}
+                    />
 
-                <div className={css(styles.info)}>
-                    <TruncateMarkup lines={1}>
-                        <p className={css(styles.infoText, styles.infoText_primary)}>
-                            {title}
+                    <div className={css(styles.info)}>
+                        <TruncateMarkup lines={1}>
+                            <p className={css(styles.infoText, styles.infoText_primary)}>
+                                {title}
+                            </p>
+                        </TruncateMarkup>
+
+                        <p className={css(styles.infoText, styles.infoText_secondary)}>
+                            {year}
                         </p>
-                    </TruncateMarkup>
-
-                    <p className={css(styles.infoText, styles.infoText_secondary)}>
-                        {year}
-                    </p>
-                </div>
-
-                {ripple && (
-                    <div className={css(styles.ripple)} style={{ left: ripple.x, top: ripple.y }}>
-                        <div className={css(styles.rippleInner)} />
                     </div>
-                )}
+
+                    {ripple && (
+                        <div className={css(styles.ripple)} style={{ left: ripple.x, top: ripple.y }}>
+                            <div className={css(styles.rippleInner)} />
+                        </div>
+                    )}
+                </div>
             </div>
         );
     }

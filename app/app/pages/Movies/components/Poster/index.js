@@ -77,14 +77,12 @@ class Poster extends React.PureComponent {
 
     render () {
         const { url } = this.state;
-        return (
-            <div
+
+        return url && (
+            <img
                 className={css(styles.poster)}
-                style={{
-                    background: url
-                        ? `url(${url})`
-                        : colors.background.two,
-                }}
+                src={url}
+                alt="Movie"
             />
         );
     }

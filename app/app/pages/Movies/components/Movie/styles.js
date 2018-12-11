@@ -1,7 +1,7 @@
 import { StyleSheet } from 'aphrodite';
 import {
     colors, shadows, fonts,
-    rgba, calc,
+    rgba, combine, linearGradient,
     rem, perc, second, px,
     combineTransforms, translateY, translate, scale,
 } from '../../../../../styles';
@@ -31,46 +31,27 @@ const rippleKeyframes = {
 };
 
 export default StyleSheet.create({
+    movieContainer: {
+        padding: rem(0.25),
+    },
+
     movie: {
         background: colors.background.two,
         borderRadius: rem(0.25),
         boxShadow: shadows.one,
         transition: 'all .3s cubic-bezier(.25, .8, .25, 1)',
         cursor: 'pointer',
-        margin: rem(0.25),
+        // margin: rem(0.25),
         overflow: 'hidden',
         textDecoration: 'none',
         position: 'relative',
+        width: perc(100),
+        height: perc(100),
 
         ':hover': {
             boxShadow: shadows.two,
             transform: translateY(rem(-0.25)),
         },
-
-        '@media (max-width: 525px)': {
-            width: calc(perc(50), '-', rem(0.5)),
-        },
-
-        '@media (min-width: 525px) and (max-width: 960px)': {
-            width: calc(perc(25), '-', rem(0.5)),
-        },
-
-        '@media (min-width: 961px) and (max-width: 1392px)': {
-            width: calc(perc(20), '-', rem(0.5)),
-        },
-
-        '@media (min-width: 1397px)': {
-            width: calc(perc(10), '-', rem(0.5)),
-        },
-    },
-
-    poster: {
-        width: '100%',
-        display: 'block',
-        minHeight: px(273),
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
     },
 
     hdIcon: {
@@ -84,6 +65,16 @@ export default StyleSheet.create({
 
     info: {
         padding: rem(0.5),
+        position: 'absolute',
+        left: 0,
+        bottom: 0,
+        width: perc(100),
+        background: linearGradient(
+            'to top',
+            combine(rgba(0, 0, 0, 0.4), perc(70)),
+            combine(rgba(0, 0, 0, 0.2), perc(80)),
+            'transparent',
+        ),
     },
 
     infoText: {
