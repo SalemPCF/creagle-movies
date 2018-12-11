@@ -41,7 +41,6 @@ export default StyleSheet.create({
         boxShadow: shadows.one,
         transition: 'all .3s cubic-bezier(.25, .8, .25, 1)',
         cursor: 'pointer',
-        // margin: rem(0.25),
         overflow: 'hidden',
         textDecoration: 'none',
         position: 'relative',
