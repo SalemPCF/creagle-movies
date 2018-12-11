@@ -22,12 +22,13 @@ class MoviesContainer extends Component {
     // eslint-disable-next-line react/destructuring-assignment
     currentScroll = this.props.scrollPosition;
 
+    initialScrollCompleted = false;
+
     componentDidMount () {
         // If our currentScroll > 0, we've scrolled down the page.
         // Let's set the page scroll position back to the preserved value.
         if (this.currentScroll > 0 && this.scroller.current) {
             const scrollTop = this.currentScroll;
-            console.log({ scrollTop });
             this.scroller.current.scrollToPosition({ scrollTop });
         }
 
@@ -57,12 +58,16 @@ class MoviesContainer extends Component {
 
         const distanceToBottom = scrollHeight - scrollTop;
 
-        this.currentScroll = scrollTop;
+        if (this.initialScrollCompleted) {
+            this.currentScroll = scrollTop;
+        }
 
         // If we're close to the bottom of the page, send out another request and get more content!
         if (distanceToBottom <= (clientHeight + 250)) {
             loadMovies();
         }
+
+        this.initialScrollCompleted = true;
     }
 
     // Fire a redux event to save the current scroll value
