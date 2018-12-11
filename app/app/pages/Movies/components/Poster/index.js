@@ -2,7 +2,6 @@ import React from 'react';
 import { css } from 'aphrodite';
 
 import { withDatabase } from '../../../../components/Database';
-import { colors } from '../../../../../styles';
 import { api } from '../../../../../services/api';
 
 import styles from './styles';
