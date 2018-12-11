@@ -26,14 +26,14 @@ class Movie extends Component {
     handleMouseDown = (e) => {
         const { pageX, pageY, currentTarget } = e;
         const { ripple } = this.state;
-        const { getScrollPosition } = this.props;
+        const { getScrollPosition, style } = this.props;
 
         // If our window event has been triggered by a right click, prevent the redirect
         if (window.event.which !== 1) { return; }
 
         // We determine the coordinates to render our ripple at
-        const x = pageX - currentTarget.offsetLeft;
-        const y = (pageY - currentTarget.offsetTop) + getScrollPosition();
+        const x = pageX - currentTarget.offsetLeft - style.left;
+        const y = (pageY - currentTarget.offsetTop - style.top) + getScrollPosition();
 
         // Get a timestamp for when this ripple was created
         const timestamp = this.getTimestamp();
