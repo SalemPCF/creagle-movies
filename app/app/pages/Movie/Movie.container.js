@@ -78,22 +78,6 @@ class MovieContainer extends Component {
         return hours ? `${hours}h ${mins}m` : `${mins}m`;
     }
 
-    getHealthStatus = (health) => {
-        if (health <= 0.5) {
-            return 'Bad';
-        }
-
-        if (health > 0.5 && health < 1.5) {
-            return 'Medium';
-        }
-
-        if (health >= 1.5) {
-            return 'Good';
-        }
-
-        return 'Bad';
-    }
-
     getTorrentInfo = () => {
         const { movie } = this.props;
 
@@ -103,13 +87,12 @@ class MovieContainer extends Component {
 
         const { peer, seed } = torrent;
 
-        const health = seed / peer;
+        const ratio = (seed / peer).toFixed(2);
 
         const info = {
             seeds: seed,
             peers: peer,
-            health,
-            status: this.getHealthStatus(health),
+            ratio,
         };
 
         return info;

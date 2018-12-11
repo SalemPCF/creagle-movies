@@ -90,8 +90,14 @@ export default StyleSheet.create({
         marginTop: px(-5),
     },
 
-    metadataHealth: {
-        marginTop: px(-3),
+    metadataRatio: {
+        display: 'flex',
+        marginTop: px(-4),
+    },
+
+    torrentRatio: {
+        marginTop: px(2),
+        marginLeft: px(5),
     },
 
     starIcon: {
@@ -101,28 +107,17 @@ export default StyleSheet.create({
         fontSize: px(24),
     },
 
-    healthIcon: {
+    arrowsIcon: {
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
         cursor: 'default',
-        fontSize: px(22),
+        color: colors.text.secondary,
+        fontSize: px(24),
     },
 
     playIcon: {
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
         fontSize: px(28),
         color: 'white',
-    },
-
-    healthGood: {
-        color: colors.good,
-    },
-
-    healthMedium: {
-        color: colors.medium,
-    },
-
-    healthBad: {
-        color: colors.bad,
     },
 
     synopsis: {

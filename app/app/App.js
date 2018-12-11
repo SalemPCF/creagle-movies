@@ -27,6 +27,39 @@ class App extends Component {
         const { loadMovies } = this.props;
 
         loadMovies();
+
+        const dbVersion = 1;
+        const request = window.indexedDB.open('creagleMovies', dbVersion);
+
+        request.onsuccess = () => {
+            console.log('success');
+
+            const db = request.result;
+
+            db.onerror = () => {
+                console.log('a problem occured while creating/accessing the database');
+            };
+
+            request.onupgradeneeded = (event) => {
+                db.createObjectStore(event.target.result);
+            };
+
+            let blob = null;
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('GET', 'https://images.sftcdn.net/images/t_app-cover-l,f_auto/p/ce2ece60-9b32-11e6-95ab-00163ed833e7/260663710/the-test-fun-for-friends-screenshot.jpg', true);
+
+            xhr.responseType = 'blob';
+
+            xhr.addEventListener('load', () => {
+                if (xhr.status === 200) {
+                    console.log('imaged retrieved');
+
+                    blob = xhr.response;
+                }
+            });
+        };
     }
 
     render () {

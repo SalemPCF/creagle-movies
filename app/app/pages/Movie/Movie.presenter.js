@@ -1,12 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 /* Node */
+import BaselineTrendingUp from 'react-md-icon/dist/BaselineTrendingUp';
 import RoundStarBorder from 'react-md-icon/dist/RoundStarBorder';
+import RoundArrowBack from 'react-md-icon/dist/RoundArrowBack';
 import RoundPlayArrow from 'react-md-icon/dist/RoundPlayArrow';
 import RoundStarHalf from 'react-md-icon/dist/RoundStarHalf';
-import RoundMoodBad from 'react-md-icon/dist/RoundMoodBad';
-import RoundArrowBack from 'react-md-icon/dist/RoundArrowBack';
 import RoundStar from 'react-md-icon/dist/RoundStar';
-import RoundMood from 'react-md-icon/dist/RoundMood';
 import { Link } from 'react-router-dom';
 import { css } from 'aphrodite';
 import React from 'react';
@@ -60,10 +59,11 @@ const MoviePresenter = ({
 
                     <p className={css(styles.metadataText)}>&#8226;</p>
 
-                    <div className={css(styles.metadataText, styles.metadataHealth)}>
-                        {torrentInfo.status === 'Good'
-                            ? <RoundMood className={css(styles.healthIcon, styles[`health${torrentInfo.status}`])} />
-                            : <RoundMoodBad className={css(styles.healthIcon, styles[`health${torrentInfo.status}`])} />}
+                    <div className={css(styles.metadataText, styles.metadataRatio)}>
+                        <BaselineTrendingUp className={css(styles.arrowsIcon)} />
+                        <div className={css(styles.torrentRatio)}>
+                            {torrentInfo.ratio}
+                        </div>
                     </div>
                 </div>
 

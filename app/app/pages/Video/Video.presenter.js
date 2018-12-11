@@ -10,7 +10,7 @@ import styles from './Video.styles.js';
 import propTypes from './Video.propTypes';
 
 // This needs styling -> look here: https://docs.videojs.com/tutorial-skins.html#customize-styles
-const VideoPresenter = ({ movie, cancelDownload, status }) => (
+const VideoPresenter = ({ movie, status }) => (
     movie ? (
         <div className={css(styles.container)}>
             <div className={css(styles.overlay)} />
@@ -20,7 +20,7 @@ const VideoPresenter = ({ movie, cancelDownload, status }) => (
             )}
 
             <div className={css(styles.videoContainer)}>
-                <Link to={`/movies/${movie._id}`} className={css(styles.closeIcon)} onClick={cancelDownload}>
+                <Link to={`/movies/${movie._id}`} className={css(styles.closeIcon)}>
                     <RoundArrowBack />
                 </Link>
 
