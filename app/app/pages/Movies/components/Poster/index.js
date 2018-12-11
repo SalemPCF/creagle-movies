@@ -7,51 +7,57 @@ import { api } from '../../../../../services/api';
 
 import styles from './styles';
 
-class Poster extends React.Component {
+class Poster extends React.PureComponent {
     state = { url: null };
 
-    getStore = async () => {
+    getStore = async (storeName) => {
         const { getDb } = this.props;
 
         const db = await getDb();
-        const transaction = db.transaction('posters', 'readwrite');
-        const store = transaction.objectStore('posters');
+        const transaction = db.transaction(storeName, 'readwrite');
+        const store = transaction.objectStore(storeName);
 
         return store;
     }
 
-    storeImage = async (blob) => {
+    storeImage = async (base64) => {
         const { movieId } = this.props;
-        const store = await this.getStore();
+        const store = await this.getStore('posters_b64');
 
         // Store the specified blob for this movieID
-        store.put(blob, movieId);
+        store.put(base64, movieId);
     }
 
-    loadImage = async () => {
+    loadImage = () => new Promise(async (resolve) => {
         const { image } = this.props;
 
         // Load the image from the server
         const res = await api.get(image, { responseType: 'blob' });
 
-        // Store the retrieved image for next time
-        this.storeImage(res.data);
+        const reader = new FileReader();
+        reader.readAsDataURL(res.data);
 
-        // Return the object URL of the image
-        return window.URL.createObjectURL(res.data);
-    }
+        reader.onloadend = () => {
+            const base64 = reader.result;
+
+            // Store the retrieved image for next time
+            this.storeImage(base64);
+
+            resolve(base64);
+        };
+    })
 
     getImage = async () => {
         const { movieId } = this.props;
-        const store = await this.getStore();
+        const store = await this.getStore('posters_b64');
 
         // Get an image from the store for the specified movieID
         const img = await store.get(movieId);
 
-        // If we got an image, return it as an object URL,
+        // If we got an image, return it,
         // else load the image
         return img
-            ? window.URL.createObjectURL(img)
+            ? img
             : this.loadImage();
     }
 
