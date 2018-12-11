@@ -100,14 +100,12 @@ export default StyleSheet.create({
     starIcon: {
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
         color: colors.starColor,
-        cursor: 'context-menu',
         fontSize: px(24),
     },
 
     arrowsIcon: {
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
         color: colors.text.secondary,
-        cursor: 'context-menu',
         fontSize: px(24),
     },
 
