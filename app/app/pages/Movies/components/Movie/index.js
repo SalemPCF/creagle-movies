@@ -8,6 +8,7 @@ import { css } from 'aphrodite';
 /* Relative */
 import { movieShape } from './shape';
 import styles from './styles';
+import Poster from '../Poster';
 
 class Movie extends Component {
     static propTypes = movieShape;
@@ -110,6 +111,7 @@ class Movie extends Component {
     render () {
         const {
             movie: {
+                _id: id,
                 title,
                 year,
                 images,
@@ -133,7 +135,10 @@ class Movie extends Component {
                     <RoundHd className={css(styles.hdIcon)} />
                 )}
 
-                <div className={css(styles.poster)} style={{ backgroundImage: `url(${images.poster})` }} />
+                <Poster
+                    movieId={id}
+                    image={images.poster}
+                />
 
                 <div className={css(styles.info)}>
                     <TruncateMarkup lines={1}>
