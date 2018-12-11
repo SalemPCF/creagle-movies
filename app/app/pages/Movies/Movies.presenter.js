@@ -14,43 +14,49 @@ const MoviesPresenter = forwardRef(({
     getScrollPosition,
     saveScrollPosition,
 }, ref) => (
-    // We pass most props down to the Grid, which
-    // handles all sizing and positioning for us
-    <Grid
-        ref={ref}
-        onScroll={onScroll}
-        columnCount={grid.columnCount}
-        columnWidth={grid.columnWidth}
-        rowCount={grid.rowCount}
-        rowHeight={grid.rowHeight}
-        height={grid.height}
-        width={grid.width}
-        // This is the amount of rows react-virtualized pre-renders for us
-        overscanRowCount={2}
+    <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div>
+            <p>start of navbar lol</p>
+        </div>
 
-        // This is used to render each cell
-        cellRenderer={({ columnIndex, rowIndex, style, key }) => {
-            // We find the movie for this cell
-            const movie = movies[columnIndex + (rowIndex * grid.columnCount)];
+        {// We pass most props down to the Grid, which
+            // handles all sizing and positioning for us
+            <Grid
+                ref={ref}
+                onScroll={onScroll}
+                columnCount={grid.columnCount}
+                columnWidth={grid.columnWidth}
+                rowCount={grid.rowCount}
+                rowHeight={grid.rowHeight}
+                height={grid.height}
+                width={grid.width}
+                // This is the amount of rows react-virtualized pre-renders for us
+                overscanRowCount={2}
 
-            // If we have a movie, we need to render it,
-            // but because react-virtualized doesn't know
-            // that we don't have enough movies to perfectly
-            // fill the Grid, we need to render a div in
-            // its place to complete the Grid.
-            return movie ? (
-                <Movie
-                    key={movie._id}
-                    style={style}
-                    movie={movie}
-                    getScrollPosition={getScrollPosition}
-                    saveScrollPosition={saveScrollPosition}
-                />
-            ) : (
-                <div key={key} style={style} />
-            );
-        }}
-    />
+                // This is used to render each cell
+                cellRenderer={({ columnIndex, rowIndex, style, key }) => {
+                // We find the movie for this cell
+                    const movie = movies[columnIndex + (rowIndex * grid.columnCount)];
+
+                    // If we have a movie, we need to render it,
+                    // but because react-virtualized doesn't know
+                    // that we don't have enough movies to perfectly
+                    // fill the Grid, we need to render a div in
+                    // its place to complete the Grid.
+                    return movie ? (
+                        <Movie
+                            key={movie._id}
+                            style={style}
+                            movie={movie}
+                            getScrollPosition={getScrollPosition}
+                            saveScrollPosition={saveScrollPosition}
+                        />
+                    ) : (
+                        <div key={key} style={style} />
+                    );
+                }}
+            />}
+    </div>
 ));
 
 MoviesPresenter.propTypes = propTypes.presenter;
