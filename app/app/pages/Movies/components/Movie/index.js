@@ -102,7 +102,7 @@ class Movie extends Component {
         saveScrollPosition();
 
         // Go to the next page
-        // history.push(`/movies/${id}`);
+        history.push(`/movies/${id}`);
     }
 
     handleImageError = (e) => {
