@@ -11,6 +11,8 @@ import Splashscreen from './components/Splashscreen';
 import ContextMenu from './components/ContextMenu';
 import KeyListener from './components/KeyListener';
 import { Database } from './components/Database';
+import Container from './components/Container';
+import Navbar from './components/Navbar';
 
 /* Relative Pages */
 import Movies from './pages/Movies';
@@ -44,11 +46,15 @@ class App extends Component {
 
                     <Splashscreen delay={1500} ready={!initiating}>
                         <Router>
-                            <Switch>
-                                <Route exact path="/" component={Movies} />
-                                <Route exact path="/movies/:id" component={Movie} />
-                                <Route exact path="/movies/:id/watch" component={Video} />
-                            </Switch>
+                            <Container>
+                                <Navbar />
+
+                                <Switch>
+                                    <Route exact path="/" component={Movies} />
+                                    <Route exact path="/movies/:id" component={Movie} />
+                                    <Route exact path="/movies/:id/watch" component={Video} />
+                                </Switch>
+                            </Container>
                         </Router>
                     </Splashscreen>
                 </Database>

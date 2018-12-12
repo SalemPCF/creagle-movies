@@ -29,6 +29,7 @@ class MoviesContainer extends Component {
         // Let's set the page scroll position back to the preserved value.
         if (this.currentScroll > 0 && this.scroller.current) {
             const scrollTop = this.currentScroll;
+
             this.scroller.current.scrollToPosition({ scrollTop });
         }
 
