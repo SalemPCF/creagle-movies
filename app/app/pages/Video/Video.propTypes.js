@@ -8,7 +8,6 @@ export default {
     container: {
         match: PropTypes.object.isRequired,
         loadMovie: PropTypes.func.isRequired,
-        quality: PropTypes.string,
         movie: Movie,
     },
 

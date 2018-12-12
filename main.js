@@ -10,8 +10,8 @@ let win = null;
 
 // Create our Window
 const createWindow = () => {
-    // Create the browser window.
-    win = new BrowserWindow({ show: false /* frame: false */ });
+    // Create the browser window and prevent the user resizing the window beneath 500*500 px
+    win = new BrowserWindow({ show: false, minWidth: 500, minHeight: 500 });
 
     // Maximize our window
     if (process.platform !== 'darwin') {

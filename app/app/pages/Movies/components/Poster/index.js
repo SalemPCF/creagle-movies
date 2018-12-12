@@ -1,9 +1,10 @@
+/* Node */
 import PropTypes from 'prop-types';
 import { css } from 'aphrodite';
 import React from 'react';
 
+/* Relative */
 import { withDatabase } from '../../../../components/Database';
-
 import styles from './styles';
 
 class Poster extends React.PureComponent {

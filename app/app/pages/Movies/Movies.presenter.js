@@ -26,7 +26,11 @@ const MoviesPresenter = forwardRef(({
         height={grid.height}
         width={grid.width}
         // This is the amount of rows react-virtualized pre-renders for us
-        overscanRowCount={2}
+        // This can't be 1, if it is and there isn't a full row of cards,
+        // the app will get confused
+        overscanRowCount={3}
+        // Remove the outline when you focus on an element inside this component
+        style={{ outline: 'none' }}
 
         // This is used to render each cell
         cellRenderer={({ columnIndex, rowIndex, style, key }) => {

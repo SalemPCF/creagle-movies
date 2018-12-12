@@ -12,7 +12,7 @@ class MoviesContainer extends Component {
     // We reflect window dimensions in state because
     // we want to rerender on resize.
     state = {
-        width: window.innerWidth,
+        width: window.innerWidth - 75,
         height: window.innerHeight,
     };
 
@@ -46,7 +46,7 @@ class MoviesContainer extends Component {
     // only fires once a resize has taken place.
     handleResize = debounce((e) => {
         // Update state to reflect new window sizes
-        const width = e.target.innerWidth;
+        const width = e.target.innerWidth - 75;
         const height = e.target.innerHeight;
 
         this.setState({ width, height });

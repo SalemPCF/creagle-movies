@@ -1,5 +1,3 @@
-/* eslint-disable react/no-multi-comp */
-
 /* Node */
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import GoogleFontLoader from 'react-google-font-loader';
@@ -52,7 +50,7 @@ class App extends Component {
                                 <Switch>
                                     <Route exact path="/" component={Movies} />
                                     <Route exact path="/movies/:id" component={Movie} />
-                                    <Route exact path="/movies/:id/watch" component={Video} />
+                                    <Route exact path="/movies/:id/watch/:quality" component={Video} />
                                 </Switch>
                             </Container>
                         </Router>

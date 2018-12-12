@@ -32,7 +32,7 @@ class Movie extends Component {
         if (window.event.which !== 1) { return; }
 
         // We determine the coordinates to render our ripple at
-        const x = pageX - currentTarget.offsetLeft - style.left;
+        const x = pageX - currentTarget.offsetLeft - style.left - 75;
         const y = (pageY - currentTarget.offsetTop - style.top) + getScrollPosition();
 
         // Get a timestamp for when this ripple was created

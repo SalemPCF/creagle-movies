@@ -1,4 +1,7 @@
+/* Node */
 import { StyleSheet } from 'aphrodite';
+
+/* Relative */
 import {
     colors, shadows, fonts,
     rgba, combine, linearGradient,

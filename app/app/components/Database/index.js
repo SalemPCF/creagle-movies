@@ -1,8 +1,10 @@
 /* eslint-disable react/no-multi-comp */
 
+/* Node */
 import React, { Component, createContext } from 'react';
 import idb from 'idb';
 
+/* Relative */
 import { api } from '../../../services/api';
 import propTypes from './propTypes';
 

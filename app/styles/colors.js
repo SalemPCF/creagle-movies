@@ -1,3 +1,4 @@
+/* Relative */
 import { rgb, rgba } from './color-helpers';
 
 export default {
@@ -21,4 +22,6 @@ export default {
     good: rgba(40, 167, 69, 0.7),
     medium: rgba(255, 193, 7, 0.7),
     bad: rgba(220, 53, 69, 0.7),
+
+    navbar: rgb(26, 35, 126),
 };
