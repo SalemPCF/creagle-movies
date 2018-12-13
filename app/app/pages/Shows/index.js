@@ -1,27 +1,28 @@
 /* Node */
-import React, { Component } from 'react';
+import { denormalize } from 'normalizr';
+import { connect } from 'react-redux';
 
 /* Relative */
-import { api } from '../../../services/api';
+import { loadShows, preserveScroll } from '../../../redux/actions/shows';
+import showSchema from '../../../schemas/show';
+import ShowsContainer from './Shows.container';
+import { flatten } from '../../../helpers';
 
-// NOTE: This component will work the EXACT same way as the Movies component works.
-// Therefore, the Grid logic will need to be seperated out so we can reuse it here.
-class Shows extends Component {
-    componentDidMount = () => {
-        api.get('/shows/1')
-            .then(({ data }) => {
-                console.log(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
+const mapStateToProps = state => ({
+    shows: denormalize(
+        flatten(Object.values(state.pages.shows.pages)),
+        [showSchema],
+        state.entities,
+    ),
+    scrollPosition: state.pages.shows.scrollPosition,
+});
 
-    render () {
-        return (
-            <p>TV Show page</p>
-        );
-    }
-}
+const mapDispatchToProps = dispatch => ({
+    loadShows: () => dispatch(loadShows()),
+    preserveScroll: clientHeight => dispatch(preserveScroll(clientHeight)),
+});
 
-export default Shows;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(ShowsContainer);

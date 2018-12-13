@@ -28,9 +28,10 @@ class App extends Component {
     static propTypes = propTypes;
 
     componentDidMount () {
-        const { loadMovies } = this.props;
+        const { loadMovies, loadShows } = this.props;
 
         loadMovies();
+        loadShows();
     }
 
     render () {
