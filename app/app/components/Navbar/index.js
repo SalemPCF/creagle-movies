@@ -2,9 +2,10 @@
 import OutlineSettings from 'react-md-icon/dist/OutlineSettings';
 import TwotoneSettings from 'react-md-icon/dist/TwotoneSettings';
 import OutlineLiveTv from 'react-md-icon/dist/OutlineLiveTv';
+import TwotoneLiveTv from 'react-md-icon/dist/TwotoneLiveTv';
 import OutlineMovie from 'react-md-icon/dist/OutlineMovie';
 import TwotoneMovie from 'react-md-icon/dist/TwotoneMovie';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { css } from 'aphrodite';
 
@@ -23,6 +24,7 @@ class Navbar extends Component {
             // Movies, Tv Shows: Yes.
             case ('/'):
             case ('/shows'):
+            case ('/settings'):
                 return true;
 
             // Anywhere else: No.
@@ -31,28 +33,16 @@ class Navbar extends Component {
         }
     }
 
-    renderMovieIcon = () => {
+    renderIcon = (pathname, activeComponent, inactiveComponent, pushToBottom = false) => {
         const { location } = this.props;
 
-        const Icon = location.pathname === '/' ? TwotoneMovie : OutlineMovie;
+        const Icon = location.pathname === pathname ? activeComponent : inactiveComponent;
 
-        return <Icon className={css(styles.icon)} />;
-    }
-
-    renderTvIcon = () => {
-        const { location } = this.props;
-
-        const Icon = location.pathname === '/shows' ? TwotoneMovie : OutlineLiveTv;
-
-        return <Icon className={css(styles.icon)} />;
-    }
-
-    renderSettingsIcon = () => {
-        const { location } = this.props;
-
-        const Icon = location.pathname === '/settings' ? TwotoneSettings : OutlineSettings;
-
-        return <Icon className={css(styles.icon, styles.bottom)} />;
+        return (
+            <Link to={pathname} className={css(styles.icon, pushToBottom && styles.bottom)}>
+                <Icon />
+            </Link>
+        );
     }
 
     render () {
@@ -60,9 +50,9 @@ class Navbar extends Component {
 
         return (
             <div className={css(styles.container)}>
-                {this.renderMovieIcon()}
-                {this.renderTvIcon()}
-                {this.renderSettingsIcon()}
+                {this.renderIcon('/', TwotoneMovie, OutlineMovie)}
+                {this.renderIcon('/shows', TwotoneLiveTv, OutlineLiveTv)}
+                {this.renderIcon('/settings', TwotoneSettings, OutlineSettings, true)}
             </div>
         );
     }

@@ -2,9 +2,10 @@
 import React, { Component, createRef } from 'react';
 
 /* Relative */
+import { NAVBAR_WIDTH } from '../../../config/globals';
+import { debounce } from '../../../helpers/debounce';
 import MoviesPresenter from './Movies.presenter';
 import propTypes from './Movies.propTypes';
-import { debounce } from '../../../helpers/debounce';
 
 class MoviesContainer extends Component {
     static propTypes = propTypes.container;
@@ -12,7 +13,7 @@ class MoviesContainer extends Component {
     // We reflect window dimensions in state because
     // we want to rerender on resize.
     state = {
-        width: window.innerWidth - 75,
+        width: window.innerWidth - NAVBAR_WIDTH,
         height: window.innerHeight,
     };
 
@@ -46,7 +47,7 @@ class MoviesContainer extends Component {
     // only fires once a resize has taken place.
     handleResize = debounce((e) => {
         // Update state to reflect new window sizes
-        const width = e.target.innerWidth - 75;
+        const width = e.target.innerWidth - NAVBAR_WIDTH;
         const height = e.target.innerHeight;
 
         this.setState({ width, height });
@@ -64,7 +65,7 @@ class MoviesContainer extends Component {
         }
 
         // If we're close to the bottom of the page, send out another request and get more content!
-        if (distanceToBottom <= (clientHeight + 250)) {
+        if (distanceToBottom <= (clientHeight + 300)) {
             loadMovies();
         }
 

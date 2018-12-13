@@ -23,5 +23,5 @@ export default {
     medium: rgba(255, 193, 7, 0.7),
     bad: rgba(220, 53, 69, 0.7),
 
-    navbar: rgb(26, 35, 126),
+    navbar: rgb(0, 72, 128),
 };

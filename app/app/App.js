@@ -16,6 +16,7 @@ import Navbar from './components/Navbar';
 import Movies from './pages/Movies';
 import Movie from './pages/Movie';
 import Video from './pages/Video';
+import Shows from './pages/Shows';
 
 /* Relative PropTypes, Schemas */
 import propTypes from './App.propTypes';
@@ -50,7 +51,10 @@ class App extends Component {
                                 <Switch>
                                     <Route exact path="/" component={Movies} />
                                     <Route exact path="/movies/:id" component={Movie} />
+
                                     <Route exact path="/movies/:id/watch/:quality" component={Video} />
+
+                                    <Route exact path="/shows" component={Shows} />
                                 </Switch>
                             </Container>
                         </Router>

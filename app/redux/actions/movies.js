@@ -26,15 +26,7 @@ const loadMoviesSuccess = (data, page) => ({
 
 const loadMoviesFailure = () => ({ type: MOVIES.LOAD.FAILURE });
 
-export const loadMovies = () => (dispatch, getState, { api }) => {
-    const moviesPage = getState().pages.movies;
-
-    if (moviesPage.loading) { return; }
-
-    dispatch(loadMoviesInitial());
-
-    const page = moviesPage.page + 1;
-
+const loadMoviesFromServer = async (api, dispatch, page) => {
     api.get(`/movies/${page}`, {
         params: {
             sort: 'trending',
@@ -54,6 +46,21 @@ export const loadMovies = () => (dispatch, getState, { api }) => {
 
             dispatch(loadMoviesFailure());
         });
+};
+
+export const loadMovies = () => async (dispatch, getState, { api }) => {
+    const moviesPage = getState().pages.movies;
+
+    if (moviesPage.loading) { return; }
+
+    dispatch(loadMoviesInitial());
+
+    const page = moviesPage.page + 1;
+
+    // We're sending two requests here. (e.g. page 1 and page 2)
+    // This helps keep the app scrolling more fluid because we've got more data
+    await loadMoviesFromServer(api, dispatch, page);
+    await loadMoviesFromServer(api, dispatch, page + 1);
 };
 
 export const preserveScroll = scrollPosition => ({

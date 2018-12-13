@@ -6,9 +6,10 @@ import React, { Component } from 'react';
 import { css } from 'aphrodite';
 
 /* Relative */
+import { NAVBAR_WIDTH } from '../../../../../config/globals';
 import { movieShape } from './shape';
-import styles from './styles';
 import Poster from '../Poster';
+import styles from './styles';
 
 class Movie extends Component {
     static propTypes = movieShape;
@@ -28,11 +29,11 @@ class Movie extends Component {
         const { ripple } = this.state;
         const { getScrollPosition, style } = this.props;
 
-        // If our window event has been triggered by a right click, prevent the redirect
+        // If our window event hasn't been triggered by a left click, prevent the action
         if (window.event.which !== 1) { return; }
 
         // We determine the coordinates to render our ripple at
-        const x = pageX - currentTarget.offsetLeft - style.left - 75;
+        const x = pageX - currentTarget.offsetLeft - style.left - NAVBAR_WIDTH;
         const y = (pageY - currentTarget.offsetTop - style.top) + getScrollPosition();
 
         // Get a timestamp for when this ripple was created
