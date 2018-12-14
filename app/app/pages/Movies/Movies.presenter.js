@@ -15,6 +15,7 @@ const MoviesPresenter = forwardRef(({
     getScrollPosition,
     saveScrollPosition,
     loadMore,
+    onScroll,
 }, ref) => (
     <div className={css(styles.container)}>
         <SizeTracker className={css(styles.tracker)}>
@@ -26,6 +27,7 @@ const MoviesPresenter = forwardRef(({
                     height={height}
                     items={movies}
                     loadMore={loadMore}
+                    onScroll={onScroll}
                     renderItem={movie => (
                         <Movie
                             movie={movie}
