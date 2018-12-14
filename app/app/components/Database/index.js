@@ -90,7 +90,7 @@ const withDatabase = Comp => class extends Component {
         // Get an image from the store for the specified movieID
         const img = await store.get(movieId);
 
-        // If we got an image, return it. If we didn't load it.
+        // If we got an image, return it. If we didn't, load it.
         return img || this.loadImage(movieId);
     }
 
