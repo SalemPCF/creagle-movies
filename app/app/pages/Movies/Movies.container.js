@@ -10,12 +10,16 @@ class MoviesContainer extends Component {
 
     scroller = createRef();
 
-    // eslint-disable-next-line react/destructuring-assignment
-    currentScroll = this.props.scrollPosition;
+    currentScroll = null;
 
     initialScrollCompleted = false;
 
     componentDidMount () {
+        const { scrollPosition } = this.props;
+
+        // Initialize our scrollPosition
+        this.currentScroll = scrollPosition;
+
         // If our currentScroll > 0, we've scrolled down the page.
         // Let's set the page scroll position back to the preserved value.
         if (this.currentScroll > 0 && this.scroller.current) {

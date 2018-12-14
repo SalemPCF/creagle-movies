@@ -13,7 +13,7 @@ export default StyleSheet.create({
         width: perc(100),
     },
 
-    movie: {
+    show: {
         background: colors.background.two,
         borderRadius: rem(0.25),
         boxShadow: shadows.one,

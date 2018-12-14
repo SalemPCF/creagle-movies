@@ -1,21 +1,72 @@
 /* Node */
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 
 /* Relative */
+import ShowsPresenter from './Shows.presenter';
 import propTypes from './Shows.propTypes';
 
-// NOTE: This component will work the EXACT same way as the Movies component works.
-// Therefore, the Grid logic will need to be seperated out so we can reuse it here.
 class ShowsContainer extends Component {
     static propTypes = propTypes.container;
 
+    scroller = createRef();
+
+    currentScroll = null;
+
+    initialScrollCompleted = false;
+
     componentDidMount = () => {
-        const { shows } = this.props;
+        const { scrollPosition } = this.props;
+
+        // Initialize our scrollPosition
+        this.currentScroll = scrollPosition;
+
+        // If our currentScroll > 0, we've scrolled down the page.
+        // Let's set the page scroll position back to the preserved value.
+        if (this.currentScroll > 0 && this.scroller.current) {
+            this.scroller.current.scrollTo(this.currentScroll);
+        }
     }
 
+    /**
+     * Handles each scroll event by saving the current scroll value.
+     *
+     * @param {mixed} event - The scroll event
+     */
+    handleScroll = (event) => {
+        const { scrollTop } = event;
+
+        if (this.initialScrollCompleted) {
+            this.currentScroll = scrollTop;
+        }
+
+        this.initialScrollCompleted = true;
+    }
+
+    /**
+     * Fires a redux action save the latest scroll position.
+     */
+    saveScrollPosition = () => {
+        const { preserveScroll } = this.props;
+
+        preserveScroll(this.currentScroll);
+    }
+
+    /**
+     * Renders the component.
+     *
+     * @returns {mixed}
+     */
     render () {
+        const { shows, loadShows } = this.props;
+
         return (
-            <p>TV Show page</p>
+            <ShowsPresenter
+                ref={this.scroller}
+                shows={shows}
+                loadMore={loadShows}
+                saveScrollPosition={this.saveScrollPosition}
+                onScroll={this.handleScroll}
+            />
         );
     }
 }

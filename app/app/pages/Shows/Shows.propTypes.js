@@ -14,4 +14,10 @@ export default {
         loadShows: PropTypes.func.isRequired,
         scrollPosition: PropTypes.number.isRequired,
     },
+
+    presenter: {
+        ...shared,
+        onScroll: PropTypes.func.isRequired,
+        saveScrollPosition: PropTypes.func.isRequired,
+    },
 };

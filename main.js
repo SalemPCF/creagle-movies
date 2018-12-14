@@ -11,7 +11,12 @@ let win = null;
 // Create our Window
 const createWindow = () => {
     // Create the browser window and prevent the user resizing the window beneath 500*500 px
-    win = new BrowserWindow({ show: false, minWidth: 500, minHeight: 500 });
+    win = new BrowserWindow({
+        show: false,
+        minWidth: 500,
+        minHeight: 500,
+        icon: `${app.getAppPath()}/app/resources/icons/png/1024x1024.png`,
+    });
 
     // Maximize our window
     if (process.platform !== 'darwin') {
@@ -85,8 +90,6 @@ app.on('ready', () => {
 // When our windows have been closed, close our app.
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
-        app.quit();
-
         const tempPath = app.getPath('temp');
         const creagleTempDir = `${tempPath}\\Creagle Movies`;
 
@@ -99,6 +102,8 @@ app.on('window-all-closed', () => {
         } catch (error) {
             // TODO: Add graceful handling here
         }
+
+        app.quit();
     }
 });
 

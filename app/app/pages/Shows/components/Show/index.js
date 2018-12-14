@@ -1,6 +1,5 @@
 /* Node */
 import TruncateMarkup from 'react-truncate-markup';
-import RoundHd from 'react-md-icon/dist/RoundHd';
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import { css } from 'aphrodite';
@@ -8,48 +7,42 @@ import { css } from 'aphrodite';
 /* Relative */
 import Ripple from '../../../../components/Ripple';
 import Poster from '../../../../components/Poster';
-import { movieShape } from './shape';
+import { showShape } from './shape';
 import styles from './styles';
 
-class Movie extends Component {
-    static propTypes = movieShape;
+class Show extends Component {
+    static propTypes = showShape;
 
     handleRippleEnd = () => {
-        const { history, movie, saveScrollPosition } = this.props;
+        const { history, show, saveScrollPosition } = this.props;
 
         // Save the scroll position
         saveScrollPosition();
 
         // Go to the next page
-        history.push(`/movies/${movie._id}`);
+        history.push(`/shows/${show._id}`);
     }
 
     render () {
-        const { movie } = this.props;
-
-        const qualities = Object.keys(movie.torrents.en);
+        const { show } = this.props;
 
         return (
             <div className={css(styles.container)}>
-                <Ripple styles={styles.movie} onRippleEnd={this.handleRippleEnd}>
-                    {qualities.includes('1080p') && (
-                        <RoundHd className={css(styles.hdIcon)} />
-                    )}
-
+                <Ripple styles={styles.show} onRippleEnd={this.handleRippleEnd}>
                     <Poster
-                        id={movie._id}
-                        image={movie.images.poster}
+                        id={show._id}
+                        image={show.images.poster}
                     />
 
                     <div className={css(styles.info)}>
                         <TruncateMarkup lines={1}>
                             <p className={css(styles.infoText, styles.infoText_primary)}>
-                                {movie.title}
+                                {show.title}
                             </p>
                         </TruncateMarkup>
 
                         <p className={css(styles.infoText, styles.infoText_secondary)}>
-                            {movie.year}
+                            {show.year}
                         </p>
                     </div>
                 </Ripple>
@@ -58,4 +51,4 @@ class Movie extends Component {
     }
 }
 
-export default withRouter(Movie);
+export default withRouter(Show);
