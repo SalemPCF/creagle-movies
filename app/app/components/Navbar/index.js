@@ -3,6 +3,8 @@ import OutlineSettings from 'react-md-icon/dist/OutlineSettings';
 import TwotoneSettings from 'react-md-icon/dist/TwotoneSettings';
 import OutlineLiveTv from 'react-md-icon/dist/OutlineLiveTv';
 import TwotoneLiveTv from 'react-md-icon/dist/TwotoneLiveTv';
+import TwotoneSearch from 'react-md-icon/dist/TwotoneSearch';
+import OutlineSearch from 'react-md-icon/dist/OutlineSearch';
 import OutlineMovie from 'react-md-icon/dist/OutlineMovie';
 import TwotoneMovie from 'react-md-icon/dist/TwotoneMovie';
 import { withRouter, Link } from 'react-router-dom';
@@ -24,6 +26,7 @@ class Navbar extends Component {
             // Movies, Tv Shows: Yes.
             case ('/'):
             case ('/shows'):
+            case ('/search'):
             case ('/settings'):
                 return true;
 
@@ -52,6 +55,7 @@ class Navbar extends Component {
             <div className={css(styles.container)}>
                 {this.renderIcon('/', TwotoneMovie, OutlineMovie)}
                 {this.renderIcon('/shows', TwotoneLiveTv, OutlineLiveTv)}
+                {this.renderIcon('/search', TwotoneSearch, OutlineSearch)}
                 {this.renderIcon('/settings', TwotoneSettings, OutlineSettings, true)}
             </div>
         );
