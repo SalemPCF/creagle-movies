@@ -20,6 +20,7 @@ const MoviesPresenter = forwardRef(({
         <SizeTracker className={css(styles.tracker)}>
             {({ width, height }) => (
                 <Grid
+                    className={css(styles.grid)}
                     ref={ref}
                     width={width}
                     height={height}

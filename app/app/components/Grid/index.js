@@ -160,10 +160,12 @@ class Grid extends Component {
      * @returns {mixed} - React elements
      */
     render () {
+        const { className } = this.props;
         const grid = this.getGridData();
 
         return (
             <VirtualizedGrid
+                className={className}
                 ref={this.grid}
                 onScroll={this.handleScroll}
                 columnCount={grid.columnCount}
