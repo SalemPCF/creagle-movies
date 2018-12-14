@@ -18,7 +18,7 @@ const MoviesPresenter = forwardRef(({
 }, ref) => (
     <div className={css(styles.container)}>
         <SizeTracker className={css(styles.tracker)}>
-            {({ width, height }) => (console.log(width, height),
+            {({ width, height }) => (
                 <Grid
                     ref={ref}
                     width={width}

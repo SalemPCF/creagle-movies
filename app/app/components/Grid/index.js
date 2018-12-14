@@ -1,8 +1,6 @@
 import React, { Component, createRef } from 'react';
 import { Grid as VirtualizedGrid } from 'react-virtualized';
 
-import { getScrollbarWidth } from '../../../helpers/scrollbar';
-
 import propTypes from './propTypes';
 
 /**

@@ -155,7 +155,10 @@ class Movie extends Component {
                     </div>
 
                     {ripple && (
-                        <div className={css(styles.ripple)} style={{ left: ripple.x, top: ripple.y }}>
+                        <div
+                            className={css(styles.ripple)}
+                            style={{ left: ripple.x, top: ripple.y }}
+                        >
                             <div className={css(styles.rippleInner)} />
                         </div>
                     )}
