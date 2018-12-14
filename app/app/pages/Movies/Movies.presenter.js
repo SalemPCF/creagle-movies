@@ -12,7 +12,6 @@ import Movie from './components/Movie';
 
 const MoviesPresenter = forwardRef(({
     movies,
-    getScrollPosition,
     saveScrollPosition,
     loadMore,
     onScroll,
@@ -31,7 +30,6 @@ const MoviesPresenter = forwardRef(({
                     renderItem={movie => (
                         <Movie
                             movie={movie}
-                            getScrollPosition={getScrollPosition}
                             saveScrollPosition={saveScrollPosition}
                         />
                     )}

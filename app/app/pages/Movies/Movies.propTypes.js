@@ -19,6 +19,5 @@ export default {
         ...shared,
         onScroll: PropTypes.func.isRequired,
         saveScrollPosition: PropTypes.func.isRequired,
-        getScrollPosition: PropTypes.func.isRequired,
     },
 };

@@ -39,13 +39,6 @@ class MoviesContainer extends Component {
     }
 
     /**
-     * Gets the current scroll position
-     *
-     * @returns {int}
-     */
-    getScrollPosition = () => this.currentScroll;
-
-    /**
      * Fires a redux action save the latest scroll position.
      */
     saveScrollPosition = () => {
@@ -68,7 +61,6 @@ class MoviesContainer extends Component {
                 movies={movies}
                 loadMore={loadMovies}
                 saveScrollPosition={this.saveScrollPosition}
-                getScrollPosition={this.getScrollPosition}
                 onScroll={this.handleScroll}
             />
         );
