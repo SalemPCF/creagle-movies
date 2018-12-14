@@ -6,12 +6,11 @@ import {
     colors,
     px,
 } from '../../../styles';
-import { NAVBAR_WIDTH } from '../../../config/globals';
 
 export default StyleSheet.create({
     container: {
         height: '100vh',
-        width: px(NAVBAR_WIDTH),
+        width: px(75),
         left: px(0),
         top: px(0),
         display: 'flex',
