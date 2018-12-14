@@ -52,11 +52,16 @@ export const withPosterDatabase = Comp => withDatabase(class extends Component {
         return img || this.loadImage(movieId);
     }
 
+    // Wrap the getImage function to allow us to cancel the promise
+    getImageCancellable = movieId => makeCancellable(this.getImage(movieId))
+
     render () {
+        const { getStore, ...props } = this.props;
+
         return (
             <Comp
-                getImage={movieId => makeCancellable(this.getImage(movieId))}
-                {...this.props}
+                getImage={this.getImageCancellable}
+                {...props}
             />
         );
     }
