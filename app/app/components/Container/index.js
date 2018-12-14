@@ -10,7 +10,7 @@ class Container extends Component {
         const { children } = this.props;
 
         return (
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
                 {children}
             </div>
         );

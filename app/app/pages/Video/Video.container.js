@@ -27,9 +27,8 @@ class Video extends Component {
 
         loadMovie(match.params.id);
 
-        this.client.on('error', (error) => {
+        this.client.on('error', () => {
             logError('There was an error with WebTorrent.');
-            console.log(error);
         });
     }
 

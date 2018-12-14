@@ -11,8 +11,6 @@ class ShowsContainer extends Component {
 
     componentDidMount = () => {
         const { shows } = this.props;
-
-        console.log(shows);
     }
 
     render () {
