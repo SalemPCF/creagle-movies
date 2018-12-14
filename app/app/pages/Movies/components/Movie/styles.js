@@ -42,12 +42,6 @@ export default StyleSheet.create({
         borderRadius: rem(0.25),
         boxShadow: shadows.one,
         transition: 'all .3s cubic-bezier(.25, .8, .25, 1)',
-        cursor: 'pointer',
-        overflow: 'hidden',
-        textDecoration: 'none',
-        position: 'relative',
-        width: perc(100),
-        height: perc(100),
 
         ':hover': {
             boxShadow: shadows.two,
@@ -96,26 +90,5 @@ export default StyleSheet.create({
 
     infoText_secondary: {
         color: colors.text.tertiary,
-    },
-
-    ripple: {
-        position: 'absolute',
-        // 'top' and 'left' are provided from component
-        width: perc(300),
-        paddingBottom: perc(300),
-        transformOrigin: 'center',
-        animationName: rippleKeyframes,
-        animationDuration: second(1),
-        animationFillMode: 'forwards',
-    },
-
-    rippleInner: {
-        width: perc(100),
-        height: perc(100),
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        borderRadius: perc(50),
-        background: rgba(255, 255, 255, 0.3),
     },
 });
