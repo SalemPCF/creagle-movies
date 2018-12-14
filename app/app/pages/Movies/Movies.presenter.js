@@ -1,54 +1,41 @@
-/* eslint-disable no-underscore-dangle */
 /* Node */
 import React, { forwardRef } from 'react';
-import { Grid } from 'react-virtualized';
+import { css } from 'aphrodite';
+
+import Grid from '../../components/Grid';
+import SizeTracker from '../../components/SizeTracker';
 
 /* Relative */
 import propTypes from './Movies.propTypes';
+import styles from './Movies.styles';
 import Movie from './components/Movie';
 
 const MoviesPresenter = forwardRef(({
-    grid,
     movies,
-    onScroll,
     getScrollPosition,
     saveScrollPosition,
+    loadMore,
 }, ref) => (
-    // We pass most props down to the Grid, which
-    // handles all sizing and positioning for us
-    <Grid
-        ref={ref}
-        onScroll={onScroll}
-        columnCount={grid.columnCount}
-        columnWidth={grid.columnWidth}
-        rowCount={grid.rowCount}
-        rowHeight={grid.rowHeight}
-        height={grid.height}
-        width={grid.width}
-
-        // This is used to render each cell
-        cellRenderer={({ columnIndex, rowIndex, style, key }) => {
-            // We find the movie for this cell
-            const movie = movies[columnIndex + (rowIndex * grid.columnCount)];
-
-            // If we have a movie, we need to render it,
-            // but because react-virtualized doesn't know
-            // that we don't have enough movies to perfectly
-            // fill the Grid, we need to render a div in
-            // its place to complete the Grid.
-            return movie ? (
-                <Movie
-                    key={movie._id}
-                    style={style}
-                    movie={movie}
-                    getScrollPosition={getScrollPosition}
-                    saveScrollPosition={saveScrollPosition}
+    <div className={css(styles.container)}>
+        <SizeTracker className={css(styles.tracker)}>
+            {({ width, height }) => (console.log(width, height),
+                <Grid
+                    ref={ref}
+                    width={width}
+                    height={height}
+                    items={movies}
+                    loadMore={loadMore}
+                    renderItem={movie => (
+                        <Movie
+                            movie={movie}
+                            getScrollPosition={getScrollPosition}
+                            saveScrollPosition={saveScrollPosition}
+                        />
+                    )}
                 />
-            ) : (
-                <div key={key} style={style} />
-            );
-        }}
-    />
+            )}
+        </SizeTracker>
+    </div>
 ));
 
 MoviesPresenter.propTypes = propTypes.presenter;
