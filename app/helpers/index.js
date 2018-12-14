@@ -3,6 +3,7 @@ import { flatten } from './flatten';
 import {
     logInfo, logWarning, logError, logMessage, logSuccess,
 } from './log';
+import { makeCancellable } from './makeCancellable';
 
 export {
     flatten,
@@ -11,4 +12,5 @@ export {
     logError,
     logMessage,
     logSuccess,
+    makeCancellable,
 };

@@ -160,7 +160,7 @@ class Grid extends Component {
      * @returns {mixed} - React elements
      */
     render () {
-        const { className } = this.props;
+        const { className, overscan } = this.props;
         const grid = this.getGridData();
 
         return (
@@ -175,6 +175,7 @@ class Grid extends Component {
                 height={grid.height}
                 width={grid.width}
                 cellRenderer={this.renderCell}
+                overscanRowCount={overscan}
             />
         );
     }

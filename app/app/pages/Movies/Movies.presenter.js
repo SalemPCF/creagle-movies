@@ -27,6 +27,7 @@ const MoviesPresenter = forwardRef(({
                     items={movies}
                     loadMore={loadMore}
                     onScroll={onScroll}
+                    overscan={2}
                     renderItem={movie => (
                         <Movie
                             movie={movie}

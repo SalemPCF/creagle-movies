@@ -13,4 +13,5 @@ export default {
     getCellHeight: PropTypes.func,
     onScroll: PropTypes.func,
     getKey: PropTypes.func,
+    overscan: PropTypes.number,
 };
