@@ -76,8 +76,8 @@ export default StyleSheet.create({
         justifyContent: 'flex-end',
         background: linearGradient(
             'to top',
-            combine(rgba(0, 0, 0, 0.8), perc(0)),
-            combine(rgba(0, 0, 0, 0.5), perc(60)),
+            combine(rgba(0, 0, 0, 0.6), perc(0)),
+            combine(rgba(0, 0, 0, 0.3), perc(60)),
             combine(rgba(0, 0, 0, 0), perc(100)),
         ),
     },
