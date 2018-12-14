@@ -25,6 +25,8 @@ const MoviesPresenter = forwardRef(({
         rowHeight={grid.rowHeight}
         height={grid.height}
         width={grid.width}
+        // This is the amount of rows react-virtualized pre-renders for us
+        overscanRowCount={2}
 
         // This is used to render each cell
         cellRenderer={({ columnIndex, rowIndex, style, key }) => {

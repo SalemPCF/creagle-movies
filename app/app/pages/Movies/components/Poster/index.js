@@ -1,78 +1,45 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { css } from 'aphrodite';
+import React from 'react';
 
-import { withDatabase } from '../../../../components/Database';
-import { api } from '../../../../../services/api';
+import { withPosterDatabase } from '../../../../components/Database';
 
 import styles from './styles';
 
 class Poster extends React.PureComponent {
     state = { url: null };
 
-    getStore = async (storeName) => {
-        const { getDb } = this.props;
-
-        const db = await getDb();
-        const transaction = db.transaction(storeName, 'readwrite');
-        const store = transaction.objectStore(storeName);
-
-        return store;
+    static propTypes = {
+        getImage: PropTypes.func.isRequired,
+        movieId: PropTypes.string.isRequired,
     }
 
-    storeImage = async (base64) => {
-        const { movieId } = this.props;
-        const store = await this.getStore('posters_b64');
-
-        // Store the specified blob for this movieID
-        store.put(base64, movieId);
-    }
-
-    loadImage = () => new Promise(async (resolve) => {
-        const { image } = this.props;
-
-        // Load the image from the server
-        const res = await api.get(image, { responseType: 'blob' });
-
-        const reader = new FileReader();
-        reader.readAsDataURL(res.data);
-
-        reader.onloadend = () => {
-            const base64 = reader.result;
-
-            // Store the retrieved image for next time
-            this.storeImage(base64);
-
-            resolve(base64);
-        };
-    })
-
-    getImage = async () => {
-        const { movieId } = this.props;
-        const store = await this.getStore('posters_b64');
-
-        // Get an image from the store for the specified movieID
-        const img = await store.get(movieId);
-
-        // If we got an image, return it,
-        // else load the image
-        return img
-            ? img
-            : this.loadImage();
-    }
+    cancelPromise = () => null;
 
     componentDidMount () {
+        const { getImage, movieId } = this.props;
+
+        // Get the promise and the cancel parts of our created promise
+        const { promise, cancel } = getImage(movieId);
+
+        // Create a reference to our cancel promise function
+        this.cancelPromise = cancel;
+
         // Initiate the image get process
-        this.getImage()
+        promise
             // We successfully got an image URL we want to use
-            .then((url) => {
-                this.setState({ url });
-            })
+            .then(url => this.setState({ url }))
             // We didn't get an image URL - show the fallback
-            .catch(() => {
-                const url = 'resources/no-image-available.png';
-                this.setState({ url });
+            .catch((err) => {
+                // If we cancelled the promise, don't update the state
+                if (err.isCanceled) { return; }
+
+                // Set the state to an image not available image
+                this.setState({ url: 'resources/no-image-available.png' });
             });
     }
+
+    componentWillUnmount = () => this.cancelPromise();
 
     render () {
         const { url } = this.state;
@@ -87,4 +54,4 @@ class Poster extends React.PureComponent {
     }
 }
 
-export default withDatabase(Poster);
+export default withPosterDatabase(Poster);
