@@ -33,6 +33,8 @@ const rippleKeyframes = {
 export default StyleSheet.create({
     movieContainer: {
         padding: rem(0.25),
+        height: perc(100),
+        width: perc(100),
     },
 
     movie: {
@@ -40,12 +42,6 @@ export default StyleSheet.create({
         borderRadius: rem(0.25),
         boxShadow: shadows.one,
         transition: 'all .3s cubic-bezier(.25, .8, .25, 1)',
-        cursor: 'pointer',
-        overflow: 'hidden',
-        textDecoration: 'none',
-        position: 'relative',
-        width: perc(100),
-        height: perc(100),
 
         ':hover': {
             boxShadow: shadows.two,
@@ -65,14 +61,18 @@ export default StyleSheet.create({
     info: {
         padding: rem(0.5),
         position: 'absolute',
+        top: 0,
         left: 0,
-        bottom: 0,
         width: perc(100),
+        height: perc(100),
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
         background: linearGradient(
             'to top',
-            combine(rgba(0, 0, 0, 0.4), perc(70)),
-            combine(rgba(0, 0, 0, 0.2), perc(80)),
-            'transparent',
+            combine(rgba(0, 0, 0, 0.6), perc(0)),
+            combine(rgba(0, 0, 0, 0.3), perc(60)),
+            combine(rgba(0, 0, 0, 0), perc(100)),
         ),
     },
 
@@ -90,26 +90,5 @@ export default StyleSheet.create({
 
     infoText_secondary: {
         color: colors.text.tertiary,
-    },
-
-    ripple: {
-        position: 'absolute',
-        // 'top' and 'left' are provided from component
-        width: perc(300),
-        paddingBottom: perc(300),
-        transformOrigin: 'center',
-        animationName: rippleKeyframes,
-        animationDuration: second(1),
-        animationFillMode: 'forwards',
-    },
-
-    rippleInner: {
-        width: perc(100),
-        height: perc(100),
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        borderRadius: perc(50),
-        background: rgba(255, 255, 255, 0.3),
     },
 });

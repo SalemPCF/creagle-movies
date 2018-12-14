@@ -40,6 +40,7 @@ module.exports = {
         "class-methods-use-this": "off",
         "no-class-assign": "off",
         "linebreak-style": 0,
-        "object-curly-newline": 0
+        "object-curly-newline": 0,
+        "no-underscore-dangle": 0
     }
 };

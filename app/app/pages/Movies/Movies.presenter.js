@@ -1,56 +1,43 @@
-/* eslint-disable no-underscore-dangle */
 /* Node */
 import React, { forwardRef } from 'react';
-import { Grid } from 'react-virtualized';
+import { css } from 'aphrodite';
+
+import Grid from '../../components/Grid';
+import SizeTracker from '../../components/SizeTracker';
 
 /* Relative */
 import propTypes from './Movies.propTypes';
+import styles from './Movies.styles';
 import Movie from './components/Movie';
 
 const MoviesPresenter = forwardRef(({
-    grid,
     movies,
-    onScroll,
-    getScrollPosition,
     saveScrollPosition,
+    loadMore,
+    onScroll,
 }, ref) => (
-    // We pass most props down to the Grid, which
-    // handles all sizing and positioning for us
-    <Grid
-        ref={ref}
-        onScroll={onScroll}
-        columnCount={grid.columnCount}
-        columnWidth={grid.columnWidth}
-        rowCount={grid.rowCount}
-        rowHeight={grid.rowHeight}
-        height={grid.height}
-        width={grid.width}
-        // This is the amount of rows react-virtualized pre-renders for us
-        overscanRowCount={2}
-
-        // This is used to render each cell
-        cellRenderer={({ columnIndex, rowIndex, style, key }) => {
-            // We find the movie for this cell
-            const movie = movies[columnIndex + (rowIndex * grid.columnCount)];
-
-            // If we have a movie, we need to render it,
-            // but because react-virtualized doesn't know
-            // that we don't have enough movies to perfectly
-            // fill the Grid, we need to render a div in
-            // its place to complete the Grid.
-            return movie ? (
-                <Movie
-                    key={movie._id}
-                    style={style}
-                    movie={movie}
-                    getScrollPosition={getScrollPosition}
-                    saveScrollPosition={saveScrollPosition}
+    <div className={css(styles.container)}>
+        <SizeTracker className={css(styles.tracker)}>
+            {({ width, height }) => (
+                <Grid
+                    className={css(styles.grid)}
+                    ref={ref}
+                    width={width}
+                    height={height}
+                    items={movies}
+                    loadMore={loadMore}
+                    onScroll={onScroll}
+                    overscan={2}
+                    renderItem={movie => (
+                        <Movie
+                            movie={movie}
+                            saveScrollPosition={saveScrollPosition}
+                        />
+                    )}
                 />
-            ) : (
-                <div key={key} style={style} />
-            );
-        }}
-    />
+            )}
+        </SizeTracker>
+    </div>
 ));
 
 MoviesPresenter.propTypes = propTypes.presenter;
