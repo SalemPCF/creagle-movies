@@ -16,5 +16,13 @@ export default StyleSheet.create({
 
     grid: {
         padding: combine(rem(1), 0),
+
+        ':focus': {
+            outline: 0,
+        },
+
+        '::-webkit-scrollbar': {
+            display: 'none',
+        },
     },
 });
