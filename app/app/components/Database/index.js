@@ -64,7 +64,7 @@ const withDatabase = Comp => class extends Component {
     }
 
     // Load our image and save it
-    loadImage = () => new Promise(async (resolve) => {
+    loadImage = movieId => new Promise(async (resolve) => {
         const { image } = this.props;
 
         // Load the image from the server
@@ -77,7 +77,7 @@ const withDatabase = Comp => class extends Component {
             const base64 = reader.result;
 
             // Store the retrieved image for next time
-            this.storeImage(base64);
+            this.storeImage(movieId, base64);
 
             resolve(base64);
         };
@@ -91,7 +91,7 @@ const withDatabase = Comp => class extends Component {
         const img = await store.get(movieId);
 
         // If we got an image, return it. If we didn't load it.
-        return img || this.loadImage();
+        return img || this.loadImage(movieId);
     }
 
     render () {
