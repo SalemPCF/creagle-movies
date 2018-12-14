@@ -1,4 +1,5 @@
 /* Node */
+import TwotoneAllInclusive from 'react-md-icon/dist/TwotoneAllInclusive';
 import OutlineSettings from 'react-md-icon/dist/OutlineSettings';
 import TwotoneSettings from 'react-md-icon/dist/TwotoneSettings';
 import OutlineLiveTv from 'react-md-icon/dist/OutlineLiveTv';
@@ -12,6 +13,8 @@ import React, { Component } from 'react';
 import { css } from 'aphrodite';
 
 /* Relative */
+import { logError } from '../../../helpers';
+import { api } from '../../../services/api';
 import propTypes from './propTypes';
 import styles from './styles';
 
@@ -48,6 +51,39 @@ class Navbar extends Component {
         );
     }
 
+    handleRandomRedirect = (type) => {
+        const { history } = this.props;
+
+        api.get(`/random/${type}`)
+            .then(res => res.data)
+            .then((data) => {
+                history.push(`/${type}s/${data._id}`);
+            })
+            .catch(() => {
+                logError(`There was a problem loading this ${type}.`);
+            });
+    }
+
+    handleRandomPress = () => {
+        const { location } = this.props;
+
+        switch (location.pathname) {
+            case ('/'):
+                return this.handleRandomRedirect('movie');
+            case ('/shows'):
+                return this.handleRandomRedirect('show');
+            default:
+                return console.log('No route matched.');
+        }
+    }
+
+    renderRandomIcon = () => (
+        <TwotoneAllInclusive
+            className={css(styles.icon)}
+            onClick={this.handleRandomPress}
+        />
+    )
+
     render () {
         if (!this.shouldRender()) { return null; }
 
@@ -56,6 +92,9 @@ class Navbar extends Component {
                 {this.renderIcon('/', TwotoneMovie, OutlineMovie)}
                 {this.renderIcon('/shows', TwotoneLiveTv, OutlineLiveTv)}
                 {this.renderIcon('/search', TwotoneSearch, OutlineSearch)}
+
+                {this.renderRandomIcon()}
+
                 {this.renderIcon('/settings', TwotoneSettings, OutlineSettings, true)}
             </div>
         );

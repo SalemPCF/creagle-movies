@@ -28,6 +28,9 @@ const createWindow = () => {
         backgroundColor: '#303030',
     });
 
+    // Close the NavBar Options Menu (Electron default)
+    win.setMenu(null);
+
     // Load our index.html file into that window
     win.loadFile('app/index.html');
 

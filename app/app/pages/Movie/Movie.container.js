@@ -21,12 +21,9 @@ class MovieContainer extends Component {
         loadMovie(match.params.id);
     }
 
-    // This method is always called at some point after the component mounts
-    // That's because when the component mounts, it queries our store and retreives the movie.
-    // In the event this isn't called, there will be no content on the screen
-    componentWillReceiveProps = (nextProps) => {
+    componentDidUpdate = () => {
         const { quality } = this.state;
-        const { movie } = nextProps;
+        const { movie } = this.props;
 
         // If we don't have a quality
         if (quality === false) {
