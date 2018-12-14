@@ -1,4 +1,5 @@
 import React, { Component, createRef } from 'react';
+import { flushToStyleTag } from 'aphrodite';
 
 import { debounce } from '../../../helpers/debounce';
 
@@ -8,9 +9,8 @@ class SizeTracker extends Component {
     el = createRef();
 
     componentDidMount () {
-        setTimeout(() => {
-            this.updateSize();
-        }, 10);
+        flushToStyleTag();
+        this.updateSize();
 
         window.addEventListener('resize', this.handleResize);
     }
@@ -19,18 +19,8 @@ class SizeTracker extends Component {
         window.removeEventListener('resize', this.handleResize);
     }
 
-    componentDidUpdate (prevProps) {
-        console.log({
-            prev: prevProps.className,
-            now: this.props.className,
-        });
-    }
-
     updateSize = () => {
         const { clientWidth, clientHeight } = this.el.current;
-
-        console.log({ clientWidth, clientHeight });
-        console.dir(this.el.current);
 
         this.setState({
             width: clientWidth,

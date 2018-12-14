@@ -23,23 +23,15 @@ class Grid extends Component {
      */
     grid = createRef();
 
-    /**
-     * The width of the scrollbar. We only need
-     * to call this once as the users scrollbar
-     * isn't going to change.
-     */
-    scrollbarWidth = getScrollbarWidth();
-
     handleScroll = (event) => {
-        const { loadMore, onScroll, height } = this.props;
+        const { loadMore, onScroll } = this.props;
         const { scrollHeight, scrollTop, clientHeight } = event;
 
         const distanceToBottom = scrollHeight - scrollTop;
 
         // If we're close to the bottom of the page, and we have a
         // loadMore function, fire it.
-        console.log({ height });
-        if (distanceToBottom <= (clientHeight + 250) && loadMore && height) {
+        if (distanceToBottom <= (clientHeight + 250) && loadMore) {
             loadMore();
         }
 
@@ -110,7 +102,7 @@ class Grid extends Component {
         // To determine the width of each column, we take the entire
         // width of the container, subtract the width of the scrollbar,
         // and then divide that by how many columns there are.
-        data.columnWidth = (data.width - this.scrollbarWidth) / data.columnCount;
+        data.columnWidth = data.width / data.columnCount;
 
         // We decide on a cell height using the width.
         data.rowHeight = this.getCellHeight(data.columnWidth);

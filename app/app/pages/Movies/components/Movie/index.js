@@ -118,7 +118,6 @@ class Movie extends Component {
                 images,
                 torrents,
             },
-            style,
         } = this.props;
 
         const { ripple } = this.state;
@@ -128,7 +127,7 @@ class Movie extends Component {
         if (qualities.length < 0) { return null; }
 
         return (
-            <div style={style} className={css(styles.movieContainer)}>
+            <div className={css(styles.movieContainer)}>
                 <div
                     className={css(styles.movie)}
                     onMouseDown={this.handleMouseDown}

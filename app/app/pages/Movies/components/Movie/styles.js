@@ -33,6 +33,8 @@ const rippleKeyframes = {
 export default StyleSheet.create({
     movieContainer: {
         padding: rem(0.25),
+        height: perc(100),
+        width: perc(100),
     },
 
     movie: {
@@ -65,14 +67,18 @@ export default StyleSheet.create({
     info: {
         padding: rem(0.5),
         position: 'absolute',
+        top: 0,
         left: 0,
-        bottom: 0,
         width: perc(100),
+        height: perc(100),
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
         background: linearGradient(
             'to top',
-            combine(rgba(0, 0, 0, 0.4), perc(70)),
-            combine(rgba(0, 0, 0, 0.2), perc(80)),
-            'transparent',
+            combine(rgba(0, 0, 0, 0.8), perc(0)),
+            combine(rgba(0, 0, 0, 0.5), perc(60)),
+            combine(rgba(0, 0, 0, 0), perc(100)),
         ),
     },
 
