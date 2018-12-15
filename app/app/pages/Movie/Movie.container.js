@@ -35,6 +35,12 @@ class MovieContainer extends Component {
         }
     }
 
+    componentWillUnmount = () => {
+        const { unloadMovie } = this.props;
+
+        unloadMovie();
+    }
+
     getStars = () => {
         const { movie } = this.props;
 

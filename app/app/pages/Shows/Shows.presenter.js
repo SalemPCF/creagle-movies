@@ -11,7 +11,6 @@ import styles from './Shows.styles';
 
 const ShowsPresenter = forwardRef(({
     shows,
-    saveScrollPosition,
     loadMore,
     onScroll,
 }, ref) => (
@@ -28,10 +27,7 @@ const ShowsPresenter = forwardRef(({
                     onScroll={onScroll}
                     overscan={2}
                     renderItem={show => (
-                        <Show
-                            show={show}
-                            saveScrollPosition={saveScrollPosition}
-                        />
+                        <Show show={show} />
                     )}
                 />
             )}

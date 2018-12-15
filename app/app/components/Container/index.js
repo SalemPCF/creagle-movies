@@ -1,16 +1,21 @@
+/* eslint-disable react/prefer-stateless-function */
+
 /* Node */
 import React, { Component } from 'react';
+import { css } from 'aphrodite';
+
+/* Relative */
+import propTypes from './propTypes';
+import styles from './styles';
 
 class Container extends Component {
-    componentDidMount = () => {
-        console.log('container mounted');
-    }
+    static propTypes = propTypes;
 
     render () {
         const { children } = this.props;
 
         return (
-            <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+            <div className={css(styles.container)}>
                 {children}
             </div>
         );

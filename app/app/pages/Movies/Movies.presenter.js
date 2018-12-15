@@ -11,7 +11,6 @@ import styles from './Movies.styles';
 
 const MoviesPresenter = forwardRef(({
     movies,
-    saveScrollPosition,
     loadMore,
     onScroll,
 }, ref) => (
@@ -28,10 +27,7 @@ const MoviesPresenter = forwardRef(({
                     onScroll={onScroll}
                     overscan={2}
                     renderItem={movie => (
-                        <Movie
-                            movie={movie}
-                            saveScrollPosition={saveScrollPosition}
-                        />
+                        <Movie movie={movie} />
                     )}
                 />
             )}

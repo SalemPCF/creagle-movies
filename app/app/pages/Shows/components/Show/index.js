@@ -14,10 +14,7 @@ class Show extends Component {
     static propTypes = showShape;
 
     handleRippleEnd = () => {
-        const { history, show, saveScrollPosition } = this.props;
-
-        // Save the scroll position
-        saveScrollPosition();
+        const { history, show } = this.props;
 
         // Go to the next page
         history.push(`/shows/${show._id}`);

@@ -15,10 +15,7 @@ class Movie extends Component {
     static propTypes = movieShape;
 
     handleRippleEnd = () => {
-        const { history, movie, saveScrollPosition } = this.props;
-
-        // Save the scroll position
-        saveScrollPosition();
+        const { history, movie } = this.props;
 
         // Go to the next page
         history.push(`/movies/${movie._id}`);

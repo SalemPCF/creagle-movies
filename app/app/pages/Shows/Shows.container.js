@@ -28,6 +28,11 @@ class ShowsContainer extends Component {
     }
 
     /**
+     * Fires a redux action to save the latest scroll position before our component unmounts.
+     */
+    componentWillUnmount = () => this.saveScrollPosition();
+
+    /**
      * Handles each scroll event by saving the current scroll value.
      *
      * @param {mixed} event - The scroll event
@@ -64,7 +69,6 @@ class ShowsContainer extends Component {
                 ref={this.scroller}
                 shows={shows}
                 loadMore={loadShows}
-                saveScrollPosition={this.saveScrollPosition}
                 onScroll={this.handleScroll}
             />
         );

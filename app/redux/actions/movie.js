@@ -11,6 +11,7 @@ export const MOVIE = {
         SUCCESS: 'MOVIE:LOAD:SUCCESS',
         FAILURE: 'MOVIE:LOAD:FAILURE',
         CACHED: 'MOVIE:LOAD:CACHED',
+        UNLOAD: 'MOVIE:LOAD:UNLOAD',
     },
 };
 
@@ -50,3 +51,5 @@ export const loadMovie = id => (dispatch, getState, { api }) => {
             });
     }
 };
+
+export const unloadMovie = () => ({ type: MOVIE.LOAD.UNLOAD });
