@@ -1,8 +1,4 @@
-/* Node */
-import { normalize } from 'normalizr';
-
 /* Relative */
-import showSchema from '../../schemas/show';
 import { logError } from '../../helpers';
 
 export const SHOW = {
@@ -10,16 +6,11 @@ export const SHOW = {
         INITIAL: 'SHOW:LOAD:INITIAL',
         SUCCESS: 'SHOW:LOAD:SUCCESS',
         FAILURE: 'SHOW:LOAD:FAILURE',
-        CACHED: 'SHOW:LOAD:CACHED',
+        UNLOAD: 'SHOW:LOAD:UNLOAD',
     },
 };
 
 const loadShowInitial = () => ({ type: SHOW.LOAD.INITIAL });
-
-const loadShowCached = id => ({
-    type: SHOW.LOAD.CACHED,
-    payload: { id },
-});
 
 const loadShowSuccess = data => ({
     type: SHOW.LOAD.SUCCESS,
@@ -31,22 +22,21 @@ const loadShowFailure = () => ({ type: SHOW.LOAD.FAILURE });
 export const loadShow = id => (dispatch, getState, { api }) => {
     dispatch(loadShowInitial());
 
-    const { shows } = getState().entities;
+    // Shows works slightly differently to the way movies work.
+    // Shows require you to send another request to the /show api
+    // to retrieve all the data you need to start torrenting.
+    // This means we can't use the normalization
+    // because the data stored from each id will be different.
+    api.get(`/show/${id}`)
+        .then(res => res.data)
+        .then((data) => {
+            dispatch(loadShowSuccess(data));
+        })
+        .catch(() => {
+            logError('There was a problem loading this show.');
 
-    if (shows[id]) {
-        dispatch(loadShowCached(id));
-    } else {
-        api.get(`/show/${id}`)
-            .then(res => res.data)
-            .then((data) => {
-                const normalized = normalize(data, showSchema);
-
-                dispatch(loadShowSuccess(normalized));
-            })
-            .catch(() => {
-                logError('There was a problem loading this show.');
-
-                dispatch(loadShowFailure());
-            });
-    }
+            dispatch(loadShowFailure());
+        });
 };
+
+export const unloadShow = () => ({ type: SHOW.LOAD.UNLOAD });

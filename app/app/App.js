@@ -17,6 +17,7 @@ import Movies from './pages/Movies';
 import Movie from './pages/Movie';
 import Video from './pages/Video';
 import Shows from './pages/Shows';
+import Show from './pages/Show';
 
 /* Relative PropTypes, Schemas */
 import propTypes from './App.propTypes';
@@ -56,6 +57,7 @@ class App extends Component {
                                     <Route exact path="/movies/:id/watch/:quality" component={Video} />
 
                                     <Route exact path="/shows" component={Shows} />
+                                    <Route exact path="/shows/:id" component={Show} />
                                 </Switch>
                             </Container>
                         </Router>

@@ -2,6 +2,7 @@
 import { Component } from 'react';
 
 /* Relative */
+import { DEBUG } from '../../../config/globals';
 import RemoteContext from '../RemoteContext';
 
 class ContextMenu extends Component {
@@ -39,23 +40,29 @@ class ContextMenu extends Component {
     }
 
     showMenu = (e) => {
+        const { getCurrentWindow } = this.context;
+
         e.preventDefault();
 
         this.setState({ mouseX: e.x, mouseY: e.y });
 
         this.menu.popup({
-            window: this.context.getCurrentWindow(),
+            window: getCurrentWindow(),
         });
     }
 
     componentDidMount () {
-        this.menu = this.buildMenu();
+        if (DEBUG) {
+            this.menu = this.buildMenu();
 
-        window.addEventListener('contextmenu', this.showMenu);
+            window.addEventListener('contextmenu', this.showMenu);
+        }
     }
 
     componentWillUnmount () {
-        window.removeEventListener('contextmenu', this.showMenu);
+        if (DEBUG) {
+            window.removeEventListener('contextmenu', this.showMenu);
+        }
     }
 
     render = () => null;

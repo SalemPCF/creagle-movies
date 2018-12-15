@@ -11,6 +11,7 @@ export default StyleSheet.create({
     container: {
         height: '100vh',
         width: px(75),
+        minWidth: px(75),
         left: px(0),
         top: px(0),
         display: 'flex',

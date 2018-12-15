@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 /* Node */
 import BaselineTrendingUp from 'react-md-icon/dist/BaselineTrendingUp';
 import RoundStarBorder from 'react-md-icon/dist/RoundStarBorder';
