@@ -22,8 +22,8 @@ class MovieContainer extends Component {
         const { quality } = this.state;
         const { movie } = this.props;
 
-        // If we don't have a quality
-        if (quality === '') {
+        // If we don't have a quality and we have a movie
+        if (movie && quality === '') {
             // Get our quality values
             const qualities = Object.keys(movie.torrents.en);
 
