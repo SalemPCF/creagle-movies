@@ -29,11 +29,7 @@ const movieReducer = (state = initialState, action) => {
             };
 
         case MOVIE.LOAD.UNLOAD:
-            return {
-                ...state,
-                loading: false,
-                id: null,
-            };
+            return initialState;
         default:
             return state;
     }

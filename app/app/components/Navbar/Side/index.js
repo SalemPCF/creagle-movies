@@ -5,7 +5,6 @@ import TwotoneSettings from 'react-md-icon/dist/TwotoneSettings';
 import OutlineLiveTv from 'react-md-icon/dist/OutlineLiveTv';
 import TwotoneLiveTv from 'react-md-icon/dist/TwotoneLiveTv';
 import TwotoneSearch from 'react-md-icon/dist/TwotoneSearch';
-import OutlineSearch from 'react-md-icon/dist/OutlineSearch';
 import OutlineMovie from 'react-md-icon/dist/OutlineMovie';
 import TwotoneMovie from 'react-md-icon/dist/TwotoneMovie';
 import { withRouter, Link } from 'react-router-dom';
@@ -13,12 +12,12 @@ import React, { Component } from 'react';
 import { css } from 'aphrodite';
 
 /* Relative */
-import { logError } from '../../../helpers';
-import { api } from '../../../services/api';
+import { logError } from '../../../../helpers';
+import { api } from '../../../../services/api';
 import propTypes from './propTypes';
 import styles from './styles';
 
-class Navbar extends Component {
+class SideNavbar extends Component {
     static propTypes = propTypes;
 
     shouldRender = () => {
@@ -26,11 +25,12 @@ class Navbar extends Component {
 
         // Should we be showing a navbar?
         switch (location.pathname) {
-            // Movies, Tv Shows: Yes.
+            // Movies, Tv Shows, Search, Settings: Yes.
             case ('/'):
             case ('/shows'):
-            case ('/search'):
             case ('/settings'):
+            case ('/search/movies'):
+            case ('/search/shows'):
                 return true;
 
             // Anywhere else: No.
@@ -77,12 +77,65 @@ class Navbar extends Component {
         }
     }
 
-    renderRandomIcon = () => (
-        <TwotoneAllInclusive
-            className={css(styles.icon)}
-            onClick={this.handleRandomPress}
-        />
-    )
+    shouldRenderRandom = () => {
+        const { location } = this.props;
+
+        switch (location.pathname) {
+            case ('/'):
+            case ('/shows'):
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    renderRandomIcon = () => {
+        if (!this.shouldRenderRandom()) { return null; }
+
+        return (
+            <TwotoneAllInclusive
+                className={css(styles.icon)}
+                onClick={this.handleRandomPress}
+            />
+        );
+    }
+
+    handleSearchPress = () => {
+        const { history, location } = this.props;
+
+        switch (location.pathname) {
+            case ('/shows'):
+                return history.push('/search/shows');
+            case ('/'):
+            default:
+                return history.push('/search/movies');
+        }
+    }
+
+    shouldRenderSearch = () => {
+        const { location } = this.props;
+
+        switch (location.pathname) {
+            case ('/'):
+            case ('/shows'):
+            case ('/search/movies'):
+            case ('/search/shows'):
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    renderSearchIcon = () => {
+        if (!this.shouldRenderSearch()) { return null; }
+
+        return (
+            <TwotoneSearch
+                className={css(styles.icon)}
+                onClick={this.handleSearchPress}
+            />
+        );
+    }
 
     render () {
         if (!this.shouldRender()) { return null; }
@@ -91,7 +144,8 @@ class Navbar extends Component {
             <div className={css(styles.container)}>
                 {this.renderIcon('/', TwotoneMovie, OutlineMovie)}
                 {this.renderIcon('/shows', TwotoneLiveTv, OutlineLiveTv)}
-                {this.renderIcon('/search', TwotoneSearch, OutlineSearch)}
+
+                {this.renderSearchIcon()}
 
                 {this.renderRandomIcon()}
 
@@ -101,4 +155,4 @@ class Navbar extends Component {
     }
 }
 
-export default withRouter(Navbar);
+export default withRouter(SideNavbar);

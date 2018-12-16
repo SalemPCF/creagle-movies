@@ -22,11 +22,7 @@ const showReducer = (state = initialState, action) => {
             };
 
         case SHOW.LOAD.UNLOAD:
-            return {
-                ...state,
-                loading: false,
-                data: null,
-            };
+            return initialState;
 
         default:
             return state;

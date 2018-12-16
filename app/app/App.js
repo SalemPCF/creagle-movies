@@ -8,12 +8,13 @@ import RemoteContext from './components/RemoteContext';
 import Splashscreen from './components/Splashscreen';
 import ContextMenu from './components/ContextMenu';
 import KeyListener from './components/KeyListener';
+import SideNavbar from './components/Navbar/Side';
 import { Database } from './components/Database';
 import Container from './components/Container';
-import Navbar from './components/Navbar';
 
 /* Relative Pages */
 import Movies from './pages/Movies';
+import Search from './pages/Search';
 import Movie from './pages/Movie';
 import Video from './pages/Video';
 import Shows from './pages/Shows';
@@ -48,16 +49,18 @@ class App extends Component {
                     <Splashscreen delay={1500} ready={!initiating}>
                         <Router>
                             <Container>
-                                <Navbar />
+                                <SideNavbar />
 
                                 <Switch>
                                     <Route exact path="/" component={Movies} />
                                     <Route exact path="/movies/:id" component={Movie} />
 
-                                    <Route exact path="/movies/:id/watch/:quality" component={Video} />
-
                                     <Route exact path="/shows" component={Shows} />
                                     <Route exact path="/shows/:id" component={Show} />
+
+                                    <Route exact path="/search/:type" component={Search} />
+
+                                    <Route exact path="/movies/:id/watch/:quality" component={Video} />
                                 </Switch>
                             </Container>
                         </Router>

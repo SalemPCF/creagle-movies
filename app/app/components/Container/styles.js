@@ -8,4 +8,12 @@ export default StyleSheet.create({
         flexDirection: 'row',
         height: perc(100),
     },
+
+    row: {
+        flexDirection: 'row',
+    },
+
+    column: {
+        flexDirection: 'column',
+    },
 });

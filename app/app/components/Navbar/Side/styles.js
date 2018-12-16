@@ -5,7 +5,7 @@ import { StyleSheet } from 'aphrodite';
 import {
     colors,
     px,
-} from '../../../styles';
+} from '../../../../styles';
 
 export default StyleSheet.create({
     container: {
