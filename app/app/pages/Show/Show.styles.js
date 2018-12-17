@@ -3,7 +3,7 @@ import { StyleSheet } from 'aphrodite';
 import {
     colors, rgba, fonts,
     perc, px, rem, radialGradient,
-    blur, scale, translateX,
+    blur, scale,
 } from '../../../styles';
 
 export default StyleSheet.create({
@@ -51,19 +51,12 @@ export default StyleSheet.create({
 
     innerContainer: {
         position: 'fixed',
-        top: 0,
-        left: perc(50),
+        top: rem(5),
+        left: rem(7),
         bottom: 0,
         right: 0,
         zIndex: 3,
-        padding: rem(5),
         width: perc(100),
-        maxWidth: px(800),
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        transform: translateX(perc(-50)),
     },
 
     title: {
@@ -71,5 +64,49 @@ export default StyleSheet.create({
         fontFamily: fonts.primary,
         fontWeight: fonts.weights.primary.bold,
         marginBottom: rem(0.5),
+    },
+
+    metadata: {
+        display: 'flex',
+        marginBottom: rem(0.5),
+    },
+
+    metadataText: {
+        fontFamily: fonts.primary,
+        color: colors.text.secondary,
+        marginRight: rem(0.75),
+        fontWeight: fonts.weights.primary.bold,
+        fontSize: rem(0.95),
+    },
+
+    metadataStars: {
+        marginTop: px(-5),
+    },
+
+    metadataRatio: {
+        display: 'flex',
+        marginTop: px(-4),
+    },
+
+    torrentRatio: {
+        marginTop: px(2),
+        marginLeft: px(5),
+    },
+
+    starIcon: {
+        textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
+        color: colors.starColor,
+        cursor: 'default',
+        fontSize: px(24),
+    },
+
+    synopsis: {
+        fontFamily: fonts.primary,
+        color: colors.text.secondary,
+        width: perc(100),
+        maxWidth: px(800),
+        fontSize: rem(0.875),
+        lineHeight: 1.6,
+        marginBottom: rem(1),
     },
 });

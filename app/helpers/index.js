@@ -1,9 +1,15 @@
 /* Relative */
+import { makeCancellable } from './makeCancellable';
+import { capitalize } from './capitalize';
+import { titleCase } from './titleCase';
 import { flatten } from './flatten';
 import {
-    logInfo, logWarning, logError, logMessage, logSuccess,
+    logInfo,
+    logWarning,
+    logError,
+    logMessage,
+    logSuccess,
 } from './log';
-import { makeCancellable } from './makeCancellable';
 
 export {
     flatten,
@@ -13,4 +19,6 @@ export {
     logMessage,
     logSuccess,
     makeCancellable,
+    titleCase,
+    capitalize,
 };
