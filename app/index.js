@@ -8,8 +8,11 @@ import { remote } from 'electron';
 import App from './app';
 import store from './redux/bootstrap';
 
+const appRoot = document.getElementById('app');
+const toastRoot = document.getElementById('toasts');
+
 render((
     <Provider store={store}>
-        <App remote={remote} />
+        <App remote={remote} toastRoot={toastRoot} />
     </Provider>
-), document.getElementById('app'));
+), appRoot);

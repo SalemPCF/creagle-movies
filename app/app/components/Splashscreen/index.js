@@ -2,6 +2,8 @@
 import React from 'react';
 import { css } from 'aphrodite';
 
+import { withToaster } from '../Toaster';
+
 /* Relative */
 import defaultProps from './defaultProps';
 import propTypes from './propTypes';
@@ -25,6 +27,9 @@ class Splashscreen extends React.Component {
     componentDidMount () {
         // Save a timestamp of when the component mounted.
         this.mountedAt = this.getTimestamp();
+
+        const { toast } = this.props;
+        toast('Splashscreen!');
     }
 
     componentWillUnmount () {
@@ -91,4 +96,4 @@ class Splashscreen extends React.Component {
     }
 }
 
-export default Splashscreen;
+export default withToaster(Splashscreen);

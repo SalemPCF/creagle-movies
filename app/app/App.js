@@ -11,6 +11,7 @@ import Splashscreen from './components/Splashscreen';
 import ContextMenu from './components/ContextMenu';
 import KeyListener from './components/KeyListener';
 import { Database } from './components/Database';
+import { Toaster } from './components/Toaster';
 
 /* Relative Pages */
 import Movies from './pages/Movies';
@@ -33,25 +34,27 @@ class App extends Component {
     }
 
     render () {
-        const { remote, initiating } = this.props;
+        const { remote, initiating, toastRoot } = this.props;
 
         return (
             <RemoteContext.Provider value={remote}>
-                <Database>
-                    <ContextMenu />
-                    <KeyListener />
-                    <GoogleFontLoader fonts={fonts} />
+                <Toaster renderTo={toastRoot}>
+                    <Database>
+                        <ContextMenu />
+                        <KeyListener />
+                        <GoogleFontLoader fonts={fonts} />
 
-                    <Splashscreen delay={1500} ready={!initiating}>
-                        <Router>
-                            <Switch>
-                                <Route exact path="/" component={Movies} />
-                                <Route exact path="/movies/:id" component={Movie} />
-                                <Route exact path="/movies/:id/watch" component={Video} />
-                            </Switch>
-                        </Router>
-                    </Splashscreen>
-                </Database>
+                        <Splashscreen delay={1500} ready={!initiating}>
+                            <Router>
+                                <Switch>
+                                    <Route exact path="/" component={Movies} />
+                                    <Route exact path="/movies/:id" component={Movie} />
+                                    <Route exact path="/movies/:id/watch" component={Video} />
+                                </Switch>
+                            </Router>
+                        </Splashscreen>
+                    </Database>
+                </Toaster>
             </RemoteContext.Provider>
         );
     }
