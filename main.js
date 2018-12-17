@@ -22,8 +22,8 @@ const createWindow = () => {
         // because this allows us to call maximize() without a noticable flicker
         // that's caused because of the difference in default screensize to maximized
         // screen size.
-        width: screenDimensions.width,
-        height: screenDimensions.height,
+        width: process.platform !== 'darwin' ? screenDimensions.width : 800,
+        height: process.platform !== 'darwin' ? screenDimensions.height : 600,
         icon: `${app.getAppPath()}/app/resources/icons/png/1024x1024.png`,
         backgroundColor: '#303030',
     });
@@ -36,10 +36,8 @@ const createWindow = () => {
 
     // Wait for our app to be ready to show it's content
     win.once('ready-to-show', () => {
-        // Maximize our window
-        if (process.platform !== 'darwin') {
-            win.maximize();
-        }
+        // Maximize our window if we're not on MacOS
+        if (process.platform !== 'darwin') { win.maximize(); }
 
         // If we're debugging, open our devtools
         if (DEBUG) { win.webContents.openDevTools(); }
