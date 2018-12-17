@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 /* Relative */
 import { loadMovies, resetMoviesSearch, saveMoviesSearch } from '../../../redux/actions/movies';
-import { loadShows } from '../../../redux/actions/shows';
+import { loadShows, resetShowsSearch, saveShowsSearch } from '../../../redux/actions/shows';
 import SearchContainer from './Search.container';
 
 const mapStateToProps = state => ({
@@ -15,6 +15,8 @@ const mapDispatchToProps = dispatch => ({
     saveMoviesSearch: params => dispatch(saveMoviesSearch(params)),
     resetMoviesSearch: () => dispatch(resetMoviesSearch()),
     loadShows: () => dispatch(loadShows()),
+    saveShowsSearch: params => dispatch(saveShowsSearch(params)),
+    resetShowsSearch: () => dispatch(resetShowsSearch()),
 });
 
 export default connect(

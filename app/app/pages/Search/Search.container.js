@@ -28,21 +28,39 @@ class SearchContainer extends Component {
      * redirecting us to our next route
      *
      */
-    handleSubmit = () => {
-        const { match, saveMoviesSearch, saveShowsSearch, loadMovies, history } = this.props;
+    handleSubmit = (shouldReset) => {
+        const {
+            match,
+            saveMoviesSearch,
+            resetMoviesSearch,
+            saveShowsSearch,
+            resetShowsSearch,
+            loadMovies,
+            loadShows,
+            history,
+        } = this.props;
+
         const { type } = match.params;
 
         switch (type) {
             case ('shows'):
-                saveShowsSearch(this.state);
+                if (shouldReset) {
+                    resetShowsSearch();
+                } else {
+                    saveShowsSearch(this.state);
+                }
 
-                loadMovies();
+                loadShows();
 
                 history.push('/shows');
                 break;
             case ('movies'):
             default:
-                saveMoviesSearch(this.state);
+                if (shouldReset) {
+                    resetMoviesSearch();
+                } else {
+                    saveMoviesSearch(this.state);
+                }
 
                 loadMovies();
 
@@ -54,7 +72,11 @@ class SearchContainer extends Component {
      * Handles a generic state change
      *
      */
-    handleGeneric = (type, value) => this.setState({ [type]: value });
+    handleGeneric = (type, event) => {
+        console.log(event);
+
+        this.setState({ [type]: event.target.value });
+    }
 
     /**
      * Renders our component

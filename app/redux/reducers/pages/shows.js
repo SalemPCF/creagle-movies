@@ -7,6 +7,13 @@ const initialState = {
     page: 0,
     pages: {},
     scrollPosition: 0,
+    params: {
+        sort: 'trending',
+        order: -1,
+        genre: 'all',
+        keywords: '',
+    },
+    hasMore: true,
 };
 
 const showsReducer = (state = initialState, action) => {
@@ -41,6 +48,7 @@ const showsReducer = (state = initialState, action) => {
                     ...state.pages,
                     [action.payload.page]: page,
                 },
+                hasMore: action.payload.hasMore,
             };
         }
 
@@ -49,6 +57,15 @@ const showsReducer = (state = initialState, action) => {
                 ...state,
                 scrollPosition: action.payload.scrollPosition,
             };
+
+        case SHOWS.SEARCH.SAVE:
+            return {
+                ...initialState,
+                params: action.payload.params,
+            };
+
+        case SHOWS.SEARCH.RESET:
+            return initialState;
 
         default:
             return state;

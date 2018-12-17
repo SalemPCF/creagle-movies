@@ -13,8 +13,8 @@ import { Database } from './components/Database';
 import Container from './components/Container';
 
 /* Relative Pages */
-import Movies from './pages/Movies';
 import Search from './pages/Search';
+import Movies from './pages/Movies';
 import Movie from './pages/Movie';
 import Video from './pages/Video';
 import Shows from './pages/Shows';

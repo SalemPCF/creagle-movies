@@ -43,4 +43,8 @@ export default StyleSheet.create({
         top: px(10),
         transition: '0.2s ease all',
     },
+
+    header: {
+        color: 'white',
+    },
 });

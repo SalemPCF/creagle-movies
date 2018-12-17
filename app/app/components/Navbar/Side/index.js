@@ -1,5 +1,4 @@
 /* Node */
-import TwotoneAllInclusive from 'react-md-icon/dist/TwotoneAllInclusive';
 import OutlineSettings from 'react-md-icon/dist/OutlineSettings';
 import TwotoneSettings from 'react-md-icon/dist/TwotoneSettings';
 import OutlineLiveTv from 'react-md-icon/dist/OutlineLiveTv';
@@ -12,8 +11,7 @@ import React, { Component } from 'react';
 import { css } from 'aphrodite';
 
 /* Relative */
-import { logError } from '../../../../helpers';
-import { api } from '../../../../services/api';
+import RandomIcon from './components/Random';
 import propTypes from './propTypes';
 import styles from './styles';
 
@@ -23,133 +21,52 @@ class SideNavbar extends Component {
     shouldRender = () => {
         const { location } = this.props;
 
-        // Should we be showing a navbar?
-        switch (location.pathname) {
-            // Movies, Tv Shows, Search, Settings: Yes.
-            case ('/'):
-            case ('/shows'):
-            case ('/settings'):
-            case ('/search/movies'):
-            case ('/search/shows'):
-                return true;
+        const showOn = ['/', '/shows', '/settings', '/search/movie', '/search/show', '/random/show', '/random/movie'];
 
-            // Anywhere else: No.
-            default:
-                return false;
-        }
+        return showOn.includes(location.pathname);
     }
 
-    renderIcon = (pathname, activeComponent, inactiveComponent, pushToBottom = false) => {
+    renderIcon = (pathname, activeComponent, inactiveComponent, title, pushToBottom = false) => {
         const { location } = this.props;
 
         const Icon = location.pathname === pathname ? activeComponent : inactiveComponent;
 
         return (
-            <Link to={pathname} className={css(styles.icon, pushToBottom && styles.bottom)}>
+            <Link
+                to={pathname}
+                className={css(styles.icon, pushToBottom && styles.bottom)}
+                title={title}
+            >
                 <Icon />
             </Link>
         );
     }
 
-    handleRandomRedirect = (type) => {
-        const { history } = this.props;
-
-        api.get(`/random/${type}`)
-            .then(res => res.data)
-            .then((data) => {
-                history.push(`/${type}s/${data._id}`);
-            })
-            .catch(() => {
-                logError(`There was a problem loading this ${type}.`);
-            });
-    }
-
-    handleRandomPress = () => {
-        const { location } = this.props;
-
-        switch (location.pathname) {
-            case ('/'):
-                return this.handleRandomRedirect('movie');
-            case ('/shows'):
-                return this.handleRandomRedirect('show');
-            default:
-                return console.log('No route matched.');
-        }
-    }
-
-    shouldRenderRandom = () => {
-        const { location } = this.props;
-
-        switch (location.pathname) {
-            case ('/'):
-            case ('/shows'):
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    renderRandomIcon = () => {
-        if (!this.shouldRenderRandom()) { return null; }
-
-        return (
-            <TwotoneAllInclusive
-                className={css(styles.icon)}
-                onClick={this.handleRandomPress}
-            />
-        );
-    }
-
-    handleSearchPress = () => {
-        const { history, location } = this.props;
-
-        switch (location.pathname) {
-            case ('/shows'):
-                return history.push('/search/shows');
-            case ('/'):
-            default:
-                return history.push('/search/movies');
-        }
-    }
-
     shouldRenderSearch = () => {
         const { location } = this.props;
 
-        switch (location.pathname) {
-            case ('/'):
-            case ('/shows'):
-            case ('/search/movies'):
-            case ('/search/shows'):
-                return true;
-            default:
-                return false;
-        }
-    }
+        const allowed = ['/', '/shows', '/search/movie', '/search/show'];
 
-    renderSearchIcon = () => {
-        if (!this.shouldRenderSearch()) { return null; }
-
-        return (
-            <TwotoneSearch
-                className={css(styles.icon)}
-                onClick={this.handleSearchPress}
-            />
-        );
+        return allowed.includes(location.pathname);
     }
 
     render () {
+        const { location } = this.props;
+
         if (!this.shouldRender()) { return null; }
 
         return (
             <div className={css(styles.container)}>
-                {this.renderIcon('/', TwotoneMovie, OutlineMovie)}
-                {this.renderIcon('/shows', TwotoneLiveTv, OutlineLiveTv)}
+                {this.renderIcon('/', TwotoneMovie, OutlineMovie, 'Movies')}
+                {this.renderIcon('/shows', TwotoneLiveTv, OutlineLiveTv, 'Shows')}
 
-                {this.renderSearchIcon()}
+                {this.shouldRenderSearch()
+                    ? this.renderIcon(`/search${location.pathname === '/shows' ? '/show' : '/movie'}`, TwotoneSearch, TwotoneSearch, 'Search')
+                    : null}
 
-                {this.renderRandomIcon()}
+                <RandomIcon />
 
-                {this.renderIcon('/settings', TwotoneSettings, OutlineSettings, true)}
+                {this.renderIcon('/settings', TwotoneSettings, OutlineSettings, 'Settings', true)}
             </div>
         );
     }

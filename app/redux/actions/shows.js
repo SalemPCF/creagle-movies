@@ -12,42 +12,45 @@ export const SHOWS = {
         FAILURE: 'SHOWS:LOAD:FAILURE',
     },
     SCROLL: 'SHOWS:SCROLL',
+    SEARCH: {
+        SAVE: 'MOVIES:SEARCH:SAVE',
+        RESET: 'MOVIES:SEARCH:RESET',
+    },
 };
 
 const loadShowsInitial = () => ({ type: SHOWS.LOAD.INITIAL });
 
-const loadShowsSuccess = (data, page) => ({
+const loadShowsSuccess = (data, page, hasMore) => ({
     type: SHOWS.LOAD.SUCCESS,
     payload: {
         data,
         page,
+        hasMore,
     },
 });
 
 const loadShowsFailure = () => ({ type: SHOWS.LOAD.FAILURE });
 
 export const loadShows = () => async (dispatch, getState, { api }) => {
-    const showsPage = getState().pages.shows;
+    const { shows } = getState().pages;
+    const { params, hasMore } = shows;
 
-    if (showsPage.loading) { return; }
+    // If we're loading or the previous request returned no data,
+    // We don't want to send another request.
+    if (shows.loading || !hasMore) { return; }
 
     dispatch(loadShowsInitial());
 
-    const page = showsPage.page + 1;
+    const page = shows.page + 1;
 
-    api.get(`/shows/${page}`, {
-        params: {
-            sort: 'trending',
-            order: -1,
-            genre: 'all',
-            keywords: '',
-        },
-    })
+    api.get(`/shows/${page}`, { params })
         .then(res => res.data)
         .then((data) => {
             const normalized = normalize(data, [showSchema]);
 
-            dispatch(loadShowsSuccess(normalized, page));
+            const hasMoreData = data.length > 0;
+
+            dispatch(loadShowsSuccess(normalized, page, hasMoreData));
         })
         .catch(() => {
             logError('There was a problem loading shows.');
@@ -60,3 +63,12 @@ export const preserveScroll = scrollPosition => ({
     type: SHOWS.SCROLL,
     payload: { scrollPosition },
 });
+
+export const saveShowsSearch = params => ({
+    type: SHOWS.SEARCH.SAVE,
+    payload: {
+        params,
+    },
+});
+
+export const resetShowsSearch = () => ({ type: SHOWS.SEARCH.RESET });
