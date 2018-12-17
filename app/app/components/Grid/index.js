@@ -105,7 +105,7 @@ class Grid extends Component {
         // To determine the width of each column, we take the entire
         // width of the container, subtract the width of the scrollbar,
         // and then divide that by how many columns there are.
-        data.columnWidth = data.width / data.columnCount;
+        data.columnWidth = Math.floor(data.width / data.columnCount);
 
         // We decide on a cell height using the width.
         data.rowHeight = this.getCellHeight(data.columnWidth);
