@@ -24,11 +24,7 @@ export class Toaster extends React.Component {
      * Handles unmount.
      */
     componentWillUnmount () {
-        // Clear any timeouts and remove them from the array.
-        this.timeouts.filter((timeout) => {
-            clearTimeout(timeout);
-            return false;
-        });
+        this.timeouts.forEach(clearTimeout);
     }
 
     /**
