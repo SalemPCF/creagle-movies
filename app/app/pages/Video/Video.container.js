@@ -18,10 +18,6 @@ class Video extends Component {
 
     static propTypes = propTypes.container;
 
-    static defaultProps = {
-        quality: '1080p',
-    }
-
     client = new WebTorrent();
 
     interval = null;
@@ -31,13 +27,12 @@ class Video extends Component {
 
         loadMovie(match.params.id);
 
-        this.client.on('error', (error) => {
+        this.client.on('error', () => {
             logError('There was an error with WebTorrent.');
-            console.log(error);
         });
     }
 
-    // If the component is about to update, let's try and start our download
+    // If the component updated, let's try and start our download
     componentDidUpdate = prevProps => this.startDownload(prevProps)
 
     componentWillUnmount = () => {
@@ -49,9 +44,10 @@ class Video extends Component {
     }
 
     startDownload = (props) => {
-        const { movie, quality } = props;
-        const { started } = this.state;
         const remote = this.context;
+        const { movie, match } = props;
+        const { started } = this.state;
+        const { quality } = match.params;
 
         if (started || !movie) { return; }
 
@@ -90,9 +86,8 @@ class Video extends Component {
     }
 
     cancelDownload = () => {
-        const { movie, quality } = this.props;
-
-        if (!quality) { return; }
+        const { movie, match } = this.props;
+        const { quality } = match.params;
 
         const magnetUrl = movie.torrents.en[quality].url;
         const torrentExists = !!this.client.get(magnetUrl);

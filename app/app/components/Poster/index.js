@@ -1,9 +1,10 @@
+/* Node */
 import PropTypes from 'prop-types';
 import { css } from 'aphrodite';
 import React from 'react';
 
-import { withPosterDatabase } from '../../../../components/Database';
-
+/* Relative */
+import { withPosterDatabase } from '../Database';
 import styles from './styles';
 
 class Poster extends React.PureComponent {
@@ -11,16 +12,16 @@ class Poster extends React.PureComponent {
 
     static propTypes = {
         getImage: PropTypes.func.isRequired,
-        movieId: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
     }
 
     cancelPromise = () => null;
 
     componentDidMount () {
-        const { getImage, movieId } = this.props;
+        const { getImage, id } = this.props;
 
         // Get the promise and the cancel parts of our created promise
-        const { promise, cancel } = getImage(movieId);
+        const { promise, cancel } = getImage(id);
 
         // Create a reference to our cancel promise function
         this.cancelPromise = cancel;
@@ -48,7 +49,7 @@ class Poster extends React.PureComponent {
             <img
                 className={css(styles.poster)}
                 src={url}
-                alt="Movie"
+                alt="Poster"
             />
         );
     }

@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 
 /* Relative */
-import RemoteContext from '../../components/RemoteContext';
 import MoviePresenter from './Movie.presenter';
 import propTypes from './Movie.propTypes';
 
@@ -13,29 +12,31 @@ class MovieContainer extends Component {
 
     static propTypes = propTypes.container;
 
-    static contextType = RemoteContext;
-
     componentDidMount () {
         const { loadMovie, match } = this.props;
 
         loadMovie(match.params.id);
     }
 
-    // This method is always called at some point after the component mounts
-    // That's because when the component mounts, it queries our store and retreives the movie.
-    // In the event this isn't called, there will be no content on the screen
-    componentWillReceiveProps = (nextProps) => {
+    componentDidUpdate = () => {
         const { quality } = this.state;
-        const { movie } = nextProps;
+        const { movie } = this.props;
 
-        // If we don't have a quality
-        if (quality === false) {
+        // If we don't have a quality and we have a movie
+        if (movie && quality === '') {
             // Get our quality values
             const qualities = Object.keys(movie.torrents.en);
 
             // Set our the quality state value to the first quality value
             this.setState({ quality: qualities[0] });
         }
+    }
+
+    componentWillUnmount = () => {
+        const { unloadMovie } = this.props;
+
+        // Clear the loaded movie from our redux store
+        unloadMovie();
     }
 
     getStars = () => {
@@ -80,22 +81,19 @@ class MovieContainer extends Component {
 
     getTorrentInfo = () => {
         const { movie } = this.props;
+        const { quality } = this.state;
 
-        if (!movie) { return 0; }
+        if (!movie || !quality) { return {}; }
 
-        const torrent = movie.torrents.en['1080p'] || movie.torrents.en['720p'];
+        const torrent = movie.torrents.en[quality];
 
         const { peer, seed } = torrent;
 
-        const ratio = (seed / peer).toFixed(2);
-
-        const info = {
+        return {
             seeds: seed,
             peers: peer,
-            ratio,
+            ratio: (seed / peer).toFixed(2),
         };
-
-        return info;
     }
 
     render () {
@@ -105,7 +103,6 @@ class MovieContainer extends Component {
         return (
             <MoviePresenter
                 movie={movie}
-                renderMetaData={this.renderMetaData}
                 stars={this.getStars()}
                 isHD={this.isHD()}
                 runtime={this.getRuntime()}

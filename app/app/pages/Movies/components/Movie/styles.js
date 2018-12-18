@@ -2,36 +2,12 @@ import { StyleSheet } from 'aphrodite';
 import {
     colors, shadows, fonts,
     rgba, combine, linearGradient,
-    rem, perc, second, px,
-    combineTransforms, translateY, translate, scale,
+    rem, perc, px,
+    translateY,
 } from '../../../../../styles';
 
-const rippleKeyframes = {
-    '0%': {
-        transform: combineTransforms(
-            translate(perc(-50), perc(-50)),
-            scale(0.1),
-        ),
-    },
-
-    '90%': {
-        transform: combineTransforms(
-            translate(perc(-50), perc(-50)),
-            scale(1),
-        ),
-    },
-
-    '100%': {
-        transform: combineTransforms(
-            translate(perc(-50), perc(-50)),
-            scale(1),
-        ),
-        opacity: 0,
-    },
-};
-
 export default StyleSheet.create({
-    movieContainer: {
+    container: {
         padding: rem(0.25),
         height: perc(100),
         width: perc(100),

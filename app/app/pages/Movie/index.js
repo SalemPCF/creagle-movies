@@ -3,7 +3,7 @@ import { denormalize } from 'normalizr';
 import { connect } from 'react-redux';
 
 /* Relative */
-import { loadMovie } from '../../../redux/actions/movie';
+import { loadMovie, unloadMovie } from '../../../redux/actions/movie';
 import movieSchema from '../../../schemas/movie';
 import MovieContainer from './Movie.container';
 
@@ -17,6 +17,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     loadMovie: id => dispatch(loadMovie(id)),
+    unloadMovie: () => dispatch(unloadMovie()),
 });
 
 export default connect(

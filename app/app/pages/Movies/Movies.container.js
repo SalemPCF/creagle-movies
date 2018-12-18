@@ -10,18 +10,27 @@ class MoviesContainer extends Component {
 
     scroller = createRef();
 
-    // eslint-disable-next-line react/destructuring-assignment
-    currentScroll = this.props.scrollPosition;
+    currentScroll = null;
 
     initialScrollCompleted = false;
 
     componentDidMount () {
+        const { scrollPosition } = this.props;
+
+        // Initialize our scrollPosition
+        this.currentScroll = scrollPosition;
+
         // If our currentScroll > 0, we've scrolled down the page.
         // Let's set the page scroll position back to the preserved value.
         if (this.currentScroll > 0 && this.scroller.current) {
             this.scroller.current.scrollTo(this.currentScroll);
         }
     }
+
+    /**
+     * Fires a redux action to save the latest scroll position before our component unmounts.
+     */
+    componentWillUnmount = () => this.saveScrollPosition();
 
     /**
      * Handles each scroll event by saving the current scroll value.
@@ -39,7 +48,7 @@ class MoviesContainer extends Component {
     }
 
     /**
-     * Fires a redux action save the latest scroll position.
+     * Fires a redux action to save the latest scroll position.
      */
     saveScrollPosition = () => {
         const { preserveScroll } = this.props;
@@ -60,7 +69,6 @@ class MoviesContainer extends Component {
                 ref={this.scroller}
                 movies={movies}
                 loadMore={loadMovies}
-                saveScrollPosition={this.saveScrollPosition}
                 onScroll={this.handleScroll}
             />
         );

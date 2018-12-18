@@ -2,17 +2,15 @@
 import React, { forwardRef } from 'react';
 import { css } from 'aphrodite';
 
-import Grid from '../../components/Grid';
-import SizeTracker from '../../components/SizeTracker';
-
 /* Relative */
+import SizeTracker from '../../components/SizeTracker';
 import propTypes from './Movies.propTypes';
-import styles from './Movies.styles';
+import Grid from '../../components/Grid';
 import Movie from './components/Movie';
+import styles from './Movies.styles';
 
 const MoviesPresenter = forwardRef(({
     movies,
-    saveScrollPosition,
     loadMore,
     onScroll,
 }, ref) => (
@@ -29,10 +27,7 @@ const MoviesPresenter = forwardRef(({
                     onScroll={onScroll}
                     overscan={2}
                     renderItem={movie => (
-                        <Movie
-                            movie={movie}
-                            saveScrollPosition={saveScrollPosition}
-                        />
+                        <Movie movie={movie} />
                     )}
                 />
             )}

@@ -6,19 +6,16 @@ import React, { Component } from 'react';
 import { css } from 'aphrodite';
 
 /* Relative */
+import Ripple from '../../../../components/Ripple';
+import Poster from '../../../../components/Poster';
 import { movieShape } from './shape';
 import styles from './styles';
-import Poster from '../Poster';
-import Ripple from '../../../../components/Ripple';
 
 class Movie extends Component {
     static propTypes = movieShape;
 
     handleRippleEnd = () => {
-        const { history, movie, saveScrollPosition } = this.props;
-
-        // Save the scroll position
-        saveScrollPosition();
+        const { history, movie } = this.props;
 
         // Go to the next page
         history.push(`/movies/${movie._id}`);
@@ -30,14 +27,14 @@ class Movie extends Component {
         const qualities = Object.keys(movie.torrents.en);
 
         return (
-            <div className={css(styles.movieContainer)}>
+            <div className={css(styles.container)}>
                 <Ripple styles={styles.movie} onRippleEnd={this.handleRippleEnd}>
                     {qualities.includes('1080p') && (
                         <RoundHd className={css(styles.hdIcon)} />
                     )}
 
                     <Poster
-                        movieId={movie._id}
+                        id={movie._id}
                         image={movie.images.poster}
                     />
 

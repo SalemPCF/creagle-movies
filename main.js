@@ -1,5 +1,5 @@
 /* Node */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, screen } from 'electron';
 import fs from 'fs-extra';
 
 /* Relative */
@@ -10,27 +10,41 @@ let win = null;
 
 // Create our Window
 const createWindow = () => {
-    // Create the browser window.
-    win = new BrowserWindow({ show: false /* frame: false */ });
+    // Get our screenDimensions
+    const screenDimensions = screen.getPrimaryDisplay().workArea;
 
-    // Maximize our window
-    if (process.platform !== 'darwin') {
-        win.maximize();
-    }
+    // Create the browser window and prevent the user resizing the window beneath 500*500 px
+    win = new BrowserWindow({
+        show: false,
+        minWidth: 500,
+        minHeight: 500,
+        // We set the window width and height to the screen size
+        // because this allows us to call maximize() without a noticable flicker
+        // that's caused because of the difference in default screensize to maximized
+        // screen size.
+        width: process.platform !== 'darwin' ? screenDimensions.width : 800,
+        height: process.platform !== 'darwin' ? screenDimensions.height : 600,
+        icon: `${app.getAppPath()}/app/resources/icons/png/1024x1024.png`,
+        backgroundColor: '#303030',
+    });
 
-    // If we're debugging, open our devtools
-    if (DEBUG) {
-        win.webContents.openDevTools();
-    }
-
-    // Show our maximized window
-    win.show();
+    // Close the NavBar Options Menu (Electron default)
+    win.setMenu(null);
 
     // Load our index.html file into that window
     win.loadFile('app/index.html');
 
-    // Close the NavBar Menu
-    win.setMenu(null);
+    // Wait for our app to be ready to show it's content
+    win.once('ready-to-show', () => {
+        // Maximize our window if we're not on MacOS
+        if (process.platform !== 'darwin') { win.maximize(); }
+
+        // If we're debugging, open our devtools
+        if (DEBUG) { win.webContents.openDevTools(); }
+
+        // Show our window
+        win.show();
+    });
 
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -78,15 +92,13 @@ app.on('ready', () => {
         throw new Error('Failed to create Directories.');
     }
 
-    loadExtensions();
+    // If we're debugging, load our developer extensions
+    if (DEBUG) { loadExtensions(); }
 });
-
 
 // When our windows have been closed, close our app.
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
-        app.quit();
-
         const tempPath = app.getPath('temp');
         const creagleTempDir = `${tempPath}\\Creagle Movies`;
 
@@ -99,6 +111,8 @@ app.on('window-all-closed', () => {
         } catch (error) {
             // TODO: Add graceful handling here
         }
+
+        app.quit();
     }
 });
 

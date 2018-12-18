@@ -28,6 +28,8 @@ const movieReducer = (state = initialState, action) => {
                 id: action.payload.data.result,
             };
 
+        case MOVIE.LOAD.UNLOAD:
+            return initialState;
         default:
             return state;
     }

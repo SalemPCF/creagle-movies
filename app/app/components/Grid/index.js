@@ -27,6 +27,11 @@ class Grid extends Component {
 
         const distanceToBottom = scrollHeight - scrollTop;
 
+        // If distanceToBottom is 0, we can assume the component has just mounted.
+        // Without this, we'd send another request every time this component mounts
+        // which happens every time React Router switches to this component.
+        if (distanceToBottom === 0) { return; }
+
         // If we're close to the bottom of the page, and we have a
         // loadMore function, fire it.
         if (distanceToBottom <= (clientHeight + 250) && loadMore) {
