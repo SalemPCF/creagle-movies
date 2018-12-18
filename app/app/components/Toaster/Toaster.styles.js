@@ -1,7 +1,10 @@
+/* Node */
 import { StyleSheet } from 'aphrodite';
+
+/* Relative */
 import { rem, colors, px, second, translateY, fonts, shadows } from '../../../styles';
 
-const slideInKeyframes = {
+const slideKeyframes = {
     from: {
         opacity: 0,
         transform: translateY(rem(1)),
@@ -10,18 +13,6 @@ const slideInKeyframes = {
     to: {
         opacity: 1,
         transform: translateY(0),
-    },
-};
-
-const fadeOutKeyframes = {
-    from: {
-        opacity: 1,
-        transform: translateY(rem(0)),
-    },
-
-    to: {
-        opacity: 0,
-        transform: translateY(rem(1)),
     },
 };
 
@@ -47,14 +38,15 @@ export default StyleSheet.create({
         marginBottom: rem(0.5),
         width: 'auto',
         minWidth: px(344),
-        animationName: slideInKeyframes,
+        animationName: slideKeyframes,
         animationDuration: second(0.5),
         boxShadow: shadows.one,
     },
 
     toast_disappearing: {
-        animationName: fadeOutKeyframes,
+        animationName: slideKeyframes,
         animationDuration: second(0.2),
         animationFillMode: 'forwards',
+        animationDirection: 'reverse',
     },
 });
