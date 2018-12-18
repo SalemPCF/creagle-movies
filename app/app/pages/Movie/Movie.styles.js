@@ -102,7 +102,7 @@ export default StyleSheet.create({
 
     starIcon: {
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
-        color: colors.starColor,
+        color: colors.yellow,
         cursor: 'default',
         fontSize: px(24),
     },

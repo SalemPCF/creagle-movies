@@ -2,7 +2,7 @@
 import { StyleSheet } from 'aphrodite';
 
 /* Relative */
-import { perc, rem, combine, px, rgb } from '../../../styles';
+import { perc, rem, combine, px, colors, second } from '../../../styles';
 
 export default StyleSheet.create({
     container: {
@@ -21,8 +21,9 @@ export default StyleSheet.create({
         padding: combine(px(10), px(10), px(10), px(5)),
         width: px(300),
         border: 'none',
-        borderBottom: '1px solid rgb(66, 66, 66)',
+        borderBottom: combine(px(1), 'solid', colors.text.tertiary),
         backgroundColor: 'transparent',
+        color: colors.text.primary,
 
         ':focus': {
             outline: 'none',
@@ -31,17 +32,17 @@ export default StyleSheet.create({
         ':focus ~ label': {
             top: px(-15),
             fontSize: px(14),
-            color: rgb(66, 66, 66),
+            color: colors.text.secondary,
         },
     },
 
     label: {
-        color: rgb(66, 66, 66),
+        color: colors.text.secondary,
         fontSize: px(16),
         position: 'absolute',
         left: px(5),
         top: px(10),
-        transition: '0.2s ease all',
+        transition: combine(second(0.2), 'ease', 'all'),
     },
 
     header: {
