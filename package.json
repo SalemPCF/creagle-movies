@@ -7,15 +7,33 @@
     "start": "electron .",
     "build": "electron-packager ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/creagle-movies/app"
+  },
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "Creagle",
+    "movies",
+    "film",
+    "tv",
+    "watch",
+    "download"
   ],
-  "author": "GitHub",
+  "author": {
+    "name": "Creagle Movies",
+    "url": "https://github.com/creagle-movies"
+  },
+  "contributors": [
+    {
+      "name": "Salem Cresswell",
+      "url": "https://github.com/SalemPCF"
+    },
+    {
+      "name": "Jake Taylor",
+      "email": "me@jaketaylor.co",
+      "url": "http://jaketaylor.co"
+    }
+  ],
   "license": "CC0-1.0",
   "devDependencies": {
     "babel-core": "^6.26.3",
