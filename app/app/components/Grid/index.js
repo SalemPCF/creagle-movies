@@ -160,6 +160,17 @@ class Grid extends Component {
     }
 
     /**
+     * Calculates the amount of overscan we want for y and -y
+     *
+     * @param {object} obj - Object containing everything we need from react-virtualized.
+     * @returns {object} - Object containing the amount of overscan we want.
+     */
+    calculateOverscan = ({ cellCount, startIndex, stopIndex, overscanCellsCount }) => ({
+        overscanStartIndex: Math.max(0, startIndex - overscanCellsCount),
+        overscanStopIndex: Math.min(cellCount - 1, stopIndex + overscanCellsCount),
+    })
+
+    /**
      * Renders the component.
      *
      * @returns {mixed} - React elements
@@ -181,6 +192,7 @@ class Grid extends Component {
                 width={grid.width}
                 cellRenderer={this.renderCell}
                 overscanRowCount={overscan}
+                overscanIndicesGetter={this.calculateOverscan}
             />
         );
     }
