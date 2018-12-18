@@ -14,8 +14,15 @@ const slideInKeyframes = {
 };
 
 const fadeOutKeyframes = {
-    from: { opacity: 1 },
-    to: { opacity: 0 },
+    from: {
+        opacity: 1,
+        transform: translateY(rem(0)),
+    },
+
+    to: {
+        opacity: 0,
+        transform: translateY(rem(1)),
+    },
 };
 
 export default StyleSheet.create({
