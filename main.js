@@ -26,7 +26,7 @@ const createWindow = () => {
         // screen size.
         width: process.platform !== 'darwin' ? screenDimensions.width : 800,
         height: process.platform !== 'darwin' ? screenDimensions.height : 600,
-        icon: `${app.getAppPath()}/app/resources/icons/png/1024x1024.png`,
+        icon: path.join(__dirname, 'app/resources/icons/png/1024x1024.png'),
         backgroundColor: colors.background.one,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
