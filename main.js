@@ -1,9 +1,11 @@
 /* Node */
 import { app, BrowserWindow, screen } from 'electron';
 import fs from 'fs-extra';
+import path from 'path';
 
 /* Relative */
 import { DEBUG } from './app/config/globals';
+import colors from './app/styles/colors';
 
 // Global window object
 let win = null;
@@ -25,14 +27,20 @@ const createWindow = () => {
         width: process.platform !== 'darwin' ? screenDimensions.width : 800,
         height: process.platform !== 'darwin' ? screenDimensions.height : 600,
         icon: `${app.getAppPath()}/app/resources/icons/png/1024x1024.png`,
-        backgroundColor: '#303030',
+        backgroundColor: colors.background.one,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js'),
+        },
     });
 
     // Close the NavBar Options Menu (Electron default)
     win.setMenu(null);
 
-    // Load our index.html file into that window
-    win.loadFile('app/index.html');
+    // Load our index.html file into that window.
+    // We build the URL and then attach our colors
+    // object as a URL param so that we can read them in preload.
+    const url = `file://${path.join(__dirname, 'app/index.html')}`;
+    win.loadURL(`${url}?colors=${JSON.stringify(colors)}`);
 
     // Wait for our app to be ready to show it's content
     win.once('ready-to-show', () => {

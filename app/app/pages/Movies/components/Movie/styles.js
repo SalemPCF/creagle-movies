@@ -29,7 +29,7 @@ export default StyleSheet.create({
         position: 'absolute',
         top: rem(0.5),
         right: rem(0.5),
-        color: colors.hdColor,
+        color: colors.text.tertiary,
         textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
         fontSize: px(24),
     },

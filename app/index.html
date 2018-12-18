@@ -6,6 +6,15 @@
         <title>Creagle Movies</title>
 
         <style>
+            :root {
+                /**
+                 * These are replaced almost immediately
+                 * by the preload.js file.
+                 **/
+                --bgColor: transparent;
+                --selectionColor: transparent;
+            }
+
             *, *:after, *:before {
                 -webkit-font-smoothing: antialiased;
                 box-sizing: border-box;
@@ -19,12 +28,12 @@
             }
 
             ::selection {
-                background-color: rgb(23, 104, 184);
+                background-color: var(--selectionColor);
             }
 
             html, body, #app {
                 height: 100%;
-                background-color: #303030;
+                background-color: var(--bgColor);
                 font-size: 16px;
             }
         </style>
