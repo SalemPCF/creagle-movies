@@ -5,25 +5,27 @@ import { StyleSheet } from 'aphrodite';
 import {
     colors,
     px,
+    shadows,
+    perc,
 } from '../../../../styles';
 
 export default StyleSheet.create({
     container: {
-        height: '100vh',
+        height: perc(100),
         width: px(75),
         minWidth: px(75),
         left: px(0),
         top: px(0),
         display: 'flex',
-        backgroundColor: colors.navbar,
+        backgroundColor: colors.background.two,
         flexDirection: 'column',
         alignItems: 'center',
-        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)',
+        boxShadow: shadows.three,
     },
     icon: {
         marginTop: px(30),
         fontSize: px(30),
-        color: 'white',
+        color: colors.text.primary,
         cursor: 'pointer',
     },
     bottom: {
