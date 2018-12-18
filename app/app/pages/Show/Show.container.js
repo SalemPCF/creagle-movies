@@ -26,31 +26,25 @@ class ShowContainer extends Component {
 
         if (!show || sorted) { return; }
 
-        const seasons = {};
-
-        // Start at season 1, end at season {i}
-        for (let i = 1; i <= show.num_seasons; i += 1) {
-            seasons[i] = [];
-        }
-
-        if (show.episodes.length <= 0) { return; }
-
-        // Sort our episodes into the correct season
-        show.episodes.forEach((episode) => {
-            const { season } = episode;
-
-            seasons[season].push(episode);
-        });
-
-        // Make sure our season episodes are in the right order
-        Object.values(seasons).forEach((season) => {
-            // Remove our season if it doesn't have any episodes
-            if (Object.keys(season).length <= 0) {
-                seasons[season] = undefined;
+        // Create our seasons array:
+        // const seasons = [['episode 1', 'episode 2'], ['episode 1']]
+        const seasons = show.episodes.reduce((accumulator, episode) => {
+            if (!accumulator[episode.season]) {
+                accumulator[episode.season] = [];
             }
 
-            season.sort((current, next) => current.episode - next.episode);
-        });
+            accumulator[episode.season].push(episode);
+
+            return accumulator;
+        }, {});
+
+        // Let's make sure we've got our episodes in ascending order
+        // eslint-disable-next-line no-restricted-syntax
+        for (const season in seasons) {
+            if (Object.prototype.hasOwnProperty.call(seasons, season)) {
+                seasons[season] = seasons[season].sort((a, b) => a.episode - b.episode);
+            }
+        }
 
         this.setState({ seasons, sorted: true });
     }
