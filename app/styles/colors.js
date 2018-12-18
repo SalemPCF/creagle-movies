@@ -16,7 +16,7 @@ export default {
     primary: rgb(23, 104, 184),
     primaryAccent: rgb(23, 79, 184),
 
-    starColor: rgb(255, 195, 0),
+    yellow: rgb(255, 195, 0),
 
     good: rgba(40, 167, 69, 0.7),
     medium: rgba(255, 193, 7, 0.7),
