@@ -20,9 +20,7 @@ export const withPosterDatabase = Comp => withDatabase(class extends Component {
     }
 
     // Load our image and save it
-    loadImage = movieId => new Promise(async (resolve) => {
-        const { image } = this.props;
-
+    loadImage = (movieId, image) => new Promise(async (resolve) => {
         // Load the image from the server
         const res = await api.get(image, { responseType: 'blob' });
 
@@ -41,7 +39,7 @@ export const withPosterDatabase = Comp => withDatabase(class extends Component {
 
     // Get the image from our database or load it
     getImage = async (movieId) => {
-        const { getStore } = this.props;
+        const { getStore, image } = this.props;
 
         const store = await getStore('posters_b64');
 
@@ -49,7 +47,7 @@ export const withPosterDatabase = Comp => withDatabase(class extends Component {
         const img = await store.get(movieId);
 
         // If we got an image, return it. If we didn't, load it.
-        return img || this.loadImage(movieId);
+        return img || (image ? this.loadImage(movieId, image) : 'resources/no-image-available.png');
     }
 
     // Wrap the getImage function to allow us to cancel the promise

@@ -15,6 +15,10 @@ const MoviesPresenter = forwardRef(({
     onScroll,
 }, ref) => (
     <div className={css(styles.container)}>
+        <div>
+            <h1>Movies</h1>
+        </div>
+
         <SizeTracker className={css(styles.tracker)}>
             {({ width, height }) => (
                 <Grid

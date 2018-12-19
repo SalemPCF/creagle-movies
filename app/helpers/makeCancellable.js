@@ -12,12 +12,12 @@ export const makeCancellable = (promise) => {
         promise
             .then(val => (
                 hasCancelled
-                    ? reject({ isCanceled: true })
+                    ? reject({ isCancelled: true })
                     : resolve(val)));
         promise
             .catch(error => (
                 hasCancelled
-                    ? reject({ isCanceled: true })
+                    ? reject({ isCancelled: true })
                     : reject(error)));
     });
 

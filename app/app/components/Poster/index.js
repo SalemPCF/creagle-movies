@@ -5,6 +5,7 @@ import React from 'react';
 
 /* Relative */
 import { withPosterDatabase } from '../Database';
+import { logError } from '../../../helpers';
 import styles from './styles';
 
 class Poster extends React.PureComponent {
@@ -33,7 +34,7 @@ class Poster extends React.PureComponent {
             // We didn't get an image URL - show the fallback
             .catch((err) => {
                 // If we cancelled the promise, don't update the state
-                if (err.isCanceled) { return; }
+                if (err.isCancelled) { return; }
 
                 // Set the state to an image not available image
                 this.setState({ url: 'resources/no-image-available.png' });
