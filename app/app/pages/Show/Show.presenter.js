@@ -5,6 +5,7 @@ import RoundStarHalf from 'react-md-icon/dist/RoundStarHalf';
 import RoundStar from 'react-md-icon/dist/RoundStar';
 import { Link } from 'react-router-dom';
 import { css } from 'aphrodite';
+import moment from 'moment';
 import React from 'react';
 
 /* Relative */
@@ -14,7 +15,7 @@ import propTypes from './Show.propTypes';
 import styles from './Show.styles';
 
 const ShowPresenter = ({
-    show, stars, runtime, seasons,
+    show, stars, runtime, seasons, selectedSeason, handleGeneric,
 }) => (
     <div className={css(styles.container)}>
         {show && show.images && show.images.fanart && (
@@ -56,13 +57,33 @@ const ShowPresenter = ({
                     </div>
                 </div>
 
-                <div>
-                    {Object.keys(seasons).map(season => (
-                        <div key={season}>
-                            <p>{`Season ${season}`}</p>
-                        </div>
-                    ))}
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <div style={{ width: '15%', fontFamily: 'Roboto' }}>
+                        <h2 style={{ color: 'white' }}>Seasons</h2>
+                        {Object.keys(seasons).map(season => (
+                            <div key={season} onClick={() => handleGeneric('selectedSeason', season)} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '0.5rem', paddingLeft: 0, textDecoration: 'none', fontFamily: 'Roboto', fontSize: '16px', color: 'white', cursor: 'pointer' }}>
+                                <p>{`Season ${season}`}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div style={{ width: '85%' }}>
+                        <h2 style={{ color: 'white', fontFamily: 'Roboto' }}>Episodes</h2>
+                        {seasons[selectedSeason] ? seasons[selectedSeason].map(episode => (
+                            <Link to="/shows" key={episode.tvdb_id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '0.5rem', paddingLeft: 0, textDecoration: 'none', fontFamily: 'Roboto', fontSize: '14px', color: 'white' }}>
+                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <p style={{ marginRight: '1rem' }}>{episode.episode}</p>
+                                    <p>{episode.title}</p>
+                                </div>
+
+                                <div>
+                                    <p>{moment.unix(episode.first_aired).format('DD/MM/YYYY')}</p>
+                                </div>
+                            </Link>
+                        )) : null}
+                    </div>
                 </div>
+
             </div>
         ) : (
             <Spinner />

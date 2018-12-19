@@ -3,7 +3,7 @@ import { StyleSheet } from 'aphrodite';
 import {
     colors, rgba, fonts,
     perc, px, rem, radialGradient,
-    blur, scale,
+    blur, scale, combine,
 } from '../../../styles';
 
 export default StyleSheet.create({
@@ -12,6 +12,7 @@ export default StyleSheet.create({
         width: perc(100),
         height: perc(100),
         position: 'relative',
+        padding: combine(rem(5), rem(7)),
     },
 
     background: {
@@ -50,13 +51,10 @@ export default StyleSheet.create({
     },
 
     innerContainer: {
-        position: 'fixed',
-        top: rem(5),
-        left: rem(7),
-        bottom: 0,
-        right: 0,
+        position: 'relative',
         zIndex: 3,
         width: perc(100),
+        height: perc(100),
     },
 
     title: {

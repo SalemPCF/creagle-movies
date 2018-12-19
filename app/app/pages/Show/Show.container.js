@@ -87,6 +87,12 @@ class ShowContainer extends Component {
         return hours ? `${hours}h ${mins}m` : `${mins}m`;
     }
 
+    /**
+     * Handles a generic state change
+     *
+     */
+    handleGeneric = (type, value) => this.setState({ [type]: value });
+
     render () {
         const { show } = this.props;
         const { seasons, selectedSeason } = this.state;
@@ -98,6 +104,7 @@ class ShowContainer extends Component {
                 runtime={this.getRuntime()}
                 seasons={seasons}
                 selectedSeason={selectedSeason}
+                handleGeneric={this.handleGeneric}
             />
         );
     }
