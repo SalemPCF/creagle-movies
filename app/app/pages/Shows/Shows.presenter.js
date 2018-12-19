@@ -5,6 +5,7 @@ import { css } from 'aphrodite';
 /* Relative */
 import SizeTracker from '../../components/SizeTracker';
 import propTypes from './Shows.propTypes';
+import Navbar from '../components/Navbar';
 import Grid from '../../components/Grid';
 import Show from './components/Show';
 import styles from './Shows.styles';
@@ -15,6 +16,8 @@ const ShowsPresenter = forwardRef(({
     onScroll,
 }, ref) => (
     <div className={css(styles.container)}>
+        <Navbar title="TV Shows" type="show" />
+
         <SizeTracker className={css(styles.tracker)}>
             {({ width, height }) => (
                 <Grid

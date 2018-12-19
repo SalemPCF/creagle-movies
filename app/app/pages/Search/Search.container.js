@@ -43,7 +43,7 @@ class SearchContainer extends Component {
         const { type } = match.params;
 
         switch (type) {
-            case ('shows'):
+            case ('show'):
                 if (shouldReset) {
                     resetShowsSearch();
                 } else {
@@ -54,7 +54,7 @@ class SearchContainer extends Component {
 
                 history.push('/shows');
                 break;
-            case ('movies'):
+            case ('movie'):
             default:
                 if (shouldReset) {
                     resetMoviesSearch();
@@ -72,11 +72,7 @@ class SearchContainer extends Component {
      * Handles a generic state change
      *
      */
-    handleGeneric = (type, event) => {
-        console.log(event);
-
-        this.setState({ [type]: event.target.value });
-    }
+    handleGeneric = (type, value) => this.setState({ [type]: value });
 
     /**
      * Renders our component

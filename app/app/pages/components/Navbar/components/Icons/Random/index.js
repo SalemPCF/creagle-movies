@@ -5,18 +5,16 @@ import React, { Component } from 'react';
 import { css } from 'aphrodite';
 
 /* Relative */
-import { logError } from '../../../../../../helpers';
-import { api } from '../../../../../../services/api';
+import { logError } from '../../../../../../../helpers';
+import { api } from '../../../../../../../services/api';
 import propTypes from './propTypes';
-import styles from '../../styles';
+import styles from '../styles';
 
 class RandomIcon extends Component {
     static propTypes = propTypes;
 
     handleClick = () => {
-        const { location, history } = this.props;
-
-        const type = location.pathname === '/shows' ? 'show' : 'movie';
+        const { history, type } = this.props;
 
         api.get(`/random/${type}`)
             .then(res => res.data)
@@ -28,17 +26,7 @@ class RandomIcon extends Component {
             });
     }
 
-    shouldRender = () => {
-        const { location } = this.props;
-
-        const allowed = ['/', '/shows'];
-
-        return allowed.includes(location.pathname);
-    }
-
     render () {
-        if (!this.shouldRender()) { return null; }
-
         return (
             <div className={css(styles.icon)} onClick={this.handleClick} title="Random">
                 <TwotoneAllInclusive />

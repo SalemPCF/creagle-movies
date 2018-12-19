@@ -1,5 +1,7 @@
+/* Node */
 import { StyleSheet } from 'aphrodite';
 
+/* Relative */
 import { perc, rem, combine } from '../../../styles';
 
 export default StyleSheet.create({
@@ -7,6 +9,7 @@ export default StyleSheet.create({
         width: perc(100),
         height: perc(100),
         padding: combine(0, rem(1)),
+        overflow: 'hidden',
     },
 
     tracker: {

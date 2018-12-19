@@ -7,4 +7,5 @@ export default {
         search: PropTypes.string,
         state: PropTypes.string,
     }).isRequired,
+    type: PropTypes.string.isRequired,
 };

@@ -30,7 +30,7 @@ export default StyleSheet.create({
         top: rem(0.5),
         right: rem(0.5),
         color: colors.text.tertiary,
-        textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
+        filter: 'drop-shadow(1px 1px 10px black)',
         fontSize: px(24),
     },
 

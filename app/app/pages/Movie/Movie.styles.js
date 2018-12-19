@@ -45,7 +45,7 @@ export default StyleSheet.create({
         left: rem(1),
         zIndex: 4,
         color: colors.text.primary,
-        textShadow: '0 2px 5px rgba(0, 0, 0, 0.12)',
+        filter: 'drop-shadow(1px 1px 10px black)',
         fontSize: px(24),
     },
 

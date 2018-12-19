@@ -2,18 +2,40 @@
 import { StyleSheet } from 'aphrodite';
 
 /* Relative */
-import { perc, rem, combine, px, colors, second } from '../../../styles';
+import { perc, rem, combine, px, colors, second, shadows } from '../../../styles';
 
 export default StyleSheet.create({
     container: {
+        background: colors.background.two,
         width: perc(100),
         height: perc(100),
-        padding: combine(rem(1), rem(1)),
+        position: 'relative',
+        padding: combine(rem(5), rem(7)),
+    },
+
+    title: {
+        color: colors.text.primary,
     },
 
     inputContainer: {
         position: 'relative',
-        marginBottom: px(45),
+        marginTop: px(20),
+    },
+
+    innerContainer: {
+        zIndex: 3,
+        width: perc(100),
+        height: perc(100),
+    },
+
+    closeIcon: {
+        position: 'absolute',
+        top: rem(1),
+        left: rem(1),
+        zIndex: 4,
+        color: colors.text.primary,
+        filter: 'drop-shadow(1px 1px 10px black)',
+        fontSize: px(24),
     },
 
     input: {
@@ -45,7 +67,31 @@ export default StyleSheet.create({
         transition: combine(second(0.2), 'ease', 'all'),
     },
 
-    header: {
-        color: 'white',
+    labelActive: {
+        top: px(-15),
+        fontSize: px(14),
+        color: colors.text.secondary,
+    },
+
+    button: {
+        fontFamily: 'Roboto',
+        fontSize: rem(0.875),
+        textDecoration: 'none',
+        color: colors.text.primary,
+        background: colors.primary,
+        width: px(300),
+        height: 'auto',
+        padding: rem(0.5, 2),
+        borderWidth: 0,
+        borderRadius: rem(0.25),
+        boxShadow: shadows.one,
+        transition: combine('background-color', second(0.3)),
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        ':hover': {
+            background: colors.primaryAccent,
+        },
     },
 });

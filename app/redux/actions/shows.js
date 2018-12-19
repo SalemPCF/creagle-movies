@@ -13,8 +13,8 @@ export const SHOWS = {
     },
     SCROLL: 'SHOWS:SCROLL',
     SEARCH: {
-        SAVE: 'MOVIES:SEARCH:SAVE',
-        RESET: 'MOVIES:SEARCH:RESET',
+        SAVE: 'SHOWS:SEARCH:SAVE',
+        RESET: 'SHOWS:SEARCH:RESET',
     },
 };
 
