@@ -12,6 +12,29 @@ let win = null;
 
 // Create our Window
 const createWindow = () => {
+    // Only allow a single instance of our app to exist
+    const instanceExists = app.requestSingleInstanceLock();
+
+    // If our instance exists, this will return false.
+    // That means we've likely opened another instance of our app.
+    // Let's close that instance and prevent the window being drawn.
+    if (!instanceExists) {
+        app.quit();
+
+        return;
+    }
+
+    // If we haven't got an instance from requestSingleInstanceLock
+    // we're likely to be the main app. So if we've opened another app,
+    // let's focus our window and restore it if it's been minimized.
+    app.on('second-instance', () => {
+        if (win) {
+            if (win.isMinimized()) { win.restore(); }
+
+            win.focus();
+        }
+    });
+
     // Get our screenDimensions
     const screenDimensions = screen.getPrimaryDisplay().workArea;
 
