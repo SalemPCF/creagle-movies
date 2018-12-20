@@ -3,7 +3,7 @@ import { SHOW } from '../../actions/show';
 
 const initialState = {
     loading: false,
-    data: null,
+    id: null,
 };
 
 const showReducer = (state = initialState, action) => {
@@ -14,11 +14,18 @@ const showReducer = (state = initialState, action) => {
                 loading: true,
             };
 
+        case SHOW.LOAD.CACHED:
+            return {
+                ...state,
+                loading: false,
+                id: action.payload.id,
+            };
+
         case SHOW.LOAD.SUCCESS:
             return {
                 ...state,
                 loading: false,
-                data: action.payload.data,
+                id: action.payload.data.result,
             };
 
         case SHOW.LOAD.UNLOAD:

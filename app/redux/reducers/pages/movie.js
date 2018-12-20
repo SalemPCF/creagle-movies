@@ -30,6 +30,7 @@ const movieReducer = (state = initialState, action) => {
 
         case MOVIE.LOAD.UNLOAD:
             return initialState;
+
         default:
             return state;
     }
