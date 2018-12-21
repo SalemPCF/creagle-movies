@@ -22,8 +22,9 @@ class Database extends Component {
     });
 
     getObjectStores = () => ({
-        posters: {},
-        posters_b64: {},
+        movie_posters: {},
+        show_posters: {},
+        episode_posters: {},
     });
 
     render () {

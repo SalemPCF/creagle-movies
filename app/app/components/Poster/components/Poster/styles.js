@@ -1,6 +1,8 @@
-/* Relative */
+/* Node */
 import { StyleSheet } from 'aphrodite';
-import { perc } from '../../../styles';
+
+/* Relative */
+import { perc } from '../../../../../styles';
 
 export default StyleSheet.create({
     poster: {

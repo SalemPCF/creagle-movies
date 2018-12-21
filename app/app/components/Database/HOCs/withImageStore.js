@@ -6,21 +6,21 @@ import { makeCancellable } from '../../../../helpers';
 import { api } from '../../../../services/api';
 import { withDatabase } from './withDatabase';
 
-export const withPosterDatabase = Comp => withDatabase(class extends Component {
-    static displayName = `withPosterDatabase(${Component.displayName || Component.name})`;
+export const withImageStore = (Comp, storeName) => withDatabase(class extends Component {
+    static displayName = `withImageStore(${Component.displayName || Component.name})`;
 
     // Store the image in our database
-    storeImage = async (movieId, base64) => {
+    storeImage = async (id, base64) => {
         const { getStore } = this.props;
 
-        const store = await getStore('posters_b64');
+        const store = await getStore(storeName);
 
-        // Store the specified blob for this movieID
-        store.put(base64, movieId);
+        // Store the specified blob for this id
+        store.put(base64, id);
     }
 
     // Load our image and save it
-    loadImage = (movieId, image) => new Promise(async (resolve) => {
+    loadImage = (id, image) => new Promise(async (resolve) => {
         // Load the image from the server
         const res = await api.get(image, { responseType: 'blob' });
 
@@ -31,27 +31,27 @@ export const withPosterDatabase = Comp => withDatabase(class extends Component {
             const base64 = reader.result;
 
             // Store the retrieved image for next time
-            this.storeImage(movieId, base64);
+            this.storeImage(id, base64);
 
             resolve(base64);
         };
     })
 
     // Get the image from our database or load it
-    getImage = async (movieId) => {
+    getImage = async (id) => {
         const { getStore, image } = this.props;
 
-        const store = await getStore('posters_b64');
+        const store = await getStore(storeName);
 
-        // Get an image from the store for the specified movieID
-        const img = await store.get(movieId);
+        // Get an image from the store for the specified id
+        const img = await store.get(id);
 
         // If we got an image, return it. If we didn't, load it.
-        return img || (image ? this.loadImage(movieId, image) : 'resources/no-image-available.png');
+        return img || (image ? this.loadImage(id, image) : 'resources/no-image-available.png');
     }
 
     // Wrap the getImage function to allow us to cancel the promise
-    getImageCancellable = movieId => makeCancellable(this.getImage(movieId))
+    getImageCancellable = id => makeCancellable(this.getImage(id))
 
     render () {
         const { getStore, ...props } = this.props;

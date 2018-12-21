@@ -1,9 +1,9 @@
 import { StyleSheet } from 'aphrodite';
 
 import {
-    colors, rgba, fonts,
-    perc, px, rem, radialGradient,
-    blur, scale, combine,
+    colors, fonts,
+    perc, px, rem,
+    combine, shadows, translateY,
 } from '../../../styles';
 
 export default StyleSheet.create({
@@ -13,31 +13,6 @@ export default StyleSheet.create({
         height: perc(100),
         position: 'relative',
         padding: combine(rem(5), rem(7)),
-    },
-
-    background: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        zIndex: 1,
-        width: perc(100),
-        height: perc(100),
-        filter: blur(px(8)),
-        transform: scale(1.2),
-        transformOrigin: 'center',
-    },
-
-    overlay: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        zIndex: 2,
-        width: perc(100),
-        height: perc(100),
-        background: radialGradient(
-            rgba(0, 0, 0, 0.5),
-            rgba(0, 0, 0, 0.75),
-        ),
     },
 
     closeIcon: {
@@ -62,6 +37,16 @@ export default StyleSheet.create({
         fontFamily: fonts.primary,
         fontWeight: fonts.weights.primary.bold,
         marginBottom: rem(0.5),
+    },
+
+    synopsis: {
+        fontFamily: fonts.primary,
+        color: colors.text.secondary,
+        width: perc(100),
+        maxWidth: px(800),
+        fontSize: rem(0.875),
+        lineHeight: 1.6,
+        marginBottom: rem(1),
     },
 
     metadata: {
@@ -98,13 +83,50 @@ export default StyleSheet.create({
         fontSize: px(24),
     },
 
-    synopsis: {
-        fontFamily: fonts.primary,
-        color: colors.text.secondary,
+    tracker: {
         width: perc(100),
-        maxWidth: px(800),
-        fontSize: rem(0.875),
-        lineHeight: 1.6,
-        marginBottom: rem(1),
+        height: perc(100),
+    },
+
+    grid: {
+        paddingTop: rem(1),
+
+        ':focus': {
+            outline: 0,
+        },
+
+        '::-webkit-scrollbar': {
+            display: 'none',
+        },
+    },
+
+    ripple: {
+        background: colors.background.two,
+        borderRadius: rem(0.25),
+        boxShadow: shadows.one,
+        transition: 'all .3s cubic-bezier(.25, .8, .25, 1)',
+        height: '75%',
+        width: '100%',
+
+        ':hover': {
+            boxShadow: shadows.two,
+            transform: translateY(rem(-0.25)),
+        },
+    },
+
+    infoText: {
+        fontFamily: fonts.primary,
+        fontSize: rem(1),
+        userSelect: 'none',
+        cursor: 'pointer',
+    },
+
+    infoText_primary: {
+        color: colors.text.secondary,
+        fontWeight: fonts.weights.primary.bold,
+    },
+
+    infoText_secondary: {
+        color: colors.text.tertiary,
     },
 });

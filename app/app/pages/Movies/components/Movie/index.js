@@ -6,8 +6,8 @@ import React, { Component } from 'react';
 import { css } from 'aphrodite';
 
 /* Relative */
+import { MoviePoster } from '../../../../components/Poster';
 import Ripple from '../../../../components/Ripple';
-import Poster from '../../../../components/Poster';
 import { movieShape } from './shape';
 import styles from './styles';
 
@@ -33,7 +33,7 @@ class Movie extends Component {
                         <RoundHd className={css(styles.hdIcon)} />
                     )}
 
-                    <Poster
+                    <MoviePoster
                         id={movie._id}
                         image={movie.images.poster}
                     />

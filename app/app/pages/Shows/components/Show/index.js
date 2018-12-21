@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 import { css } from 'aphrodite';
 
 /* Relative */
+import { ShowPoster } from '../../../../components/Poster';
 import Ripple from '../../../../components/Ripple';
-import Poster from '../../../../components/Poster';
 import { showShape } from './shape';
 import styles from './styles';
 
@@ -26,7 +26,7 @@ class Show extends Component {
         return (
             <div className={css(styles.container)}>
                 <Ripple styles={styles.show} onRippleEnd={this.handleRippleEnd}>
-                    <Poster
+                    <ShowPoster
                         id={show._id}
                         image={show.images.poster}
                     />

@@ -14,13 +14,13 @@ class ShowContainer extends Component {
 
     static propTypes = propTypes.container;
 
-    componentDidMount = () => {
+    componentDidMount () {
         const { loadShow, match } = this.props;
 
         loadShow(match.params.id);
     }
 
-    componentDidUpdate = () => {
+    componentDidUpdate () {
         const { show } = this.props;
         const { sorted } = this.state;
 
@@ -38,18 +38,23 @@ class ShowContainer extends Component {
             return accumulator;
         }, {});
 
+        let firstSeason = null;
+
         // Let's make sure we've got our episodes in ascending order
         // eslint-disable-next-line no-restricted-syntax
         for (const season in seasons) {
             if (Object.prototype.hasOwnProperty.call(seasons, season)) {
+                // Make sure we've got our first season
+                if (!firstSeason) { firstSeason = season; }
+
                 seasons[season] = seasons[season].sort((a, b) => a.episode - b.episode);
             }
         }
 
-        this.setState({ seasons, sorted: true });
+        this.setState({ seasons, sorted: true, selectedSeason: firstSeason });
     }
 
-    componentWillUnmount = () => {
+    componentWillUnmount () {
         const { unloadShow } = this.props;
 
         unloadShow();
@@ -93,6 +98,23 @@ class ShowContainer extends Component {
      */
     handleGeneric = (type, value) => this.setState({ [type]: value });
 
+    /**
+     * Returns our card height
+     *
+     */
+    getCellHeight = width => Math.round(width * 0.8)
+
+    /**
+     * Returns how many cards should be rendered based on our container width
+     *
+     */
+    getColumnCount = (width) => {
+        if (width <= 525) return 2;
+        if (width <= 960) return 4;
+
+        return 6;
+    }
+
     render () {
         const { show } = this.props;
         const { seasons, selectedSeason } = this.state;
@@ -105,6 +127,8 @@ class ShowContainer extends Component {
                 seasons={seasons}
                 selectedSeason={selectedSeason}
                 handleGeneric={this.handleGeneric}
+                getCellHeight={this.getCellHeight}
+                getColumnCount={this.getColumnCount}
             />
         );
     }
