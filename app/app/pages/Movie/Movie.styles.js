@@ -41,7 +41,7 @@ export default StyleSheet.create({
 
     closeIcon: {
         position: 'absolute',
-        top: rem(1),
+        top: rem(1.6),
         left: rem(1),
         zIndex: 4,
         color: colors.text.primary,

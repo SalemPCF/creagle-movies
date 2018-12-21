@@ -4,7 +4,6 @@ import {
     colors, fonts,
     perc, px, rem,
     combine, second,
-    scaleY,
     shadows,
     depth,
 } from '../../../styles';
