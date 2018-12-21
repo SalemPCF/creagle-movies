@@ -4,6 +4,7 @@ import {
     rgba, combine, linearGradient,
     rem, perc, px,
     translateY,
+    depth,
 } from '../../../../../styles';
 
 export default StyleSheet.create({
@@ -18,6 +19,7 @@ export default StyleSheet.create({
         borderRadius: rem(0.25),
         boxShadow: shadows.one,
         transition: 'all .3s cubic-bezier(.25, .8, .25, 1)',
+        zIndex: depth.content,
 
         ':hover': {
             boxShadow: shadows.two,

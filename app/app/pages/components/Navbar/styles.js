@@ -2,7 +2,7 @@
 import { StyleSheet } from 'aphrodite';
 
 /* Relative */
-import { perc, rem, combine, calc, colors, rgba, px } from '../../../../styles';
+import { perc, rem, combine, calc, colors, rgba, px, depth } from '../../../../styles';
 
 export default StyleSheet.create({
     topNav: {
@@ -14,6 +14,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         boxShadow: combine(rgba(0, 0, 0, 0.19), px(0), px(10), px(20)),
+        zIndex: depth.header,
     },
 
     right: {

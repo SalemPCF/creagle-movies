@@ -44,7 +44,8 @@ export const loadShow = id => (dispatch, getState, { api }) => {
 
                 dispatch(loadShowSuccess(normalized));
             })
-            .catch(() => {
+            .catch((err) => {
+                console.dir(err);
                 logError('There was a problem loading this show.');
 
                 dispatch(loadShowFailure());

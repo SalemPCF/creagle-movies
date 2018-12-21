@@ -7,7 +7,11 @@ import { api } from '../../../../services/api';
 import { withDatabase } from './withDatabase';
 
 export const withImageStore = (Comp, storeName) => withDatabase(class extends Component {
-    static displayName = `withImageStore(${Component.displayName || Component.name})`;
+    static displayName = `withImageStore(${Comp.displayName || Comp.name})`;
+
+    static defaultProps = {
+        defaultImage: 'resources/no-image-available@3-2.png',
+    }
 
     // Store the image in our database
     storeImage = async (id, base64) => {
@@ -39,7 +43,7 @@ export const withImageStore = (Comp, storeName) => withDatabase(class extends Co
 
     // Get the image from our database or load it
     getImage = async (id) => {
-        const { getStore, image } = this.props;
+        const { getStore, image, defaultImage } = this.props;
 
         const store = await getStore(storeName);
 
@@ -47,7 +51,7 @@ export const withImageStore = (Comp, storeName) => withDatabase(class extends Co
         const img = await store.get(id);
 
         // If we got an image, return it. If we didn't, load it.
-        return img || (image ? this.loadImage(id, image) : 'resources/no-image-available.png');
+        return img || (image ? this.loadImage(id, image) : defaultImage);
     }
 
     // Wrap the getImage function to allow us to cancel the promise

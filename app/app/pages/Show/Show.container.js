@@ -10,6 +10,7 @@ class ShowContainer extends Component {
         seasons: {},
         sorted: false,
         selectedSeason: 1,
+        synopsisCollapsed: false,
     }
 
     static propTypes = propTypes.container;
@@ -96,7 +97,7 @@ class ShowContainer extends Component {
      * Handles a generic state change
      *
      */
-    handleGeneric = (type, value) => this.setState({ [type]: value });
+    createGenericHandler = (type, value) => () => this.setState({ [type]: value });
 
     /**
      * Returns our card height
@@ -115,9 +116,15 @@ class ShowContainer extends Component {
         return 6;
     }
 
+    handleScroll = (event) => {
+        const { scrollTop } = event;
+
+        this.setState({ synopsisCollapsed: scrollTop > 50 });
+    }
+
     render () {
         const { show } = this.props;
-        const { seasons, selectedSeason } = this.state;
+        const { seasons, selectedSeason, synopsisCollapsed } = this.state;
 
         return (
             <ShowPresenter
@@ -126,9 +133,11 @@ class ShowContainer extends Component {
                 runtime={this.getRuntime()}
                 seasons={seasons}
                 selectedSeason={selectedSeason}
-                handleGeneric={this.handleGeneric}
+                synopsisCollapsed={synopsisCollapsed}
+                createGenericHandler={this.createGenericHandler}
                 getCellHeight={this.getCellHeight}
                 getColumnCount={this.getColumnCount}
+                handleScroll={this.handleScroll}
             />
         );
     }

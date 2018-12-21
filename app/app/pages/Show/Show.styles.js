@@ -3,7 +3,9 @@ import { StyleSheet } from 'aphrodite';
 import {
     colors, fonts,
     perc, px, rem,
-    combine, shadows, translateY,
+    combine, second,
+    scaleY,
+    shadows,
 } from '../../../styles';
 
 export default StyleSheet.create({
@@ -12,12 +14,13 @@ export default StyleSheet.create({
         width: perc(100),
         height: perc(100),
         position: 'relative',
-        padding: combine(rem(5), rem(7)),
+        padding: combine(rem(1.25), rem(4), 0, rem(4)),
+        overflowY: 'hidden',
     },
 
     closeIcon: {
         position: 'absolute',
-        top: rem(1),
+        top: rem(1.6),
         left: rem(1),
         zIndex: 4,
         color: colors.text.primary,
@@ -30,6 +33,17 @@ export default StyleSheet.create({
         zIndex: 3,
         width: perc(100),
         height: perc(100),
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+    },
+
+    breakout: {
+        flexGrow: 1,
+        margin: combine(0, rem(-4)),
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
     },
 
     title: {
@@ -47,6 +61,15 @@ export default StyleSheet.create({
         fontSize: rem(0.875),
         lineHeight: 1.6,
         marginBottom: rem(1),
+        transition: combine('all', second(0.2)),
+    },
+
+    synopsis_collapsed: {
+        // We can't change height to 0, as it
+        // won't animate because the default
+        // height is 'auto', so we set font-size
+        // to 0, hiding the text.
+        fontSize: 0,
     },
 
     metadata: {
@@ -83,13 +106,52 @@ export default StyleSheet.create({
         fontSize: px(24),
     },
 
+    tabs: {
+        display: 'flex',
+        flexDirection: 'row',
+        overflowX: 'scroll',
+        boxShadow: shadows.four,
+
+        '::-webkit-scrollbar': {
+            display: 'none',
+        },
+    },
+
+    tab: {
+        flex: '0 0 auto',
+        cursor: 'pointer',
+        minWidth: px(90),
+    },
+
+    tab_selected: {
+        borderBottom: combine(px(2), 'solid', colors.primary),
+    },
+
+    tabText: {
+        fontFamily: fonts.primary,
+        color: colors.text.tertiary,
+        whiteSpace: 'nowrap',
+        lineHeight: px(48),
+        padding: combine(0, rem(1)),
+    },
+
+    tabText_selected: {
+        color: colors.primary,
+    },
+
+    gridContainer: {
+        flexGrow: 1,
+        background: colors.background.one,
+        padding: combine(0, rem(1)),
+        display: 'flex',
+    },
+
     tracker: {
-        width: perc(100),
-        height: perc(100),
+        flex: 1,
     },
 
     grid: {
-        paddingTop: rem(1),
+        padding: combine(rem(1), 0),
 
         ':focus': {
             outline: 0,
@@ -98,35 +160,5 @@ export default StyleSheet.create({
         '::-webkit-scrollbar': {
             display: 'none',
         },
-    },
-
-    ripple: {
-        background: colors.background.two,
-        borderRadius: rem(0.25),
-        boxShadow: shadows.one,
-        transition: 'all .3s cubic-bezier(.25, .8, .25, 1)',
-        height: '75%',
-        width: '100%',
-
-        ':hover': {
-            boxShadow: shadows.two,
-            transform: translateY(rem(-0.25)),
-        },
-    },
-
-    infoText: {
-        fontFamily: fonts.primary,
-        fontSize: rem(1),
-        userSelect: 'none',
-        cursor: 'pointer',
-    },
-
-    infoText_primary: {
-        color: colors.text.secondary,
-        fontWeight: fonts.weights.primary.bold,
-    },
-
-    infoText_secondary: {
-        color: colors.text.tertiary,
     },
 });

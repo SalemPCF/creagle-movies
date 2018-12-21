@@ -2,7 +2,7 @@
 import { StyleSheet } from 'aphrodite';
 
 /* Relative */
-import { perc, rem, combine } from '../../../styles';
+import { perc, rem, combine, depth } from '../../../styles';
 
 export default StyleSheet.create({
     container: {
@@ -10,6 +10,7 @@ export default StyleSheet.create({
         height: perc(100),
         padding: combine(0, rem(1)),
         overflow: 'hidden',
+        zIndex: depth.content,
     },
 
     tracker: {
@@ -19,6 +20,7 @@ export default StyleSheet.create({
 
     grid: {
         paddingTop: rem(1),
+        zIndex: depth.content,
 
         ':focus': {
             outline: 0,

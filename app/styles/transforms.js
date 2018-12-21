@@ -6,4 +6,6 @@ export const translate = (x, y) => `translate(${x}, ${y})`;
 
 export const scale = n => `scale(${n})`;
 
+export const scaleY = n => `scaleY(${n})`;
+
 export const combineTransforms = (...args) => args.join(' ');

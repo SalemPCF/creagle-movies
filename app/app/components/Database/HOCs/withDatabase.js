@@ -7,7 +7,7 @@ import { DatabaseContext } from '../index';
 export const withDatabase = Comp => class extends Component {
     static contextType = DatabaseContext;
 
-    static displayName = `withDatabase(${Component.displayName || Component.name})`;
+    static displayName = `withDatabase(${Comp.displayName || Comp.name})`;
 
     // Get our IndexedDB handle
     getDb = () => this.context;

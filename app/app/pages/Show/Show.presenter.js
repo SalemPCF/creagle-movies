@@ -3,14 +3,11 @@ import RoundStarBorder from 'react-md-icon/dist/RoundStarBorder';
 import RoundArrowBack from 'react-md-icon/dist/RoundArrowBack';
 import RoundStarHalf from 'react-md-icon/dist/RoundStarHalf';
 import RoundStar from 'react-md-icon/dist/RoundStar';
-import TruncateMarkup from 'react-truncate-markup';
 import { Link } from 'react-router-dom';
 import { css } from 'aphrodite';
-import moment from 'moment';
 import React from 'react';
 
 /* Relative */
-import { EpisodePoster } from '../../components/Poster';
 import SizeTracker from '../../components/SizeTracker';
 import { Spinner } from '../../components/Spinner';
 import Ripple from '../../components/Ripple';
@@ -18,9 +15,19 @@ import { titleCase } from '../../../helpers';
 import Grid from '../../components/Grid';
 import propTypes from './Show.propTypes';
 import styles from './Show.styles';
+import Episode from './components/Episode';
 
 const ShowPresenter = ({
-    show, stars, runtime, seasons, selectedSeason, handleGeneric, getCellHeight, getColumnCount,
+    show,
+    stars,
+    runtime,
+    seasons,
+    selectedSeason,
+    createGenericHandler,
+    getCellHeight,
+    getColumnCount,
+    handleScroll,
+    synopsisCollapsed,
 }) => (
     <div className={css(styles.container)}>
         <Link to="/shows" className={css(styles.closeIcon)}>
@@ -56,64 +63,60 @@ const ShowPresenter = ({
                     </div>
                 </div>
 
-                <p className={css(styles.synopsis)}>{show.synopsis}</p>
+                <p className={css(styles.synopsis, synopsisCollapsed && styles.synopsis_collapsed)}>
+                    {show.synopsis}
+                </p>
 
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    {seasons ? Object.keys(seasons).map(seasonNum => (
-                        <div key={seasonNum} onClick={() => handleGeneric('selectedSeason', seasonNum)} style={{ cursor: 'pointer' }}>
-                            <p style={{ fontFamily: 'Roboto', color: selectedSeason === seasonNum ? '#6b91ca' : 'white', padding: '10px', borderBottom: selectedSeason === seasonNum ? '2px solid #6b91ca' : 'none' }}>{`SEASON ${seasonNum}`}</p>
-                        </div>
-                    )) : null}
-                </div>
+                <div className={css(styles.breakout)}>
+                    <div className={css(styles.tabs)}>
+                        {seasons && Object.keys(seasons).map((seasonNum) => {
+                            const selected = selectedSeason === seasonNum;
+                            return (
+                                <div
+                                    key={seasonNum}
+                                    onClick={createGenericHandler('selectedSeason', seasonNum)}
+                                    className={css(styles.tab, selected && styles.tab_selected)}
+                                >
+                                    <Ripple>
+                                        <p
+                                            className={css(
+                                                styles.tabText,
+                                                selected && styles.tabText_selected,
+                                            )}
+                                        >
+                                            SEASON {seasonNum}
+                                        </p>
+                                    </Ripple>
+                                </div>
+                            );
+                        })}
+                    </div>
 
-                {console.log(seasons[selectedSeason])}
-
-                {Object.keys(seasons).length > 0 ? (
-                    <SizeTracker className={css(styles.tracker)}>
-                        {({ width, height }) => (
-                            <Grid
-                                className={css(styles.grid)}
-                                width={width}
-                                height={height}
-                                getCellHeight={getCellHeight}
-                                getColumnCount={getColumnCount}
-                                items={seasons[selectedSeason]}
-                                loadMore={() => null}
-                                overscan={2}
-                                renderItem={episode => (
-                                    <div style={{ width: '100%', height: '100%', padding: '10px' }}>
-                                        <Ripple styles={styles.ripple}>
-                                            <EpisodePoster
-                                                id={`${episode.tvdb_id}`}
-                                                image={`https://www.thetvdb.com/banners/episodes/${show.tvdb_id}/${episode.tvdb_id}.jpg`}
+                    {Object.keys(seasons).length > 0 ? (
+                        <div className={css(styles.gridContainer)}>
+                            <SizeTracker className={css(styles.tracker)}>
+                                {({ width, height }) => (
+                                    <Grid
+                                        className={css(styles.grid)}
+                                        width={width}
+                                        height={height}
+                                        getCellHeight={getCellHeight}
+                                        getColumnCount={getColumnCount}
+                                        items={seasons[selectedSeason]}
+                                        overscan={2}
+                                        onScroll={handleScroll}
+                                        renderItem={episode => (
+                                            <Episode
+                                                showId={show.tvdb_id}
+                                                {...episode}
                                             />
-                                        </Ripple>
-
-                                        <div>
-                                            <TruncateMarkup lines={1}>
-                                                <p className={css(styles.infoText, styles.infoText_primary)}>
-                                                    {episode.title}
-                                                </p>
-                                            </TruncateMarkup>
-
-                                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                                <p className={css(styles.infoText, styles.infoText_secondary)}>
-                                                    {`S${episode.season > 10 ? episode.season : `0${episode.season}`}
-                                                      E${episode.episode > 10 ? episode.episode : `0${episode.episode}`}
-                                                     `}
-                                                </p>
-
-                                                <p className={css(styles.infoText, styles.infoText_secondary)}>
-                                                    {moment.unix(episode.first_aired).format('MMM Do YYYY')}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        )}
+                                    />
                                 )}
-                            />
-                        )}
-                    </SizeTracker>
-                ) : null}
+                            </SizeTracker>
+                        </div>
+                    ) : null}
+                </div>
             </div>
         ) : (
             <Spinner />

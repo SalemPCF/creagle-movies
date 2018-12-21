@@ -7,6 +7,7 @@ import {
     px,
     shadows,
     perc,
+    depth,
 } from '../../../../styles';
 
 export default StyleSheet.create({
@@ -21,6 +22,7 @@ export default StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         boxShadow: shadows.three,
+        zIndex: depth.sidebar,
     },
     icon: {
         marginTop: px(30),
