@@ -6,6 +6,7 @@ import {
     combine, second,
     scaleY,
     shadows,
+    depth,
 } from '../../../styles';
 
 export default StyleSheet.create({
@@ -111,6 +112,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         overflowX: 'scroll',
         boxShadow: shadows.four,
+        zIndex: depth.content + 1,
 
         '::-webkit-scrollbar': {
             display: 'none',
