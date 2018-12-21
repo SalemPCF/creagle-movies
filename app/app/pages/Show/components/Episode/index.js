@@ -3,9 +3,9 @@ import { css } from 'aphrodite';
 import moment from 'moment';
 import TruncateMarkup from 'react-truncate-markup';
 
-import { padNum } from '../../../../../helpers/pad';
-import Ripple from '../../../../components/Ripple';
+import { decodeEntities, padNum } from '../../../../../helpers';
 import { EpisodePoster } from '../../../../components/Poster';
+import Ripple from '../../../../components/Ripple';
 
 import styles from './styles';
 import propTypes from './propTypes';
@@ -22,7 +22,7 @@ const Episode = ({
         <div className={css(styles.posterContainer)}>
             <Ripple>
                 <EpisodePoster
-                    id={tvdbId}
+                    id={String(tvdbId)}
                     image={`https://www.thetvdb.com/banners/episodes/${showId}/${tvdbId}.jpg`}
                     defaultImage="resources/no-image-available@4-3.png"
                 />
@@ -32,7 +32,7 @@ const Episode = ({
         <div>
             <TruncateMarkup lines={1}>
                 <p className={css(styles.infoText, styles.infoText_primary)}>
-                    {title}
+                    {decodeEntities(title)}
                 </p>
             </TruncateMarkup>
 

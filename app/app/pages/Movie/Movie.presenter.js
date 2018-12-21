@@ -11,6 +11,7 @@ import React from 'react';
 
 /* Relative */
 import { Spinner } from '../../components/Spinner';
+import { decodeEntities } from '../../../helpers';
 import propTypes from './Movie.propTypes';
 import styles from './Movie.styles';
 
@@ -30,7 +31,7 @@ const MoviePresenter = ({
 
         {movie ? (
             <div className={css(styles.innerContainer)}>
-                <h1 className={css(styles.title)}>{movie.title}</h1>
+                <h1 className={css(styles.title)}>{decodeEntities(movie.title)}</h1>
 
                 <div className={css(styles.metadata)}>
                     <p className={css(styles.metadataText)}>{movie.year}</p>
@@ -66,7 +67,7 @@ const MoviePresenter = ({
                     </div>
                 </div>
 
-                <p className={css(styles.synopsis)}>{movie.synopsis}</p>
+                <p className={css(styles.synopsis)}>{decodeEntities(movie.synopsis)}</p>
 
                 <Link to={`/movies/${movie._id}/watch/${isHD ? '1080p' : '720p'}`} className={css(styles.button)}>
                     <RoundPlayArrow className={css(styles.playIcon)} />

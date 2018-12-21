@@ -1,5 +1,8 @@
+/* Node */
 import { StyleSheet } from 'aphrodite';
-import { perc, rem, fonts, colors } from '../../../../../styles';
+
+/* Relative */
+import { perc, rem, fonts, colors, px } from '../../../../../styles';
 
 export default StyleSheet.create({
     episode: {
@@ -13,6 +16,7 @@ export default StyleSheet.create({
         borderRadius: rem(0.25),
         overflow: 'hidden',
         marginBottom: rem(0.125),
+        height: px(172),
     },
 
     secondaryTextContainer: {

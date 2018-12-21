@@ -7,6 +7,7 @@ import { css } from 'aphrodite';
 
 /* Relative */
 import { MoviePoster } from '../../../../components/Poster';
+import { decodeEntities } from '../../../../../helpers';
 import Ripple from '../../../../components/Ripple';
 import { movieShape } from './shape';
 import styles from './styles';
@@ -41,7 +42,7 @@ class Movie extends Component {
                     <div className={css(styles.info)}>
                         <TruncateMarkup lines={1}>
                             <p className={css(styles.infoText, styles.infoText_primary)}>
-                                {movie.title}
+                                {decodeEntities(movie.title)}
                             </p>
                         </TruncateMarkup>
 

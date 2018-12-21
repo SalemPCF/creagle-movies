@@ -6,6 +6,7 @@ import { css } from 'aphrodite';
 
 /* Relative */
 import { ShowPoster } from '../../../../components/Poster';
+import { decodeEntities } from '../../../../../helpers';
 import Ripple from '../../../../components/Ripple';
 import { showShape } from './shape';
 import styles from './styles';
@@ -34,7 +35,7 @@ class Show extends Component {
                     <div className={css(styles.info)}>
                         <TruncateMarkup lines={1}>
                             <p className={css(styles.infoText, styles.infoText_primary)}>
-                                {show.title}
+                                {decodeEntities(show.title)}
                             </p>
                         </TruncateMarkup>
 

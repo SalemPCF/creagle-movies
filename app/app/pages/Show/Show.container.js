@@ -11,6 +11,7 @@ class ShowContainer extends Component {
         sorted: false,
         selectedSeason: 1,
         synopsisCollapsed: false,
+        seasonsWatchable: '0 - 0',
     }
 
     static propTypes = propTypes.container;
@@ -52,7 +53,12 @@ class ShowContainer extends Component {
             }
         }
 
-        this.setState({ seasons, sorted: true, selectedSeason: firstSeason });
+        // Some shows aren't returned with all their seasons.
+        // So we'll just show how many seasons we have available in our seasons object
+        const seasonsKeys = Object.keys(seasons);
+        const seasonsWatchable = `Seasons ${seasonsKeys[0]}-${seasonsKeys[seasonsKeys.length - 1]}`;
+
+        this.setState({ seasons, sorted: true, selectedSeason: firstSeason, seasonsWatchable });
     }
 
     componentWillUnmount () {
@@ -124,7 +130,7 @@ class ShowContainer extends Component {
 
     render () {
         const { show } = this.props;
-        const { seasons, selectedSeason, synopsisCollapsed } = this.state;
+        const { seasons, selectedSeason, synopsisCollapsed, seasonsWatchable } = this.state;
 
         return (
             <ShowPresenter
@@ -138,6 +144,7 @@ class ShowContainer extends Component {
                 getCellHeight={this.getCellHeight}
                 getColumnCount={this.getColumnCount}
                 handleScroll={this.handleScroll}
+                seasonsWatchable={seasonsWatchable}
             />
         );
     }

@@ -8,14 +8,14 @@ import { css } from 'aphrodite';
 import React from 'react';
 
 /* Relative */
+import { titleCase, decodeEntities } from '../../../helpers';
 import SizeTracker from '../../components/SizeTracker';
 import { Spinner } from '../../components/Spinner';
 import Ripple from '../../components/Ripple';
-import { titleCase } from '../../../helpers';
+import Episode from './components/Episode';
 import Grid from '../../components/Grid';
 import propTypes from './Show.propTypes';
 import styles from './Show.styles';
-import Episode from './components/Episode';
 
 const ShowPresenter = ({
     show,
@@ -28,6 +28,7 @@ const ShowPresenter = ({
     getColumnCount,
     handleScroll,
     synopsisCollapsed,
+    seasonsWatchable,
 }) => (
     <div className={css(styles.container)}>
         <Link to="/shows" className={css(styles.closeIcon)}>
@@ -36,14 +37,12 @@ const ShowPresenter = ({
 
         {show ? (
             <div className={css(styles.innerContainer)}>
-                <h1 className={css(styles.title)}>{show.title}</h1>
+                <h1 className={css(styles.title)}>{decodeEntities(show.title)}</h1>
 
                 <div className={css(styles.metadata)}>
-                    <p className={css(styles.metadataText)}>{show.year}</p>
+                    <p className={css(styles.metadataText)}>{seasonsWatchable}</p>
                     <p className={css(styles.metadataText)}>&#8226;</p>
                     <p className={css(styles.metadataText)}>{`~${runtime}`}</p>
-                    <p className={css(styles.metadataText)}>&#8226;</p>
-                    <p className={css(styles.metadataText)}>{`${show.air_day}s at ${show.air_time}`}</p>
                     <p className={css(styles.metadataText)}>&#8226;</p>
                     <p className={css(styles.metadataText)}>{titleCase(show.status)}</p>
                     <p className={css(styles.metadataText)}>&#8226;</p>
@@ -64,7 +63,7 @@ const ShowPresenter = ({
                 </div>
 
                 <p className={css(styles.synopsis, synopsisCollapsed && styles.synopsis_collapsed)}>
-                    {show.synopsis}
+                    {decodeEntities(show.synopsis)}
                 </p>
 
                 <div className={css(styles.breakout)}>
