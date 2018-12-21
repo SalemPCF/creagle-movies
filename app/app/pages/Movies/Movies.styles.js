@@ -2,7 +2,7 @@
 import { StyleSheet } from 'aphrodite';
 
 /* Relative */
-import { perc, rem, combine, depth } from '../../../styles';
+import { perc, rem, combine, depth, second, px, colors } from '../../../styles';
 
 export default StyleSheet.create({
     container: {
@@ -29,5 +29,47 @@ export default StyleSheet.create({
         '::-webkit-scrollbar': {
             display: 'none',
         },
+    },
+
+    inputContainer: {
+        position: 'relative',
+    },
+
+    input: {
+        fontSize: px(16),
+        padding: combine(px(10), px(10), px(5), px(5)),
+        width: px(300),
+        border: 'none',
+        borderBottom: combine(px(1), 'solid', colors.text.tertiary),
+        backgroundColor: 'transparent',
+        color: colors.text.primary,
+
+        ':focus': {
+            outline: 'none',
+        },
+
+        ':focus ~ label': {
+            top: px(-5),
+            fontSize: px(12),
+            fontFamily: 'Roboto',
+            color: colors.text.secondary,
+        },
+    },
+
+    label: {
+        color: colors.text.secondary,
+        fontSize: px(16),
+        position: 'absolute',
+        left: px(5),
+        top: px(10),
+        fontFamily: 'Roboto',
+        transition: combine(second(0.2), 'ease', 'all'),
+    },
+
+    labelActive: {
+        top: px(-5),
+        fontSize: px(12),
+        fontFamily: 'Roboto',
+        color: colors.text.secondary,
     },
 });

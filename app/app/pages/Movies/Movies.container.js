@@ -18,6 +18,10 @@ class MoviesContainer extends Component {
         isSearching: false,
     }
 
+    /**
+     * Typechecking our props
+     *
+     */
     static propTypes = propTypes.container;
 
     scroller = createRef();
@@ -26,6 +30,10 @@ class MoviesContainer extends Component {
 
     initialScrollCompleted = false;
 
+    /**
+     * Handles the initialization of our component
+     *
+     */
     componentDidMount () {
         const { scrollPosition } = this.props;
 
@@ -43,7 +51,9 @@ class MoviesContainer extends Component {
      * Fires a redux action to save the latest scroll position before our component unmounts.
      *
      */
-    componentWillUnmount = () => this.saveScrollPosition();
+    componentWillUnmount () {
+        this.saveScrollPosition();
+    }
 
     /**
      * Handles each scroll event by saving the current scroll value.
@@ -87,15 +97,27 @@ class MoviesContainer extends Component {
      *
      */
     handleSubmit = (shouldReset) => {
-        const { saveMoviesSearch, resetMoviesSearch, loadMovies, loadSearchedMovies } = this.props;
+        const {
+            saveMoviesSearch,
+            resetMoviesSearch,
+            loadMovies,
+            loadSearchedMovies,
+            params,
+        } = this.props;
 
         if (shouldReset) {
+            // Clear our search params and pages from our redux store
             resetMoviesSearch();
 
-            this.setState({ isSearching: false }, () => loadMovies());
+            // Tell our component we're no longer searching and we've reset our params
+            // Then show our original movies (loaded without custom params)
+            this.setState({ isSearching: false, params: { ...params } }, () => loadMovies());
         } else {
+            // Save our search params to our redux store
             saveMoviesSearch(this.state.params);
 
+            // Tell our component we're currently searching
+            // Then show our movie results with our search params
             this.setState({ isSearching: true }, () => loadSearchedMovies());
         }
     }
@@ -107,7 +129,7 @@ class MoviesContainer extends Component {
      */
     render () {
         const { movies, searchedMovies, loadMovies, loadSearchedMovies } = this.props;
-        const { keywords, isSearching } = this.state;
+        const { params, isSearching } = this.state;
 
         return (
             <MoviesPresenter
@@ -116,7 +138,7 @@ class MoviesContainer extends Component {
                 loadMore={isSearching ? loadSearchedMovies : loadMovies}
                 onScroll={this.handleScroll}
                 handleParams={this.handleParams}
-                keywords={keywords}
+                keywords={params.keywords}
                 handleSubmit={this.handleSubmit}
                 isSearching={isSearching}
             />

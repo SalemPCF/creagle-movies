@@ -22,14 +22,19 @@ const MoviesPresenter = forwardRef(({
     <div className={css(styles.container)}>
         <TitleBar title="Movies" type="movie" />
 
-        <input type="text" onChange={e => handleParams('keywords', e.target.value)} value={keywords} className={css(styles.input)} />
+        <div style={{ display: 'flex', flexDirection: 'row', padding: '1rem', position: 'relative', zIndex: 20, backgroundColor: 'rgb(40, 45, 67)', width: 'calc(100% + 2rem)', marginLeft: '-1rem' }}>
+            <div className={css(styles.inputContainer)}>
+                <input type="text" onChange={e => handleParams('keywords', e.target.value)} value={keywords} className={css(styles.input)} />
+                <label className={css(styles.label, keywords ? styles.labelActive : null)}>Name</label>
+            </div>
 
-        <div className={css(styles.button)} onClick={() => handleSubmit(false)}>
-            <span>Find me Movies</span>
-        </div>
+            <div className={css(styles.button)} onClick={() => handleSubmit(false)}>
+                <span>Find me Movies</span>
+            </div>
 
-        <div className={css(styles.button)} onClick={() => handleSubmit(true)}>
-            <span>Reset search</span>
+            <div className={css(styles.button)} onClick={() => handleSubmit(true)}>
+                <span>Reset search</span>
+            </div>
         </div>
 
         <SizeTracker className={css(styles.tracker)} key={isSearching}>
