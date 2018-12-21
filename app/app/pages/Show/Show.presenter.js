@@ -46,6 +46,8 @@ const ShowPresenter = ({
                     <p className={css(styles.metadataText)}>&#8226;</p>
                     <p className={css(styles.metadataText)}>{titleCase(show.status)}</p>
                     <p className={css(styles.metadataText)}>&#8226;</p>
+                    <p className={css(styles.metadataText)}>{show.genres.reduce((accumulator, current) => `${accumulator} / ${current}`)}</p>
+                    <p className={css(styles.metadataText)}>&#8226;</p>
 
                     <div className={css(styles.metadataText, styles.metadataStars)}>
                         {stars.filledStars.map(num => (
