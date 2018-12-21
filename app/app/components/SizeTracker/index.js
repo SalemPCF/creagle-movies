@@ -10,13 +10,13 @@ class SizeTracker extends Component {
 
     componentDidMount () {
         flushToStyleTag();
-        this.updateSize();
 
-        window.addEventListener('resize', this.handleResize);
+        this.observer = new ResizeObserver(this.updateSize);
+        this.observer.observe(this.el.current);
     }
 
     componentWillUnmount () {
-        window.removeEventListener('resize', this.handleResize);
+        this.observer.disconnect();
     }
 
     updateSize = () => {
