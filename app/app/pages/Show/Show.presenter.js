@@ -93,7 +93,7 @@ const ShowPresenter = ({
                     </div>
 
                     {Object.keys(seasons).length > 0 ? (
-                        <div className={css(styles.gridContainer)}>
+                        <div className={css(styles.gridContainer)} key={selectedSeason}>
                             <SizeTracker className={css(styles.tracker)}>
                                 {({ width, height }) => (
                                     <Grid
