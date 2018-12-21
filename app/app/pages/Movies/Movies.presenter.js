@@ -14,11 +14,25 @@ const MoviesPresenter = forwardRef(({
     movies,
     loadMore,
     onScroll,
+    handleParams,
+    handleSubmit,
+    keywords,
+    isSearching,
 }, ref) => (
     <div className={css(styles.container)}>
         <TitleBar title="Movies" type="movie" />
 
-        <SizeTracker className={css(styles.tracker)}>
+        <input type="text" onChange={e => handleParams('keywords', e.target.value)} value={keywords} className={css(styles.input)} />
+
+        <div className={css(styles.button)} onClick={() => handleSubmit(false)}>
+            <span>Find me Movies</span>
+        </div>
+
+        <div className={css(styles.button)} onClick={() => handleSubmit(true)}>
+            <span>Reset search</span>
+        </div>
+
+        <SizeTracker className={css(styles.tracker)} key={isSearching}>
             {({ width, height }) => (
                 <Grid
                     className={css(styles.grid)}

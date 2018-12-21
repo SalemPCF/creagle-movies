@@ -14,7 +14,6 @@ import { Toaster } from './components/Toaster';
 import Container from './components/Container';
 
 /* Relative Pages */
-import Search from './pages/Search';
 import Movies from './pages/Movies';
 import Movie from './pages/Movie';
 import Video from './pages/Video';
@@ -59,8 +58,6 @@ class App extends Component {
 
                                         <Route exact path="/shows" component={Shows} />
                                         <Route exact path="/shows/:id" component={Show} />
-
-                                        <Route exact path="/search/:type" component={Search} />
 
                                         <Route exact path="/movies/:id/watch/:quality" component={Video} />
                                     </Switch>

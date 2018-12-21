@@ -20,12 +20,13 @@ export const MOVIES = {
 
 const loadMoviesInitial = () => ({ type: MOVIES.LOAD.INITIAL });
 
-const loadMoviesSuccess = (data, page, hasMore) => ({
+const loadMoviesSuccess = (data, page, hasMore, type) => ({
     type: MOVIES.LOAD.SUCCESS,
     payload: {
         data,
         page,
         hasMore,
+        type,
     },
 });
 
@@ -33,27 +34,62 @@ const loadMoviesFailure = () => ({ type: MOVIES.LOAD.FAILURE });
 
 export const loadMovies = () => async (dispatch, getState, { api }) => {
     const { movies } = getState().pages;
-    const { params, hasMore } = movies;
+    const { loading, hasMore } = movies;
 
     // If we're loading or the previous request returned no data,
     // We don't want to send another request.
-    if (movies.loading || !hasMore) { return; }
+    if (loading || !hasMore) { return; }
 
     dispatch(loadMoviesInitial());
 
     const page = movies.page + 1;
 
-    api.get(`/movies/${page}`, { params })
+    api.get(`/movies/${page}`, {
+        params: {
+            sort: 'trending',
+            order: -1,
+            genre: 'all',
+            keywords: '',
+        },
+    })
         .then(res => res.data)
         .then((data) => {
             const normalized = normalize(data, [movieSchema]);
 
             const hasMoreData = data.length > 0;
 
-            dispatch(loadMoviesSuccess(normalized, page, hasMoreData));
+            dispatch(loadMoviesSuccess(normalized, page, hasMoreData, 'page'));
         })
         .catch(() => {
             logError('There was a problem loading movies.');
+
+            dispatch(loadMoviesFailure());
+        });
+};
+
+export const loadSearchedMovies = () => async (dispatch, getState, { api }) => {
+    const { movies } = getState().pages;
+    const { loading, hasMore, params } = movies;
+
+    // If we're loading or the previous request returned no data,
+    // We don't want to send another request.
+    if (loading || !hasMore) { return; }
+
+    dispatch(loadMoviesInitial());
+
+    const searchPage = movies.searchPage + 1;
+
+    api.get(`/movies/${searchPage}`, { params })
+        .then(res => res.data)
+        .then((data) => {
+            const normalized = normalize(data, [movieSchema]);
+
+            const hasMoreData = data.length > 0;
+
+            dispatch(loadMoviesSuccess(normalized, searchPage, hasMoreData, 'searchPage'));
+        })
+        .catch(() => {
+            logError('There was a problem loading searched movies.');
 
             dispatch(loadMoviesFailure());
         });

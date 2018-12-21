@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* Node */
 import React, { Component, createRef } from 'react';
 
@@ -6,6 +7,17 @@ import MoviesPresenter from './Movies.presenter';
 import propTypes from './Movies.propTypes';
 
 class MoviesContainer extends Component {
+    /**
+     * Our initial state
+     *
+     */
+    state = {
+        params: {
+            ...this.props.params,
+        },
+        isSearching: false,
+    }
+
     static propTypes = propTypes.container;
 
     scroller = createRef();
@@ -29,6 +41,7 @@ class MoviesContainer extends Component {
 
     /**
      * Fires a redux action to save the latest scroll position before our component unmounts.
+     *
      */
     componentWillUnmount = () => this.saveScrollPosition();
 
@@ -49,6 +62,7 @@ class MoviesContainer extends Component {
 
     /**
      * Fires a redux action to save the latest scroll position.
+     *
      */
     saveScrollPosition = () => {
         const { preserveScroll } = this.props;
@@ -57,19 +71,54 @@ class MoviesContainer extends Component {
     }
 
     /**
+     * Handles a generic param state change
+     *
+     */
+    handleParams = (type, value) => this.setState((current) => {
+        const next = { ...current };
+
+        next.params[type] = value;
+
+        return next;
+    });
+
+    /**
+     * Handles saving our params in our redux store then getting our movies
+     *
+     */
+    handleSubmit = (shouldReset) => {
+        const { saveMoviesSearch, resetMoviesSearch, loadMovies, loadSearchedMovies } = this.props;
+
+        if (shouldReset) {
+            resetMoviesSearch();
+
+            this.setState({ isSearching: false }, () => loadMovies());
+        } else {
+            saveMoviesSearch(this.state.params);
+
+            this.setState({ isSearching: true }, () => loadSearchedMovies());
+        }
+    }
+
+    /**
      * Renders the component.
      *
      * @returns {mixed}
      */
     render () {
-        const { movies, loadMovies } = this.props;
+        const { movies, searchedMovies, loadMovies, loadSearchedMovies } = this.props;
+        const { keywords, isSearching } = this.state;
 
         return (
             <MoviesPresenter
                 ref={this.scroller}
-                movies={movies}
-                loadMore={loadMovies}
+                movies={isSearching ? searchedMovies : movies}
+                loadMore={isSearching ? loadSearchedMovies : loadMovies}
                 onScroll={this.handleScroll}
+                handleParams={this.handleParams}
+                keywords={keywords}
+                handleSubmit={this.handleSubmit}
+                isSearching={isSearching}
             />
         );
     }

@@ -6,6 +6,8 @@ const initialState = {
     loading: false,
     page: 0,
     pages: {},
+    searchPage: 0,
+    searchPages: {},
     scrollPosition: 0,
     params: {
         sort: 'trending',
@@ -43,9 +45,12 @@ const moviesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                page: action.payload.page,
-                pages: {
-                    ...state.pages,
+                // page || searchPage
+                [action.payload.type]: action.payload.page,
+                // pages || searchPages
+                [`${action.payload.type}s`]: {
+                    // ...state['pages'] || ...state['searchPages']
+                    ...state[`${action.payload.type}s`],
                     [action.payload.page]: page,
                 },
                 hasMore: action.payload.hasMore,
@@ -58,14 +63,23 @@ const moviesReducer = (state = initialState, action) => {
                 scrollPosition: action.payload.scrollPosition,
             };
 
+        // When we search for some movies, we'll reset most variables
+        // so the app thinks we're starting again but we'll still have our
+        // non-searched pages and the current non-searched page
         case MOVIES.SEARCH.SAVE:
             return {
                 ...initialState,
                 params: action.payload.params,
+                pages: state.pages,
+                page: state.page,
             };
 
         case MOVIES.SEARCH.RESET:
-            return initialState;
+            return {
+                ...initialState,
+                pages: state.pages,
+                page: state.page,
+            };
 
         default:
             return state;
