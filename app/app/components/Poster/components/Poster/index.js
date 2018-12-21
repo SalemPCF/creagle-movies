@@ -11,13 +11,14 @@ class Poster extends React.PureComponent {
 
     static propTypes = {
         getImage: PropTypes.func.isRequired,
+        defaultImage: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
     }
 
     cancelPromise = () => null;
 
     componentDidMount () {
-        const { getImage, id } = this.props;
+        const { getImage, id, defaultImage } = this.props;
 
         // Get the promise and the cancel parts of our created promise
         const { promise, cancel } = getImage(id);
@@ -35,7 +36,7 @@ class Poster extends React.PureComponent {
                 if (err.isCancelled) { return; }
 
                 // Set the state to an image not available image
-                this.setState({ url: 'resources/no-image-available.png' });
+                this.setState({ url: defaultImage });
             });
     }
 
