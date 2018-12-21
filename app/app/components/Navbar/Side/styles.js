@@ -8,13 +8,13 @@ import {
     shadows,
     perc,
     depth,
+    rem,
 } from '../../../../styles';
 
 export default StyleSheet.create({
     container: {
         height: perc(100),
-        width: px(75),
-        minWidth: px(75),
+        width: rem(4),
         left: px(0),
         top: px(0),
         display: 'flex',

@@ -7,8 +7,8 @@ import { RandomIcon, SearchIcon } from './components/Icons';
 import propTypes from './propTypes';
 import styles from './styles';
 
-const Navbar = ({ title, type }) => (
-    <div className={css(styles.topNav)}>
+const TitleBar = ({ title, type }) => (
+    <div className={css(styles.titleBar)}>
         <h2 className={css(styles.title)}>{title}</h2>
 
         <div className={css(styles.right)}>
@@ -18,6 +18,6 @@ const Navbar = ({ title, type }) => (
     </div>
 );
 
-Navbar.propTypes = propTypes;
+TitleBar.propTypes = propTypes;
 
-export default Navbar;
+export default TitleBar;

@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 import { css } from 'aphrodite';
 
 /* Relative */
-import { logError } from '../../../../../../../helpers';
-import { api } from '../../../../../../../services/api';
+import { logError } from '../../../../../../helpers';
+import { api } from '../../../../../../services/api';
 import propTypes from './propTypes';
 import styles from '../styles';
 

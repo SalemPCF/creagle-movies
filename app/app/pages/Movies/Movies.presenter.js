@@ -5,8 +5,8 @@ import { css } from 'aphrodite';
 /* Relative */
 import SizeTracker from '../../components/SizeTracker';
 import propTypes from './Movies.propTypes';
-import Navbar from '../components/Navbar';
 import Grid from '../../components/Grid';
+import TitleBar from '../../components/TitleBar';
 import Movie from './components/Movie';
 import styles from './Movies.styles';
 
@@ -16,7 +16,7 @@ const MoviesPresenter = forwardRef(({
     onScroll,
 }, ref) => (
     <div className={css(styles.container)}>
-        <Navbar title="Movies" type="movie" />
+        <TitleBar title="Movies" type="movie" />
 
         <SizeTracker className={css(styles.tracker)}>
             {({ width, height }) => (

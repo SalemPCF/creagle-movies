@@ -5,7 +5,7 @@ import { StyleSheet } from 'aphrodite';
 import {
     colors,
     px, rem,
-} from '../../../../../../styles';
+} from '../../../../../styles';
 
 export default StyleSheet.create({
     icon: {
