@@ -3,40 +3,16 @@ import { StyleSheet } from 'aphrodite';
 import {
     colors, rgba, fonts, shadows,
     perc, px, rem, second, radialGradient,
-    blur, combine, scale, translateX,
+    blur, combine, scale, translateX, depth,
 } from '../../../styles';
 
 export default StyleSheet.create({
     container: {
-        background: colors.background.two,
+        background: colors.background.one,
         width: perc(100),
         height: perc(100),
         position: 'relative',
-    },
-
-    background: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        zIndex: 1,
-        width: perc(100),
-        height: perc(100),
-        filter: blur(px(8)),
-        transform: scale(1.2),
-        transformOrigin: 'center',
-    },
-
-    overlay: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        zIndex: 2,
-        width: perc(100),
-        height: perc(100),
-        background: radialGradient(
-            rgba(0, 0, 0, 0.5),
-            rgba(0, 0, 0, 0.75),
-        ),
+        padding: combine(rem(1.25), rem(4), 0, rem(4)),
     },
 
     closeIcon: {
@@ -50,20 +26,12 @@ export default StyleSheet.create({
     },
 
     innerContainer: {
-        position: 'fixed',
-        top: 0,
-        left: perc(50),
-        bottom: 0,
-        right: 0,
-        zIndex: 3,
-        padding: rem(5),
+        position: 'relative',
+        zIndex: depth.content,
         width: perc(100),
-        maxWidth: px(800),
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        transform: translateX(perc(-50)),
+        justifyContent: 'flex-start',
     },
 
     title: {
@@ -81,7 +49,7 @@ export default StyleSheet.create({
     metadataText: {
         fontFamily: fonts.primary,
         color: colors.text.secondary,
-        marginRight: rem(0.75),
+        marginRight: rem(1),
         fontWeight: fonts.weights.primary.bold,
         fontSize: rem(0.95),
     },

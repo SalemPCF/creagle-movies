@@ -10,7 +10,7 @@ import {
 
 export default StyleSheet.create({
     container: {
-        background: colors.background.two,
+        background: colors.background.one,
         width: perc(100),
         height: perc(100),
         position: 'relative',
@@ -80,7 +80,7 @@ export default StyleSheet.create({
     metadataText: {
         fontFamily: fonts.primary,
         color: colors.text.secondary,
-        marginRight: rem(0.75),
+        marginRight: rem(1),
         fontWeight: fonts.weights.primary.bold,
         fontSize: rem(0.95),
     },
@@ -142,7 +142,7 @@ export default StyleSheet.create({
 
     gridContainer: {
         flexGrow: 1,
-        background: colors.background.one,
+        background: colors.background.two,
         padding: combine(0, rem(1)),
         display: 'flex',
     },

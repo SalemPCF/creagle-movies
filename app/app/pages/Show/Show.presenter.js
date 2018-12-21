@@ -40,13 +40,9 @@ const ShowPresenter = ({
 
                 <div className={css(styles.metadata)}>
                     <p className={css(styles.metadataText)}>{show.year}</p>
-                    <p className={css(styles.metadataText)}>&#8226;</p>
                     <p className={css(styles.metadataText)}>{`~${runtime}`}</p>
-                    <p className={css(styles.metadataText)}>&#8226;</p>
                     <p className={css(styles.metadataText)}>{`${show.air_day}s at ${show.air_time}`}</p>
-                    <p className={css(styles.metadataText)}>&#8226;</p>
                     <p className={css(styles.metadataText)}>{titleCase(show.status)}</p>
-                    <p className={css(styles.metadataText)}>&#8226;</p>
 
                     <div className={css(styles.metadataText, styles.metadataStars)}>
                         {stars.filledStars.map(num => (
