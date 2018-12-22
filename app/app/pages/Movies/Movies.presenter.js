@@ -4,9 +4,9 @@ import { css } from 'aphrodite';
 
 /* Relative */
 import SizeTracker from '../../components/SizeTracker';
+import TitleBar from '../../components/TitleBar';
 import propTypes from './Movies.propTypes';
 import Grid from '../../components/Grid';
-import TitleBar from '../../components/TitleBar';
 import Movie from './components/Movie';
 import styles from './Movies.styles';
 
@@ -14,12 +14,13 @@ const MoviesPresenter = forwardRef(({
     movies,
     loadMore,
     onScroll,
-    handleParams,
     keywords,
     isSearching,
     handleKeywords,
     handleSearchClick,
     searchShown,
+    order,
+    handleOrder,
 }, ref) => (
     <div className={css(styles.container)}>
         <TitleBar title="Movies" type="movie" handleSearch={handleSearchClick} />
@@ -34,6 +35,11 @@ const MoviesPresenter = forwardRef(({
                 />
                 <label className={css(styles.label, keywords ? styles.labelActive : null)}>Name</label>
             </div>
+
+            <select value={order} onChange={e => handleOrder(e.target.value)}>
+                <option value="-1">Ascending</option>
+                <option value="1">Descending</option>
+            </select>
         </div>
 
         <SizeTracker className={css(styles.tracker)} key={isSearching}>

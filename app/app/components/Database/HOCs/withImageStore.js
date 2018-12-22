@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 /* Relative */
-import { makeCancellable } from '../../../../helpers';
+import { makeCancellable, logError } from '../../../../helpers';
 import { api } from '../../../../services/api';
 import { withDatabase } from './withDatabase';
 
@@ -25,8 +25,21 @@ export const withImageStore = (Comp, storeName) => withDatabase(class extends Co
 
     // Load our image and save it
     loadImage = (id, image) => new Promise(async (resolve) => {
-        // Load the image from the server
-        const res = await api.get(image, { responseType: 'blob' });
+        const { defaultImage } = this.props;
+
+        let res = {};
+
+        // Attempt to load our image from the server.
+        try {
+            res = await api.get(image, { responseType: 'blob' });
+        } catch (error) {
+            // If we catch an error, fall back to using the defaultImage
+            logError('An error occured while loading this image, falling back to defaultImage...');
+
+            resolve(defaultImage);
+
+            return;
+        }
 
         const reader = new FileReader();
         reader.readAsDataURL(res.data);

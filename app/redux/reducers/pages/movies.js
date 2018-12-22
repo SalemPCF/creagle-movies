@@ -2,7 +2,7 @@
 import { MOVIES } from '../../actions/movies';
 import { flatten } from '../../../helpers';
 
-const initialState = {
+export const initialState = {
     loading: false,
     page: 0,
     pages: {},
@@ -34,7 +34,8 @@ const moviesReducer = (state = initialState, action) => {
 
         case MOVIES.LOAD.SUCCESS: {
             // Array of all existing IDs
-            const flattened = flatten(Object.values(state.pages));
+            // pages || searchPages
+            const flattened = flatten(Object.values(`${action.payload.type}s`));
 
             // Array of new IDs. We run it through a set and back to
             // an array to remove any duplicate IDs - just in case.

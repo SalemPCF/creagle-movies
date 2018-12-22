@@ -3,6 +3,7 @@
 import React, { Component, createRef } from 'react';
 
 /* Relative */
+import { initialState } from '../../../redux/reducers/pages/movies';
 import MoviesPresenter from './Movies.presenter';
 import { debounce } from '../../../helpers';
 import propTypes from './Movies.propTypes';
@@ -99,13 +100,19 @@ class MoviesContainer extends Component {
      *
      * If we don't have any keywords, let's go back to showing default movies
      */
-    handleKeywords = keywords => this.handleParams('keywords', keywords, () => this.handleSubmit(!keywords));
+    handleKeywords = keywords => this.handleParams('keywords', keywords, () => this.handleSubmit());
+
+    /**
+     * Handles our order change
+     *
+     */
+    handleOrder = order => this.handleParams('order', parseInt(order, 10), () => this.handleSubmit())
 
     /**
      * Handles saving our params in our redux store then getting our movies
      *
      */
-    handleSubmit = debounce((shouldReset) => {
+    handleSubmit = debounce(() => {
         const {
             saveMoviesSearch,
             resetMoviesSearch,
@@ -114,7 +121,11 @@ class MoviesContainer extends Component {
             params,
         } = this.props;
 
-        if (shouldReset) {
+        const { params: stateParams } = this.state;
+        const defaultParams = initialState.params;
+
+        // If our stateParams === our default params, we're no longer searching.
+        if (JSON.stringify(stateParams) === JSON.stringify(defaultParams)) {
             // Clear our search params and pages from our redux store
             resetMoviesSearch();
 
@@ -123,7 +134,7 @@ class MoviesContainer extends Component {
             this.setState({ isSearching: false, params: { ...params } }, () => loadMovies());
         } else {
             // Save our search params to our redux store
-            saveMoviesSearch(this.state.params);
+            saveMoviesSearch(stateParams);
 
             // Tell our component we're currently searching
             // Then show our movie results with our search params
@@ -162,6 +173,8 @@ class MoviesContainer extends Component {
                 handleKeywords={this.handleKeywords}
                 handleSearchClick={this.handleSearchClick}
                 searchShown={searchShown}
+                order={params.order}
+                handleOrder={this.handleOrder}
             />
         );
     }
