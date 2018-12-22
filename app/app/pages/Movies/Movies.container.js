@@ -4,6 +4,7 @@ import React, { Component, createRef } from 'react';
 
 /* Relative */
 import MoviesPresenter from './Movies.presenter';
+import { debounce } from '../../../helpers';
 import propTypes from './Movies.propTypes';
 
 class MoviesContainer extends Component {
@@ -16,6 +17,7 @@ class MoviesContainer extends Component {
             ...this.props.params,
         },
         isSearching: false,
+        searchShown: false,
     }
 
     /**
@@ -84,19 +86,26 @@ class MoviesContainer extends Component {
      * Handles a generic param state change
      *
      */
-    handleParams = (type, value) => this.setState((current) => {
+    handleParams = (type, value, cb = () => null) => this.setState((current) => {
         const next = { ...current };
 
         next.params[type] = value;
 
         return next;
-    });
+    }, cb);
+
+    /**
+     * Handles our keywords change
+     *
+     * If we don't have any keywords, let's go back to showing default movies
+     */
+    handleKeywords = keywords => this.handleParams('keywords', keywords, () => this.handleSubmit(!keywords));
 
     /**
      * Handles saving our params in our redux store then getting our movies
      *
      */
-    handleSubmit = (shouldReset) => {
+    handleSubmit = debounce((shouldReset) => {
         const {
             saveMoviesSearch,
             resetMoviesSearch,
@@ -120,6 +129,16 @@ class MoviesContainer extends Component {
             // Then show our movie results with our search params
             this.setState({ isSearching: true }, () => loadSearchedMovies());
         }
+    }, 750)
+
+    /**
+     * Handles toggling the visibility of the search bar
+     *
+     */
+    handleSearchClick = () => {
+        const { searchShown } = this.state;
+
+        this.setState({ searchShown: !searchShown });
     }
 
     /**
@@ -129,7 +148,7 @@ class MoviesContainer extends Component {
      */
     render () {
         const { movies, searchedMovies, loadMovies, loadSearchedMovies } = this.props;
-        const { params, isSearching } = this.state;
+        const { params, isSearching, searchShown } = this.state;
 
         return (
             <MoviesPresenter
@@ -139,8 +158,10 @@ class MoviesContainer extends Component {
                 onScroll={this.handleScroll}
                 handleParams={this.handleParams}
                 keywords={params.keywords}
-                handleSubmit={this.handleSubmit}
                 isSearching={isSearching}
+                handleKeywords={this.handleKeywords}
+                handleSearchClick={this.handleSearchClick}
+                searchShown={searchShown}
             />
         );
     }

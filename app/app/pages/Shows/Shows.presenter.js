@@ -14,9 +14,10 @@ const ShowsPresenter = forwardRef(({
     shows,
     loadMore,
     onScroll,
+    handleSearchClick,
 }, ref) => (
     <div className={css(styles.container)}>
-        <TitleBar title="TV Shows" type="show" />
+        <TitleBar title="TV Shows" type="show" handleSearch={handleSearchClick} />
 
         <SizeTracker className={css(styles.tracker)}>
             {({ width, height }) => (

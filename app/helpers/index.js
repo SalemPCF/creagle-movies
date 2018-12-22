@@ -3,6 +3,7 @@ import { makeCancellable } from './makeCancellable';
 import { decodeEntities } from './decodeEntities';
 import { capitalize } from './capitalize';
 import { titleCase } from './titleCase';
+import { debounce } from './debounce';
 import { flatten } from './flatten';
 import { padNum } from './pad';
 import {
@@ -25,4 +26,5 @@ export {
     capitalize,
     decodeEntities,
     padNum,
+    debounce,
 };

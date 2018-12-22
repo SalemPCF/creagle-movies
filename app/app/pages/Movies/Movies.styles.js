@@ -2,7 +2,7 @@
 import { StyleSheet } from 'aphrodite';
 
 /* Relative */
-import { perc, rem, combine, depth, second, px, colors } from '../../../styles';
+import { perc, rem, combine, depth, second, px, colors, calc } from '../../../styles';
 
 export default StyleSheet.create({
     container: {
@@ -31,8 +31,26 @@ export default StyleSheet.create({
         },
     },
 
+    searchContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        position: 'relative',
+        zIndex: 20,
+        backgroundColor: colors.background.two,
+        width: calc(perc(100), '+', rem(2)),
+        marginLeft: rem(-1),
+        height: px(66),
+        transition: 'height 0.3s',
+        overflow: 'hidden',
+    },
+
+    collapsed: {
+        height: 0,
+    },
+
     inputContainer: {
         position: 'relative',
+        margin: rem(1),
     },
 
     input: {

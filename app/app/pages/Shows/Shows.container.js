@@ -56,6 +56,8 @@ class ShowsContainer extends Component {
         preserveScroll(this.currentScroll);
     }
 
+    handleSearchClick = () => console.log('clicked')
+
     /**
      * Renders the component.
      *
@@ -70,6 +72,7 @@ class ShowsContainer extends Component {
                 shows={shows}
                 loadMore={loadShows}
                 onScroll={this.handleScroll}
+                handleSearchClick={this.handleSearchClick}
             />
         );
     }

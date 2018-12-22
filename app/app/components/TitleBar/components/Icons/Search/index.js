@@ -1,23 +1,15 @@
 /* Node */
 import TwotoneSearch from 'react-md-icon/dist/TwotoneSearch';
-import React, { Component } from 'react';
 import { css } from 'aphrodite';
+import React from 'react';
 
 /* Relative */
 import styles from '../styles';
 
-class SearchIcon extends Component {
-    handleClick = () => {
-        console.log('clicked');
-    }
-
-    render () {
-        return (
-            <div className={css(styles.icon, styles.search)} onClick={this.handleClick} title="Search">
-                <TwotoneSearch />
-            </div>
-        );
-    }
-}
+const SearchIcon = ({ handleClick }) => (
+    <div className={css(styles.icon, styles.search)} onClick={handleClick} title="Search">
+        <TwotoneSearch />
+    </div>
+);
 
 export default SearchIcon;
