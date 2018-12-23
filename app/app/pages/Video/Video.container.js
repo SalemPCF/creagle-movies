@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import WebTorrent from 'webtorrent';
 
 /* Relative */
-import { logError, logInfo, logSuccess } from '../../../helpers';
+import { logError, logInfo, logSuccess, capitalize } from '../../../helpers';
 import RemoteContext from '../../components/RemoteContext';
 import VideoPresenter from './Video.presenter';
 import propTypes from './Video.propTypes';
@@ -23,9 +23,12 @@ class Video extends Component {
     interval = null;
 
     componentDidMount () {
-        const { loadMovie, match } = this.props;
+        const { props } = this;
+        const { match } = props;
 
-        loadMovie(match.params.id);
+        const { type, id } = match.params;
+
+        props[`load${capitalize(type)}`](id);
 
         this.client.on('error', () => {
             logError('There was an error with WebTorrent.');
@@ -33,9 +36,11 @@ class Video extends Component {
     }
 
     // If the component updated, let's try and start our download
-    componentDidUpdate = prevProps => this.startDownload(prevProps)
+    componentDidUpdate (prevProps) {
+        this.startDownload(prevProps);
+    }
 
-    componentWillUnmount = () => {
+    componentWillUnmount () {
         // Cancel our download and remove the magnet link from WebTorrent
         this.cancelDownload();
 

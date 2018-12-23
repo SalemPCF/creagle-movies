@@ -73,7 +73,7 @@ const MoviePresenter = ({
 
                 <p className={css(styles.synopsis)}>{decodeEntities(movie.synopsis)}</p>
 
-                <Link to={`/movies/${movie._id}/watch/${isHD ? '1080p' : '720p'}`} className={css(styles.button)}>
+                <Link to={`/watch/movie/${movie._id}/${isHD ? '1080p' : '720p'}`} className={css(styles.button)}>
                     <RoundPlayArrow className={css(styles.playIcon)} />
                     <span>Watch Now</span>
                 </Link>
