@@ -25,7 +25,7 @@ const MoviesPresenter = forwardRef(({
     <div className={css(styles.container)}>
         <TitleBar title="Movies" type="movie" handleSearch={handleSearchClick} />
 
-        <div className={css(styles.searchContainer, searchShown ? styles.shown : styles.collapsed)}>
+        <div className={css(styles.searchContainer, searchShown ? null : styles.collapsed)}>
             <div className={css(styles.inputContainer)}>
                 <input
                     type="text"
