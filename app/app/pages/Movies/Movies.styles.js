@@ -29,6 +29,8 @@ export default StyleSheet.create({
         '::-webkit-scrollbar': {
             display: 'none',
         },
+
+        cursor: 'auto',
     },
 
     searchContainer: {
@@ -44,7 +46,13 @@ export default StyleSheet.create({
         overflow: 'hidden',
     },
 
+    shown: {
+        transition: 'height 0.3s',
+        height: px(66),
+    },
+
     collapsed: {
+        transition: 'height 0.3s',
         height: 0,
     },
 

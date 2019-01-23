@@ -193,6 +193,7 @@ class Grid extends Component {
                 cellRenderer={this.renderCell}
                 overscanRowCount={overscan}
                 overscanIndicesGetter={this.calculateOverscan}
+                isScrollingOptOut
             />
         );
     }

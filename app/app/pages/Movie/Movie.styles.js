@@ -12,6 +12,8 @@ export default StyleSheet.create({
         width: perc(100),
         height: perc(100),
         position: 'relative',
+        padding: combine(rem(1.25), rem(4), 0, rem(4)),
+        overflowY: 'hidden',
     },
 
     background: {
@@ -50,6 +52,16 @@ export default StyleSheet.create({
     },
 
     innerContainer: {
+        position: 'relative',
+        zIndex: 3,
+        width: perc(100),
+        height: perc(100),
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+    },
+
+    trailerContainer: {
         position: 'fixed',
         top: 0,
         left: perc(50),

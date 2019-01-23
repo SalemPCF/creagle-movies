@@ -42,6 +42,8 @@ const MoviePresenter = ({
                     <p className={css(styles.metadataText)}>&#8226;</p>
                     <p className={css(styles.metadataText)}>{movie.certification}</p>
                     <p className={css(styles.metadataText)}>&#8226;</p>
+                    <p className={css(styles.metadataText)}>{movie.genres.reduce((accumulator, current) => `${accumulator} / ${current}`)}</p>
+                    <p className={css(styles.metadataText)}>&#8226;</p>
 
                     <div className={css(styles.metadataText, styles.metadataStars)}>
                         {stars.filledStars.map(num => (
@@ -59,10 +61,6 @@ const MoviePresenter = ({
 
                     <p className={css(styles.metadataText)}>&#8226;</p>
 
-                    <p className={css(styles.metadataText)}>{movie.genres.reduce((accumulator, current) => `${accumulator} / ${current}`)}</p>
-
-                    <p className={css(styles.metadataText)}>&#8226;</p>
-
                     <div className={css(styles.metadataText, styles.metadataRatio)}>
                         <BaselineTrendingUp className={css(styles.arrowsIcon)} />
                         <div className={css(styles.torrentRatio)}>
@@ -73,10 +71,14 @@ const MoviePresenter = ({
 
                 <p className={css(styles.synopsis)}>{decodeEntities(movie.synopsis)}</p>
 
-                <Link to={`/watch/movie/${movie._id}/${isHD ? '1080p' : '720p'}`} className={css(styles.button)}>
-                    <RoundPlayArrow className={css(styles.playIcon)} />
-                    <span>Watch Now</span>
-                </Link>
+                <div className={css(styles.trailerContainer)}>
+                    <p>Trailer</p>
+
+                    <Link to={`/watch/movie/${movie._id}/${isHD ? '1080p' : '720p'}`} className={css(styles.button)}>
+                        <RoundPlayArrow className={css(styles.playIcon)} />
+                        <span>Watch Now</span>
+                    </Link>
+                </div>
             </div>
         ) : (
             <Spinner />
