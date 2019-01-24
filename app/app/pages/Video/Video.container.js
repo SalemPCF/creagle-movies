@@ -38,14 +38,27 @@ class Video extends Component {
     // If the component updated, let's try and start our download
     componentDidUpdate (prevProps) {
         this.startDownload(prevProps);
+
+        window.addEventListener('keydown', this.handleKeyEvent);
     }
 
     componentWillUnmount () {
         // Cancel our download and remove the magnet link from WebTorrent
         this.cancelDownload();
 
-        // Make sure we clear our interval to prevent a memory leak
+        // Remove our interval
         clearInterval(this.interval);
+
+        window.removeEventListener('keydown', this.handleKeyEvent);
+    }
+
+    handleKeyEvent = (e) => {
+        const element = document.getElementById('movie-player');
+
+        // If we're pressing space
+        if (e.which === 32 && element) {
+            element[element.paused ? 'play' : 'pause']();
+        }
     }
 
     startDownload = (props) => {
