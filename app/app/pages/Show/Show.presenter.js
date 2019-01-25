@@ -64,7 +64,7 @@ const ShowPresenter = ({
                     </div>
                 </div>
 
-                <p className={css(styles.synopsis, synopsisCollapsed && styles.synopsis_collapsed)}>
+                <p className={css(styles.synopsis/* , synopsisCollapsed && styles.synopsis_collapsed */)}>
                     {decodeEntities(show.synopsis)}
                 </p>
 

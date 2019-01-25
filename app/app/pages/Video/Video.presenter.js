@@ -1,7 +1,6 @@
-/* eslint-disable no-underscore-dangle */
 /* Node */
 import RoundArrowBack from 'react-md-icon/dist/RoundArrowBack';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { css } from 'aphrodite';
 import React from 'react';
 
@@ -10,38 +9,35 @@ import styles from './Video.styles.js';
 import propTypes from './Video.propTypes';
 
 // This needs styling -> look here: https://docs.videojs.com/tutorial-skins.html#customize-styles
-const VideoPresenter = ({ movie, status }) => (
-    movie ? (
-        <div className={css(styles.container)}>
-            <div className={css(styles.overlay)} />
+const VideoPresenter = ({ background, status, history, togglePlay }) => (
+    <div className={css(styles.container)}>
+        <div className={css(styles.overlay)} />
 
-            {movie && movie.images && movie.images.fanart && (
-                <img className={css(styles.background)} src={movie.images.fanart} alt="" />
-            )}
+        <img className={css(styles.background)} src={background} alt="" />
 
-            <div className={css(styles.videoContainer)}>
-                <Link to={`/movies/${movie._id}`} className={css(styles.closeIcon)}>
-                    <RoundArrowBack />
-                </Link>
+        <div className={css(styles.videoContainer)}>
+            <a href="#" onClick={history.goBack} className={css(styles.closeIcon)}>
+                <RoundArrowBack />
+            </a>
 
-                <video
-                    id="movie-player"
-                    className={`${css(styles.video, status === 'Ready' ? styles.ready : null)} video-js`}
-                    controls
-                    preload="auto"
-                    autoPlay
-                />
+            <video
+                id="movie-player"
+                className={`${css(styles.video, status === 'Ready' && styles.ready)} video-js`}
+                controls
+                preload="auto"
+                autoPlay
+                onClick={togglePlay}
+            />
 
-                {status !== 'Ready' ? (
-                    <div className={css(styles.statusContainer)}>
-                        <p className={css(styles.status)}>{status}</p>
-                    </div>
-                ) : null}
-            </div>
+            {status !== 'Ready' ? (
+                <div className={css(styles.statusContainer)}>
+                    <p className={css(styles.status)}>{status}</p>
+                </div>
+            ) : null}
         </div>
-    ) : null
+    </div>
 );
 
 VideoPresenter.propTypes = propTypes.VideoPresenter;
 
-export default VideoPresenter;
+export default withRouter(VideoPresenter);

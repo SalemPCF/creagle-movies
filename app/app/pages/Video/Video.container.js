@@ -3,15 +3,21 @@ import React, { Component } from 'react';
 import WebTorrent from 'webtorrent';
 
 /* Relative */
-import { logError, logInfo, logSuccess, capitalize } from '../../../helpers';
+import { logError, logInfo, logSuccess } from '../../../helpers';
 import RemoteContext from '../../components/RemoteContext';
 import VideoPresenter from './Video.presenter';
 import propTypes from './Video.propTypes';
 
 class Video extends Component {
-    state = {
-        started: false,
-        status: 'Initializing...',
+    constructor (props) {
+        super(props);
+
+        this.state = {
+            url: decodeURIComponent(props.match.params.url),
+            background: decodeURIComponent(props.match.params.background),
+            status: 'Initializing...',
+            started: false,
+        };
     }
 
     static contextType = RemoteContext;
@@ -20,58 +26,49 @@ class Video extends Component {
 
     client = new WebTorrent();
 
-    interval = null;
+    progressInterval = null;
 
     componentDidMount () {
-        const { props } = this;
-        const { match } = props;
-
-        const { type, id } = match.params;
-
-        props[`load${capitalize(type)}`](id);
+        const { match: { params: { type } } } = this.props;
 
         this.client.on('error', () => {
-            logError('There was an error with WebTorrent.');
+            logError(`There was an error loading this ${type}`);
         });
-    }
-
-    // If the component updated, let's try and start our download
-    componentDidUpdate (prevProps) {
-        this.startDownload(prevProps);
 
         window.addEventListener('keydown', this.handleKeyEvent);
+
+        this.startDownload();
     }
 
     componentWillUnmount () {
-        // Cancel our download and remove the magnet link from WebTorrent
         this.cancelDownload();
 
-        // Remove our interval
-        clearInterval(this.interval);
+        clearInterval(this.progressInterval);
 
         window.removeEventListener('keydown', this.handleKeyEvent);
     }
 
     handleKeyEvent = (e) => {
-        const element = document.getElementById('movie-player');
-
         // If we're pressing space
-        if (e.which === 32 && element) {
-            element[element.paused ? 'play' : 'pause']();
+        if (e.which === 32) {
+            this.togglePlay();
         }
     }
 
-    startDownload = (props) => {
+    startDownload = () => {
+        const { url } = this.state;
         const remote = this.context;
-        const { movie, match } = props;
-        const { started } = this.state;
-        const { quality } = match.params;
 
-        if (started || !movie) { return; }
+        this.setState({ status: 'Starting Download...' }, () => {
+            this.client.add(url, { path: `${remote.app.getPath('temp')}/Creagle Movies` }, (torrent) => {
+                const element = document.getElementById('movie-player');
+                const file = torrent.files.find(f => f.name.endsWith('.mp4') || f.name.endsWith('mkv'));
 
-        this.setState({ started: true, status: 'Starting Download...' }, () => {
-            this.client.add(movie.torrents.en[quality].url, { path: `${remote.app.getPath('temp')}/Creagle Movies` }, (torrent) => {
-                const file = torrent.files.find(f => f.name.endsWith('.mp4'));
+                if (!file) {
+                    this.setState({ status: 'An error occured - ERR_FORMAT_NOT_SUPPORTED' });
+
+                    return;
+                }
 
                 file.renderTo('video#movie-player', {}, (error) => {
                     if (error) {
@@ -79,55 +76,61 @@ class Video extends Component {
                     }
                 });
 
-                const element = document.getElementById('movie-player');
-
-                this.interval = setInterval(() => {
-                    logInfo(`Torrent Progress: ${(torrent.progress * 100).toFixed(1)}%`);
-
-                    // 4 - HAVE_ENOUGH_DATA
-                    if (element.readyState === 4) {
-                        this.setState({ status: 'Ready' });
-                    }
-                }, 1000);
+                this.progressInterval = setInterval(() => this.logProgress(
+                    element,
+                    (torrent.progress * 100).toFixed(1),
+                ), 1000);
 
                 torrent.on('error', () => {
                     logError('There was an error with this torrent.');
 
-                    clearInterval(this.interval);
+                    clearInterval(this.progressInterval);
                 });
 
                 torrent.on('done', () => {
-                    clearInterval(this.interval);
+                    clearInterval(this.progressInterval);
                 });
             });
         });
     }
 
-    cancelDownload = () => {
-        const { movie, match } = this.props;
-        const { quality } = match.params;
+    logProgress = (element, progress) => {
+        const { started } = this.state;
 
-        const magnetUrl = movie.torrents.en[quality].url;
-        const torrentExists = !!this.client.get(magnetUrl);
+        logInfo(`Torrent Progress: ${progress}%`);
 
-        if (torrentExists) {
-            this.client.remove(magnetUrl, (err) => {
-                if (err) {
-                    logError('There was an error while attempting to remove this torrent.');
-                } else {
-                    logSuccess('Removed torrent.');
-                }
-            });
+        // 4 - HAVE_ENOUGH_DATA
+        if (element.readyState === 4 && !started) {
+            this.setState({ status: 'Ready', started: true });
         }
     }
 
-    render () {
-        const { movie } = this.props;
-        const { status } = this.state;
+    cancelDownload = () => {
+        const { started, url } = this.state;
 
-        return (
-            <VideoPresenter movie={movie} status={status} />
-        );
+        if (!started) { return; }
+
+        const torrentExists = !!this.client.get(url);
+
+        if (torrentExists) {
+            this.client.remove(url, err => (
+                err
+                    ? logError('There was an error while attempting to remove this torrent.')
+                    : logSuccess('Removed torrent.')
+            ));
+        }
+    }
+
+    togglePlay = () => {
+        const element = document.getElementById('movie-player');
+
+        element[element.paused ? 'play' : 'pause']();
+    }
+
+    render () {
+        const { status, background } = this.state;
+
+        return <VideoPresenter background={background} status={status} togglePlay={this.togglePlay} />;
     }
 }
 

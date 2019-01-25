@@ -1,18 +1,14 @@
 /* Node */
 import PropTypes from 'prop-types';
 
-/* Relative */
-import Movie from '../../../prop-types/Movie';
-
 export default {
     container: {
-        match: PropTypes.object.isRequired,
-        loadMovie: PropTypes.func.isRequired,
-        movie: Movie,
-    },
-
-    presenter: {
-        movie: Movie,
-        startDownload: PropTypes.func.isRequired,
+        match: PropTypes.shape({
+            params: PropTypes.shape({
+                type: PropTypes.string.isRequired,
+                background: PropTypes.string.isRequired,
+                url: PropTypes.string.isRequired,
+            }).isRequired,
+        }).isRequired,
     },
 };

@@ -14,9 +14,9 @@ import { Toaster } from './components/Toaster';
 import Container from './components/Container';
 
 /* Relative Pages */
+import Video from './pages/Video';
 import Movies from './pages/Movies';
 import Movie from './pages/Movie';
-import Video from './pages/Video';
 import Shows from './pages/Shows';
 import Show from './pages/Show';
 
@@ -59,7 +59,7 @@ class App extends Component {
                                         <Route exact path="/shows" component={Shows} />
                                         <Route exact path="/shows/:id" component={Show} />
 
-                                        <Route exact path="/watch/:type/:id/:quality" component={Video} />
+                                        <Route exact path="/watch/:type/:background/:url" component={Video} />
                                     </Switch>
                                 </Container>
                             </Router>

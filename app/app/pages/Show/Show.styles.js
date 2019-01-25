@@ -64,13 +64,13 @@ export default StyleSheet.create({
         transition: combine('all', second(0.2)),
     },
 
-    synopsis_collapsed: {
-        // We can't change height to 0, as it
-        // won't animate because the default
-        // height is 'auto', so we set font-size
-        // to 0, hiding the text.
-        fontSize: 0,
-    },
+    // synopsis_collapsed: {
+    // We can't change height to 0, as it
+    // won't animate because the default
+    // height is 'auto', so we set font-size
+    // to 0, hiding the text.
+    // fontSize: 0,
+    // },
 
     metadata: {
         display: 'flex',
